@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>People</h1>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Id </th>
+      <th scope="col">Full Name</th>
+      <th scope="col">Company</th>
+      <th  scope="col" colspan="3">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @people.each do |person| %>
+      <tr>
+        <td><%= person.id %></td>
+        <td><%= person.full_name %></td>
+        <td><%= link_to person.company.name, "/companies/#{person.company.id}" if person.company.present? %></td>
+        <td><%= link_to 'Show', person %></td>
+        <td><%= link_to 'Edit', edit_person_path(person) %></td>
+        <td><%= link_to 'Destroy', person, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Person', new_person_path %>

@@ -59,3 +59,5 @@ group :test do
 end
 gem 'bootstrap', '~> 4.3.1'
 gem 'jquery-rails'
+gem 'nested_form_fields', '~> 0.8.2'
+gem 'jquery-rails'

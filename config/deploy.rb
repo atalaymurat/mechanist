@@ -1,9 +1,13 @@
 # config valid for current version and patch releases of Capistrano
 lock "~> 3.11.0"
+user = 'deploy'
+domain = '314machine.com'
 
 set :application, "314machine"
 set :repo_url, "git@github.com:atalaymurat/mechanist.git"
 
+set :rvm_type, :user
+set :rvm_ruby_string, 'ruby-2.6.1'
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 

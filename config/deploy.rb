@@ -7,12 +7,16 @@ set :application, "314machine"
 set :repo_url, "git@github.com:atalaymurat/mechanist.git"
 
 set :rvm_type, :user
-set :rvm_ruby_string, 'ruby-2.6.1'
+set :rvm_ruby_string, 'ruby-2.6.1/'
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, "/home/deploy/314machine"
+
+role :app, domain
+role :web, domain
+role :db, domain
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
@@ -42,5 +46,4 @@ set :local_user, :user
 set :keep_releases, 3
 
 # Uncomment the following to require manualy verifying the host key before first deploy.
-# set :ssh_options, verify_host_key: :secure
-set :migration_role, :app
+set :ssh_options, verify_host_key: :secure

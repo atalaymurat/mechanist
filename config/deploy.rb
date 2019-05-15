@@ -37,7 +37,7 @@ append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bund
 
 # Default value for local_user is ENV['USER']
 # set :local_user, -> { `git config user.name`.chomp }
-
+set :local_user, :user
 # Default value for keep_releases is 5
 set :keep_releases, 3
 

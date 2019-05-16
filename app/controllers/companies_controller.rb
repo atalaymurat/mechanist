@@ -42,6 +42,16 @@ class CompaniesController < ApplicationController
   # PATCH/PUT /companies/1
   # PATCH/PUT /companies/1.json
   def update
+
+  if logo_params.present?
+      @company.remove_logo!
+      @company.save
+    end  
+  if company_params[:remote_logo_url].present?
+    @company.remote_logo_url = params[:remote_logo_url]
+    @company.save  
+  end
+
     respond_to do |format|
       if @company.update(company_params)
         format.html { redirect_to @company, notice: 'Company was successfully updated.' }
@@ -71,6 +81,10 @@ class CompaniesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def company_params
-      params.require(:company).permit(:name, :email, :url, people_attributes:[:company_id, :first_name, :middle_name, :last_name, :_destroy, :id])
+      params.require(:company).permit(:name, :email, :url, :logo, :remote_logo_url, people_attributes:[:company_id, :first_name, :middle_name, :last_name, :_destroy, :id])
+    end
+    
+    def logo_params
+      params.require(:company).permit(:remove_logo)
     end
 end

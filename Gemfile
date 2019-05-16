@@ -64,3 +64,5 @@ end
 gem 'bootstrap', '~> 4.3.1'
 gem 'jquery-rails'
 gem 'nested_form_fields', '~> 0.8.2'
+gem 'carrierwave', '~> 1.0'
+gem 'mini_magick', '~> 4.9', '>= 4.9.3'

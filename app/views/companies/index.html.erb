@@ -5,6 +5,7 @@
 <table class="table table-hover">
   <thead>
     <tr>
+      <th scope="col">Logo</th>
       <th scope="col">Name</th>
       <th scope="col">Email</th>
       <th scope="col">Url</th>
@@ -16,6 +17,7 @@
   <tbody>
     <% @companies.each do |company| %>
       <tr>
+        <td><%= image_tag company.logo_url(:logo) if company.logo? %></td>
         <td><%= link_to company.name.capitalize, company %></td>
         <td><%= company.email %></td>
         <td><%= company.url %></td>

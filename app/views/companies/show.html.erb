@@ -1,6 +1,11 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <strong>Logo:</strong><br>
+  <%= image_tag @company.logo_url(:thumb) if @company.logo?  %>
+</p>
+
+<p>
   <strong>Name:</strong>
   <%= @company.name %>
 </p>

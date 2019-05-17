@@ -19,8 +19,12 @@
         <td><%= person.full_name %></td>
         <td><%= link_to person.company.name, "/companies/#{person.company.id}" if person.company.present? %></td>
         <td><%= link_to 'Show', person %></td>
-        <td><%= link_to 'Edit', edit_person_path(person) %></td>
-        <td><%= link_to 'Destroy', person, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if user_signed_in? %>
+          <% if person.user == current_user || current_user.admin  %>
+            <td><%= link_to 'Edit', edit_person_path(person) %></td>
+            <td><%= link_to 'Destroy', person, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

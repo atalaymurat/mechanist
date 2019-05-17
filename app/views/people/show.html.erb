@@ -20,5 +20,9 @@
   <%= @person.company.name if @person.company.present? %>
 </p>
 
+<p>
+  <strong>Created by:</strong>
+  <%= @person.user.username %>
+</p>
 <%= link_to 'Edit', edit_person_path(@person) %> |
 <%= link_to 'Back', people_path %>

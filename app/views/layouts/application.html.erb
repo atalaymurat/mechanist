@@ -10,7 +10,7 @@
   </head>
 
   <body>
-    <%= render "layouts/navbar" %>
+    <%= render "layouts/navbar" if user_signed_in? %>
     <% flash.each do |key, value| %>
       <div class="alert <%= flasherize(key)%>" role="alert"> <%= key %> <%= value %> </div>
     <% end %>

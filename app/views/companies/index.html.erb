@@ -10,6 +10,7 @@
       <th scope="col">Email</th>
       <th scope="col">Url</th>
       <th scope="col">People</th>
+      <th scope="col">Created by</th>
       <th scope="col" colspan="2"></th>
     </tr>
   </thead>            `
@@ -25,6 +26,7 @@
           <%= link_to person.full_name, person %> <br>
             <% end %>
         </td>
+         <td><%= company.user.username %></td>
         <% if user_signed_in? %>
           <% if company.user == current_user or current_user.admin %>
             <td><%= link_to 'Edit', edit_company_path(company), class: 'btn btn-outline-primary btn-sm'%></td>

@@ -15,7 +15,7 @@
 
 /node_modules
 /yarn-error.log
-
+/public/uploads
 /public/assets
 .byebug_history
 
@@ -74,3 +74,8 @@ yarn-debug.log*
 # Ignore uploaded files in development
 /storage/*
 !/storage/.keep
+# vim artifacts
+**.swp
+.vim
+/.tags
+.tags_sorted_by_file

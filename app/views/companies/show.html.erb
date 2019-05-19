@@ -21,8 +21,10 @@
 </p>
 <p>
   <strong>People:</strong>
-  <% @company.people.each do |p| %>
-    <%= p.full_name %>
+  <% @company.people.each do |person| %>
+    <ul class="row">
+      <li class='list-inline-item'><%= link_to person.full_name, person %> </li>
+    </ul>
   <% end %>
 </p>
 <p>

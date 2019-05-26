@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_16_221040) do
+ActiveRecord::Schema.define(version: 2019_05_26_154454) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,22 +21,27 @@ ActiveRecord::Schema.define(version: 2019_05_16_221040) do
     t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "people_id"
     t.string "logo"
     t.bigint "user_id"
-    t.index ["people_id"], name: "index_companies_on_people_id"
     t.index ["user_id"], name: "index_companies_on_user_id"
+  end
+
+  create_table "connecteds", force: :cascade do |t|
+    t.bigint "person_id"
+    t.bigint "company_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_connecteds_on_company_id"
+    t.index ["person_id"], name: "index_connecteds_on_person_id"
   end
 
   create_table "people", force: :cascade do |t|
     t.string "first_name"
     t.string "middle_name"
     t.string "last_name"
-    t.bigint "company_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
-    t.index ["company_id"], name: "index_people_on_company_id"
     t.index ["user_id"], name: "index_people_on_user_id"
   end
 
@@ -53,8 +58,8 @@ ActiveRecord::Schema.define(version: 2019_05_16_221040) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "companies", "people", column: "people_id"
   add_foreign_key "companies", "users"
-  add_foreign_key "people", "companies"
+  add_foreign_key "connecteds", "companies"
+  add_foreign_key "connecteds", "people"
   add_foreign_key "people", "users"
 end

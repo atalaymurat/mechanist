@@ -41,23 +41,29 @@
     <%= form.label :url %>
     <%= form.text_field :url, class: "form-control" %>
   </div>
-  <div class="">
-    <%= form.label :people %> <hr>
-    <%= form.nested_fields_for :people do |people_form|  %>
-      <%= people_form.text_field :first_name, placeholder: 'first name'%>
-      <%= people_form.text_field :middle_name, placeholder: 'middle name' %>
-      <%= people_form.text_field :last_name, placeholder: 'last name'%>
-      <%= people_form.collection_select :company_id, Company.all, :id, :name, include_blank: true %>
-        <% unless people_form.object.persisted? %>
-          <%= people_form.hidden_field :user_id, value: current_user[:id] %>
-        <% end %>
-      <br> <br>
-    <% end %>
-    <%= form.add_nested_fields_link :people do %>
-      <span>New Person</span>
-    <%end%>
-  </div>
+
   <hr>
+  <div class="form-group">
+    <strong>People:</strong><br />
+    <%= form.label :person_ids, "Please Select People" %> <br />
+    <%= form.collection_select :person_ids, Person.order(:first_name), :id, :full_name, {},{multiple: true} %>
+
+  </div>
+
+  <div class="form-group">
+    <strong>Add new person:</strong><hr>
+    <%= form.fields_for :people, Person.new do |p_form|  %>
+      <div class="row">      
+        <%= p_form.hidden_field :user_id, value:current_user.id %> 
+        <div class="col-sm"><%= p_form.text_field :first_name, placeholder: "first name", class: "form-control" %> </div>
+        <div class="col-sm"><%= p_form.text_field :middle_name, placeholder: "middle name", class: "form-control" %> </div>
+        <div class="col-sm"><%= p_form.text_field :last_name, placeholder: "last name", class: "form-control" %> </div>
+      </div>
+    <% end %>
+
+  </div>
+  <br />
+  
   <div class="actions">
     <%= form.submit class: 'btn btn-primary' %>
   </div>

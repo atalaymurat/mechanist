@@ -1,10 +1,11 @@
 class Person < ApplicationRecord
-  belongs_to :company, optional: true
+  has_many :connected
+  has_many :companies, through: :connected
   validates :first_name, presence: true, length: { minimum: 3 }
   belongs_to :user
 
   def full_name
-    full_name = "#{self.first_name.capitalize} #{self.middle_name.capitalize} #{self.last_name.upcase}"
+    full_name = "#{self.first_name.capitalize} #{self.middle_name} #{self.last_name}"
   end
 
-end
+end 

@@ -17,14 +17,16 @@
     <% @people.each do |person| %>
       <tr>
         <td><%= person.id %></td>
-        <td><%= person.full_name %></td>
-        <td><%= link_to person.company.name, "/companies/#{person.company.id}" if person.company.present? %></td>
+        <td><%= link_to person.full_name, person %></td>
+        <td><% person.companies.each do |company| %>
+            <%= link_to company.name, company %>
+          <% end %>
+        </td>
         <td><%= person.user.username %></td>
-        <td><%= link_to 'Show', person %></td>
         <% if user_signed_in? %>
           <% if person.user == current_user || current_user.admin  %>
-            <td><%= link_to 'Edit', edit_person_path(person) %></td>
-            <td><%= link_to 'Destroy', person, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td><%= link_to 'Edit', edit_person_path(person), class: 'btn btn-outline-primary btn-sml' %></td>
+            <td><%= link_to 'Destroy', person, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger btn-sml' %></td>
           <% end %>
         <% end %>
       </tr>

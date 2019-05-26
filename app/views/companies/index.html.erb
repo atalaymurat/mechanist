@@ -13,7 +13,7 @@
       <th scope="col">Created by</th>
       <th scope="col" colspan="2"></th>
     </tr>
-  </thead>            `
+  </thead>            
 
   <tbody>
     <% @companies.each do |company| %>
@@ -23,7 +23,7 @@
         <td><%= company.email %></td>
         <td><%= company.url %></td>
         <td><% company.people.each do |person|  %>
-          <%= link_to person.full_name, person %> <br>
+          <div> <%= link_to person.first_name.capitalize, person %> </div>
             <% end %>
         </td>
          <td><%= company.user.username %></td>

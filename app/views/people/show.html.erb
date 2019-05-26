@@ -16,8 +16,13 @@
 </p>
 
 <p>
-  <strong>Company:</strong>
-  <%= @person.company.name if @person.company.present? %>
+  <% if @person.companies.present? %>
+    <strong> <%=  "Company".pluralize(@person.companies.count)%>:</strong>
+    <% @person.companies.each do |company| %>
+    <ul class="row">
+      <li class="list-inline-item" > <%= link_to  company.name, company %></li> </ul>
+    <% end %>
+  <% end %>
 </p>
 
 <p>

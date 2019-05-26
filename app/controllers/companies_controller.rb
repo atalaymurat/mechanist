@@ -21,7 +21,7 @@ class CompaniesController < ApplicationController
 
   # GET /companies/1/edit
   def edit
-   # @company.people.build
+    @company.people.build
   end
 
   # POST /companies
@@ -44,7 +44,6 @@ class CompaniesController < ApplicationController
   # PATCH/PUT /companies/1
   # PATCH/PUT /companies/1.json
   def update
-    
     if logo_params[:remove_logo] == "1"
       @company.remove_logo!
       @company.save
@@ -59,9 +58,6 @@ class CompaniesController < ApplicationController
         format.json { render json: @company.errors, status: :unprocessable_entity }
       end
     end
-   # if logo_params[:remote_logo_url].present?
-   #   @company.update(logo_params)
-   # end
   end
 
   # DELETE /companies/1
@@ -82,7 +78,7 @@ class CompaniesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def company_params
-      params.require(:company).permit(:name, :email, :url, :logo, :remote_logo_url, people_attributes:[:company_id, :first_name, :middle_name, :last_name, :_destroy, :id, :user_id])
+      params.require(:company).permit(:name, :email, :url, :logo, :remote_logo_url, person_ids: [],  people_attributes:[ :first_name, :middle_name, :last_name, :_destroy, :id, :user_id])
     end
     
     def logo_params

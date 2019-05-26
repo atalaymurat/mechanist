@@ -20,11 +20,15 @@
   <%= @company.url %>
 </p>
 <p>
-  <strong>People:</strong>
-  <% @company.people.each do |person| %>
-    <ul class="row">
-      <li class='list-inline-item'><%= link_to person.full_name, person %> </li>
-    </ul>
+  <% if @company.people.present? %>
+    <strong>
+      <%= "Person".pluralize(@company.people.count)%>:
+    </strong>
+    <% @company.people.each do |person| %>
+      <ul class="row">
+        <li class='list-inline-item'><%= link_to person.full_name, person %> </li>
+      </ul>
+    <% end %>
   <% end %>
 </p>
 <p>

@@ -1,20 +1,22 @@
 class PeopleController < ApplicationController
   before_action :set_person, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
-  # GET /people
-  # GET /people.json
   def index
-    @people = Person.all.order(:id) 
+    # @people = Person.all.order(:id) 
+    @people = policy_scope(Person)
+    @people.order(:id)
   end
 
   # GET /people/1
   # GET /people/1.json
   def show
+    
   end
 
   # GET /people/new
   def new
     @person = Person.new
+    authorize @person  
   end
 
   # GET /people/1/edit
@@ -26,6 +28,7 @@ class PeopleController < ApplicationController
   def create
     @person = Person.new(person_params)
     @person.user = current_user
+    authorize @person
 
     respond_to do |format|
       if @person.save
@@ -59,17 +62,18 @@ class PeopleController < ApplicationController
     respond_to do |format|
       format.html { redirect_to people_url, notice: 'Person was successfully destroyed.' }
       format.json { head :no_content }
-    end
+    end  
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_person
       @person = Person.find(params[:id])
+      authorize @person
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def person_params
-      params.require(:person).permit(:first_name, :middle_name, :last_name, :company_id)
+      params.require(:person).permit(:first_name, :middle_name, :last_name, :company_id, :user_id)
     end
 end

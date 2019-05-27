@@ -29,5 +29,5 @@
   <strong>Created by:</strong>
   <%= @person.user.username %>
 </p>
-<%= link_to 'Edit', edit_person_path(@person) %> |
+<%= link_to 'Edit', edit_person_path(@person) if policy(@person).update? %> |
 <%= link_to 'Back', people_path %>

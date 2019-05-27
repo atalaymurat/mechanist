@@ -2,10 +2,9 @@ class CompaniesController < ApplicationController
   before_action :set_company, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user! 
   
-  # GET /companies
-  # GET /companies.json
   def index
-    @companies = Company.all.order(:id)
+    # @companies = Company.all.order(:id)
+    @companies = policy_scope(Company)
   end
 
   # GET /companies/1
@@ -17,6 +16,7 @@ class CompaniesController < ApplicationController
   def new
     @company = Company.new
     @company.people.build
+    authorize @company
   end
 
   # GET /companies/1/edit
@@ -29,6 +29,7 @@ class CompaniesController < ApplicationController
   def create
     @company = Company.new(company_params)
     @company.user = current_user
+    authorize @company
 
     respond_to do |format|
       if @company.save
@@ -74,6 +75,7 @@ class CompaniesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_company
       @company = Company.find(params[:id])
+      authorize @company
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

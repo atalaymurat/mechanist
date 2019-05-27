@@ -23,12 +23,8 @@
           <% end %>
         </td>
         <td><%= person.user.username %></td>
-        <% if user_signed_in? %>
-          <% if person.user == current_user || current_user.admin  %>
-            <td><%= link_to 'Edit', edit_person_path(person), class: 'btn btn-outline-primary btn-sml' %></td>
-            <td><%= link_to 'Destroy', person, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger btn-sml' %></td>
-          <% end %>
-        <% end %>
+            <td><%= link_to 'Edit', edit_person_path(person), class: 'btn btn-outline-primary btn-sml' if policy(person).update? %></td>
+            <td><%= link_to 'Destroy', person, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger btn-sml' if policy(person).destroy? %></td>
       </tr>
     <% end %>
   </tbody>

@@ -43,7 +43,7 @@ set :default_env, { rvm_bin_path: '~/.rvm/bin' }
 # set :local_user, -> { `git config user.name`.chomp }
 set :local_user, :user
 # Default value for keep_releases is 5
-set :keep_releases, 3
+set :keep_releases, 6
 
 # Uncomment the following to require manualy verifying the host key before first deploy.
 set :ssh_options, verify_host_key: :secure

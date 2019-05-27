@@ -3,9 +3,10 @@
 <h1>Companies</h1>
 
 <div class="table-responsive">
-<table class="table table-hover">
+<table class="table table-hover table-striped w-auto">
   <thead>
     <tr>
+      <th scope="col">Id</th>
       <th scope="col">Logo</th>
       <th scope="col">Name</th>
       <th scope="col">Email</th>
@@ -19,6 +20,7 @@
   <tbody>
     <% @companies.each do |company| %>
       <tr>
+        <td><%= company.id %></td>
         <td><%= image_tag company.logo_url(:logo) if company.logo? %></td>
         <td><%= link_to company.name.capitalize, company %></td>
         <td><%= company.email %></td>

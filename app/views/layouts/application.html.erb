@@ -22,6 +22,6 @@
     <div class="container-fluid">
     <%= yield %>
     </div>
-    
+    <%= render "layouts/footer" if user_signed_in? %>
   </body>
 </html>

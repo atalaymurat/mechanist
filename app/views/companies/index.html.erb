@@ -1,7 +1,6 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Companies</h1>
-
 <div class="table-responsive">
 <table class="table table-hover table-striped w-auto">
   <thead>
@@ -18,7 +17,7 @@
   </thead>            
 
   <tbody>
-    <% @companies.each do |company| %>
+    <% @companies.order(:id).reverse.each do |company| %>
       <tr>
         <td><%= company.id %></td>
         <td><%= image_tag company.logo_url(:logo) if company.logo? %></td>
@@ -30,11 +29,12 @@
             <% end %>
         </td>
          <td><%= company.user.username %></td>
-            <td><%= link_to 'Edit', edit_company_path(company), class: 'btn btn-outline-primary btn-sm'%></td>
-            <td><%= link_to 'Destroy', company, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger btn-sm' %></td>
+            <td><%= link_to 'Edit', edit_company_path(company), class: 'btn btn-outline-primary btn-sm' if policy(company).update? %></td>
+            <td><%= link_to 'Destroy', company, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger btn-sm' if policy(company).destroy? %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 </div>
+
 <%= link_to 'New Company', new_company_path, class: 'btn btn-primary mt-2' %>

@@ -9,62 +9,61 @@
       <% end %>
       </ul>
     </div>
-  <% end %>
-  <div class="form-group">
-    <%= form.label "upload a logo" %><br>
-    <%= form.file_field :logo, class: "form-control" %><hr>
-    <%= form.label "Upload Remote logo URL" %>
-    <%= form.text_field :remote_logo_url, size: 80, class: "form-control", placeholder: "Enter image url" %>
-    <hr>
-    <p>
-      <div class="form-check form-check-inline">
-        
-        <%= form.label "Remove Logo", class: "form-check-input" if company.logo? %>
-        <%= form.check_box :remove_logo, class: "form-check-input" if company.logo? %>
-        <%= image_tag(company.logo_url(:thumb)) if company.logo? %>
-      </div>
-    </p>
 
+  <% end %>
+
+<div class="container">
+  <div class="form-group">
+    <div class="custom-file">
+      <%= form.label "upload a logo", class: "custom-file-label" %>
+      <%= form.file_field :logo, class: "custom-file-input" %>
+    </div>
+  </div>    
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <%= form.label "Upload Remote logo http://", class: "input-group-text", id: "basic-addon3" %>
+    </div>
+      <%= form.text_field :remote_logo_url, class: "form-control",id:"basic-url" %>
+  </div>
+
+    <hr>
+    
+  <div class="form-check-inline">
+    <%= image_tag(company.logo_url(:thumb)) if company.logo? %>
+    <%= form.label "Remove Logo", class: "form-check-label mx-2", for:"remove_logo" if company.logo? %>
+    <%= form.check_box :remove_logo, class: "form-check-input", id:"remove_logo" if company.logo? %>
   </div>
 
   <div class="form-group">
     <%= form.label :name %>
     <%= form.text_field :name, :class => "form-control" %>
-  </div>
 
-  <div class="form-group">
     <%= form.label :email %>
     <%= form.text_field :email, :class => "form-control" %>
-  </div>
 
-  <div class="form-group">
     <%= form.label :url %>
     <%= form.text_field :url, class: "form-control" %>
   </div>
 
   <hr>
-  <div class="form-group">
-    <strong>People:</strong><br />
-    <%= form.label :person_ids, "Please Select People" %> <br />
-    <%= form.collection_select :person_ids, Person.order(:first_name), :id, :full_name, {},{multiple: true} %>
 
+  <div class="form-group">
+    <%= form.label :person_ids, "Please Select People" %> <br />
+    <%= form.collection_select :person_ids, policy_scope(Person.order(:first_name)), :id, :full_name, {},{multiple: true, class: "custom-select"} %>
   </div>
 
-  <div class="form-group">
-    <strong>Add new person:</strong><hr>
-    <%= form.fields_for :people, Person.new do |p_form|  %>
-      <div class="row">      
+    <div class="form-group">
+      <%= form.label "Add new people", class:"form-group" %>
+      <%= form.fields_for :people, Person.new do |p_form|  %>
+      <div class="form-row">      
         <%= p_form.hidden_field :user_id, value:current_user.id %> 
         <div class="col-sm"><%= p_form.text_field :first_name, placeholder: "first name", class: "form-control" %> </div>
         <div class="col-sm"><%= p_form.text_field :middle_name, placeholder: "middle name", class: "form-control" %> </div>
         <div class="col-sm"><%= p_form.text_field :last_name, placeholder: "last name", class: "form-control" %> </div>
       </div>
-    <% end %>
+  </div>
+      <% end %>
 
-  </div>
-  <br />
-  
-  <div class="actions">
     <%= form.submit class: 'btn btn-primary' %>
-  </div>
+</div> 
 <% end %>

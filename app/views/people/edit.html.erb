@@ -2,5 +2,7 @@
 
 <%= render 'form', person: @person %>
 
-<%= link_to 'Show', @person %> |
-<%= link_to 'Back', people_path %>
+<div class="container my-3">
+  <%= link_to 'Show', @person, class: "btn btn-outline-info btn-sm" %> |
+  <%= link_to 'Back', people_path, class:"btn btn-outline-info btn-sm" %>
+</div>

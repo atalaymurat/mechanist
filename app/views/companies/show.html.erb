@@ -36,5 +36,5 @@
   <%= @company.user.username %>
 </p>
 
-<%= link_to 'Edit', edit_company_path(@company) %> |
-<%= link_to 'Back', companies_path %>
+<%= link_to 'Edit', edit_company_path(@company), class: "btn btn-outline-primary btn-sm" %> 
+<%= link_to 'Back', companies_path, class: "btn btn-outline-primary btn-sm" %>

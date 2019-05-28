@@ -29,5 +29,5 @@
   <strong>Created by:</strong>
   <%= @person.user.username %>
 </p>
-<%= link_to 'Edit', edit_person_path(@person) if policy(@person).update? %> |
-<%= link_to 'Back', people_path %>
+<%= link_to 'Edit', edit_person_path(@person), class: "btn btn-outline-primary btn-sm" if policy(@person).update? %> 
+<%= link_to 'Back', people_path, class: "btn btn-outline-primary btn-sm" %>

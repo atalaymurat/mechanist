@@ -1,6 +1,8 @@
 <h1>Editing Company</h1>
 
 <%= render 'form', company: @company %>
+<div class="container my-3">
+<%= link_to 'Show', @company, class: "btn btn-outline-info btn-sm" %> 
+<%= link_to 'Back', companies_path, class: "btn btn-outline-info btn-sm"  %>
+</div>
 
-<%= link_to 'Show', @company %> |
-<%= link_to 'Back', companies_path %>

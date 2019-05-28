@@ -26,7 +26,7 @@
               <%= link_to 'Log out', destroy_user_session_path, method: :delete, class: "nav-link" %>
               </li>
               <li class="nav-item">
-                <%= current_user.email%>
+                <%= link_to current_user.username, destroy_user_session_path, method: :delete, class: "nav-link disabled" %>
               </li>
 
             <% else %>

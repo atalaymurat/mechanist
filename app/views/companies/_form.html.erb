@@ -1,16 +1,7 @@
 <%= form_with(model: company, local: true) do |form| %>
-  <% if company.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(company.errors.count, "error") %> prohibited this company from being saved:</h2>
 
-      <ul>
-      <% company.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
+  <% flash.now[:error] = company.errors.full_messages.to_sentence if company.errors.any? %>
 
-  <% end %>
 
 <div class="container">
   <div class="form-group">
@@ -54,15 +45,16 @@
 
     <div class="form-group">
       <%= form.label "Add new people", class:"form-group" %>
-      <%= form.fields_for :people, Person.new do |p_form|  %>
+      <%= form.nested_fields_for :people, Person.new do |p_form|  %>
       <div class="form-row">      
         <%= p_form.hidden_field :user_id, value:current_user.id %> 
-        <div class="col-sm"><%= p_form.text_field :first_name, placeholder: "first name", class: "form-control" %> </div>
-        <div class="col-sm"><%= p_form.text_field :middle_name, placeholder: "middle name", class: "form-control" %> </div>
-        <div class="col-sm"><%= p_form.text_field :last_name, placeholder: "last name", class: "form-control" %> </div>
+        <div class="col-md my-1"><%= p_form.text_field :first_name, placeholder: "first name", class: "form-control" %> </div>
+        <div class="col-md my-1"><%= p_form.text_field :middle_name, placeholder: "middle name", class: "form-control" %> </div>
+        <div class="col-md my-1"><%= p_form.text_field :last_name, placeholder: "last name", class: "form-control" %> </div>
       </div>
-  </div>
       <% end %>
+      <%= form.add_nested_fields_link :people, "Add Another Person", class: "btn btn-outline-primary btn-sm mt-2"%> <br>
+  </div>
 
     <%= form.submit class: 'btn btn-primary' %>
 </div> 

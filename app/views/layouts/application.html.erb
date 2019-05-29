@@ -15,7 +15,7 @@
   <body>
     <%= render "layouts/navbar" if user_signed_in? %>
     <% flash.each do |key, value| %>
-      <div class="alert <%= flasherize(key)%>" role="alert"> <%= key %> <%= value %> </div>
+      <div class="alert <%= flasherize(key)%>" role="alert"> <%= value %> </div>
     <% end %>
 
   

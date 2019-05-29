@@ -32,7 +32,7 @@ class PersonPolicy < ApplicationPolicy
     end
 
     def destroy? 
-      user.admin? 
+      user.admin? or record.try(:user) == user
     end
 
     private

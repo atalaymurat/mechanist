@@ -1,6 +1,8 @@
 class PeopleController < ApplicationController
   before_action :set_person, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+
+  respond_to :html, :json
   def index
     # @people = Person.all.order(:id) 
     @people = policy_scope(Person)
@@ -30,39 +32,23 @@ class PeopleController < ApplicationController
     @person.user = current_user
     authorize @person
 
-    respond_to do |format|
-      if @person.save
-        format.html { redirect_to @person, notice: 'Person was successfully created.' }
-        format.json { render :show, status: :created, location: @person }
-      else
-        format.html { render :new }
-        format.json { render json: @person.errors, status: :unprocessable_entity }
-      end
-    end
+    flash[:notice] = "Person was successfully created." if @person.save
+    respond_with(@person)
   end
 
   # PATCH/PUT /people/1
   # PATCH/PUT /people/1.json
   def update
-    respond_to do |format|
-      if @person.update(person_params)
-        format.html { redirect_to @person, notice: 'Person was successfully updated.' }
-        format.json { render :show, status: :ok, location: @person }
-      else
-        format.html { render :edit }
-        format.json { render json: @person.errors, status: :unprocessable_entity }
-      end
-    end
+    flash[:notice] = "Person was successfully updated." if @person.update(person_params)
+    respond_with(@person)
   end
 
   # DELETE /people/1
   # DELETE /people/1.json
   def destroy
     @person.destroy
-    respond_to do |format|
-      format.html { redirect_to people_url, notice: 'Person was successfully destroyed.' }
-      format.json { head :no_content }
-    end  
+    flash[:notice] = "Person was successfully deleted."
+    respond_with(@person)
   end
 
   private

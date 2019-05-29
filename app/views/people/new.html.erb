@@ -1,5 +1,7 @@
 <h1>New Person</h1>
 
 <%= render 'form', person: @person %>
+<div class="container">
+<%= link_to 'Back', people_path, class: "btn btn-outline-info btn-sm my-3" %>
+</div>
 
-<%= link_to 'Back', people_path %>

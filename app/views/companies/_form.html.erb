@@ -6,8 +6,8 @@
 <div class="container">
   <div class="form-group">
     <div class="custom-file">
-      <%= form.label "upload a logo", class: "custom-file-label" %>
-      <%= form.file_field :logo, class: "custom-file-input" %>
+      <%= form.label "upload a logo" %>
+      <%= form.file_field :logo, class: "form-control" %>
     </div>
   </div>    
   <div class="input-group mb-3">
@@ -35,6 +35,39 @@
     <%= form.label :url %>
     <%= form.text_field :url, class: "form-control" %>
   </div>
+
+  <div class="jumbotron address-group"> 
+    <h4> Company Address</h4>
+    <%= form.label :address_title %>
+    <%= form.select :address_title, ["Factory", "Office", "Showroom", "Headquarters",  "Other" ] ,{prompt:"Choose..", include_blank: true},  {class: "form-control"} %>
+
+      
+    <%= form.label :country_id %><br />
+    <%= form.collection_select :country_id, Country.order(:name), :id, :name,{prompt: "Choose..", include_blank: true }, {class:"form-control", data: {dynamic_selectable_url: dynamic_select_states_path(':country_id'), dynamic_selectable_target: '#company_state_id' } } %>  
+    
+    <div class="form-row">
+      <div class="form-group col-md-5">
+        <%= form.label :state_id, "State or City" %> <br />
+        <%= form.collection_select :state_id, @company.country.try(:states) || [], :id, :name, {prompt: "Choose.."}, {class: "form-control"} %>
+      </div>
+      <div class="form-group col-md-4">
+        <%= form.label :town %>
+        <%= form.text_field :town, class: "form-control" %>
+      </div>
+      <div class="form-group col-md-3">
+        <%= form.label :zip %>
+        <%= form.text_field :zip, class: "form-control" %>
+      </div>
+
+    </div>
+
+    <%= form.label :address_line %>
+    <%= form.text_area :address_line, class: "form-control" %>
+ </div>
+
+
+
+
 
   <hr>
 

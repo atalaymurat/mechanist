@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_26_154454) do
+ActiveRecord::Schema.define(version: 2019_06_02_105327) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,14 @@ ActiveRecord::Schema.define(version: 2019_05_26_154454) do
     t.datetime "updated_at", null: false
     t.string "logo"
     t.bigint "user_id"
+    t.bigint "country_id"
+    t.bigint "state_id"
+    t.text "address_line"
+    t.string "town"
+    t.string "zip"
+    t.string "address_title"
+    t.index ["country_id"], name: "index_companies_on_country_id"
+    t.index ["state_id"], name: "index_companies_on_state_id"
     t.index ["user_id"], name: "index_companies_on_user_id"
   end
 
@@ -35,6 +43,12 @@ ActiveRecord::Schema.define(version: 2019_05_26_154454) do
     t.index ["person_id"], name: "index_connecteds_on_person_id"
   end
 
+  create_table "countries", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "people", force: :cascade do |t|
     t.string "first_name"
     t.string "middle_name"
@@ -43,6 +57,14 @@ ActiveRecord::Schema.define(version: 2019_05_26_154454) do
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.index ["user_id"], name: "index_people_on_user_id"
+  end
+
+  create_table "states", force: :cascade do |t|
+    t.string "name"
+    t.bigint "country_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_id"], name: "index_states_on_country_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -58,8 +80,11 @@ ActiveRecord::Schema.define(version: 2019_05_26_154454) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "companies", "countries"
+  add_foreign_key "companies", "states"
   add_foreign_key "companies", "users"
   add_foreign_key "connecteds", "companies"
   add_foreign_key "connecteds", "people"
   add_foreign_key "people", "users"
+  add_foreign_key "states", "countries"
 end

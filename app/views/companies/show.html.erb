@@ -17,6 +17,17 @@
   <strong>Url:</strong>
   <%= @company.url %>
 </p>
+<strong>Address:</strong>
+<div>
+    <ul>
+  <%= @company.address_title if @company.address_title.present? %>  
+  <%= @company.address_line.capitalize if @company.address_line.present? %>
+  <%= @company.zip if @company.zip.present? %>
+  <%= @company.town if @company.town.present? %>
+  <%= @company.state.name if @company.state.present? %> 
+  <%= @company.country.name if @company.country.present? %> 
+    </ul>
+  </div>
 <p>
   <% if @company.people.present? %>
     <strong>

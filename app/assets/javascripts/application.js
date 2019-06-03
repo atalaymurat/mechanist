@@ -1,8 +1,9 @@
-//= require jquery3
+//= require jquery
+//= require rails-ujs
 //= require nested_form_fields
 //= require popper
 //= require bootstrap
-//= require jquery_ujs
-//= require rails-ujs
 //= require activestorage
+//= require turbolinks
+//= require dynamic_selectable
 //= require_tree .

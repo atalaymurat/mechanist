@@ -1,4 +1,4 @@
-country_id,name,abbreviation
+country_id,name,alpha2
 "1001","Afghanistan","AF"
 "1002","Albania","AL"
 "1003","Algeria","DZ"
@@ -244,5 +244,4 @@ country_id,name,abbreviation
 "1244","Jersey","JE"
 "1245","Guernsey","GG"
 "1246","Isle of Man","IM"
-"1247", "Bonaire","BQ"
-
+"1247","Bonaire","BQ"

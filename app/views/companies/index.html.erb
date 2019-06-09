@@ -8,6 +8,7 @@
       <th scope="col">Name</th>
       <th scope="col">Email</th>
       <th scope="col">Url</th>
+      <th scope="col">Address</th>
       <th scope="col">People</th>
       <th scope="col">Created by</th>
       <th scope="col" colspan="2"></th>
@@ -22,6 +23,7 @@
         <td><%= link_to company.name.capitalize, company %></td>
         <td><%= company.email %></td>
         <td><%= company.url %></td>
+        <td><%= "#{company.state.name}/#{company.country.alpha2}" if company.country.present? %></td>
         <td><% company.people.each do |person|  %>
           <div> <%= link_to person.first_name.capitalize, person %> </div>
             <% end %>

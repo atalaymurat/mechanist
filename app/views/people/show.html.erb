@@ -26,6 +26,20 @@
 </p>
 
 <p>
+  <% if @person.emails.present? %>
+    <strong> <%= "Email".pluralize(@person.emails.count)%>:</strong>
+    <% @person.emails.each do |email| %>
+      <ul class="row">
+        <li class="list-inline-item">
+          <%= mail_to email.email %>
+        </li>
+      </ul>
+    <% end %>
+  <% end %>
+
+</p>
+
+<p>
   <strong>Created by:</strong>
   <%= @person.user.username %>
 </p>

@@ -1,0 +1,29 @@
+<h1>Emails List</h1>
+<h3> Total  <%= Email.all.count %> active email records </h3>
+<div class="table-responsive">
+  <table class="table table-hover w-auto">
+    <thead>
+      <tr>
+        <th scope="col">Email</th>
+        <th scope="col">Name</th>
+        <th scope="col">Companies</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @emails.order(:id).reverse.each do |email|  %>
+      <tr>
+        <td><%= email.email %> </td>
+        <td><%= link_to email.person.full_name, email.person %> </td>
+        <td>
+          <% if email.person.companies.present? %>
+          <% email.person.companies.each do |company| %>
+          <%= link_to company.name, company %>
+        <% end %>
+      <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  
+  </table>
+</div>

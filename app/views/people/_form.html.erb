@@ -4,24 +4,35 @@
 
   <div class="container">
     <div class="row">
-      <div class="form-group col-sm">
+      <div class="form-group col-sm-4">
         <%= form.label :first_name %>
         <%= form.text_field :first_name, class: "form-control" %>
       </div>
 
-      <div class="form-group col-sm">
+      <div class="form-group col-sm-4">
         <%= form.label :middle_name %>
         <%= form.text_field :middle_name, class: "form-control" %>
       </div>
 
-      <div class="form-group col-sm">
+      <div class="form-group col-sm-4">
         <%= form.label :last_name %>
         <%= form.text_field :last_name, class: "form-control" %>
       </div>
     </div>
-  </div>   
 
-  <div class="container actions">
-    <%= form.submit class: 'btn btn-primary' %>
+
+    <%= form.nested_fields_for :emails do |e_form| %>
+      <%= render partial: 'emails', locals: {e_form: e_form} %>
+    <% end %>
+    
+    <%= form.add_nested_fields_link :emails, "Add Email", class: "btn btn-outline-primary btn-sm my-2" %>
   </div>
+
+
+  <div class="container">
+      <%= form.submit class: 'btn btn-primary'%>
+  </div>
+
+  </div>
+
 <% end %>

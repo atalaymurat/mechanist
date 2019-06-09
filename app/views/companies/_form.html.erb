@@ -39,7 +39,7 @@
   <div class="jumbotron address-group"> 
     <h4> Company Address</h4>
     <%= form.label :address_title %>
-    <%= form.select :address_title, ["Factory", "Office", "Showroom", "Headquarters",  "Other" ] ,{prompt:"Choose..", include_blank: true},  {class: "form-control"} %>
+    <%= form.select :address_title, ["Factory", "Office", "Showroom", "Headquarters", "Branch", "Other" ] ,{prompt:"Choose..", include_blank: true},  {class: "form-control"} %>
 
       
     <%= form.label :country_id %><br />
@@ -85,6 +85,10 @@
         <div class="col-md my-1"><%= p_form.text_field :middle_name, placeholder: "middle name", class: "form-control" %> </div>
         <div class="col-md my-1"><%= p_form.text_field :last_name, placeholder: "last name", class: "form-control" %> </div>
       </div>
+        <%= p_form.nested_fields_for :emails, Email.new do |e_form|  %>
+          <%= render partial: "people/emails", locals: {e_form: e_form} %>
+        <% end %>
+
       <% end %>
       <%= form.add_nested_fields_link :people, "Add Another Person", class: "btn btn-outline-primary btn-sm mt-2"%> <br>
   </div>

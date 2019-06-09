@@ -1,8 +1,8 @@
 class PeopleController < ApplicationController
   before_action :set_person, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
-
   respond_to :html, :json
+
   def index
     # @people = Person.all.order(:id) 
     @people = policy_scope(Person)
@@ -18,11 +18,13 @@ class PeopleController < ApplicationController
   # GET /people/new
   def new
     @person = Person.new
+    @person.emails.build
     authorize @person  
   end
 
   # GET /people/1/edit
   def edit
+    @person.emails.build
   end
 
   # POST /people
@@ -60,6 +62,6 @@ class PeopleController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def person_params
-      params.require(:person).permit(:first_name, :middle_name, :last_name, :company_id, :user_id)
+      params.require(:person).permit(:first_name, :middle_name, :last_name, :company_id, :user_id, emails_attributes:[ :id, :email, :_destroy, :user_id ] )
     end
 end

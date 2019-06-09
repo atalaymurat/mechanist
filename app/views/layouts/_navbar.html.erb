@@ -13,7 +13,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <%= link_to "Companies", companies_path, :class => "dropdown-item"  %>
           <%= link_to "People", people_path, :class => "dropdown-item"  %>
-          <%= link_to "Emails", emails_index_path, :class => "dropdown-item"  %>
+          <%= link_to "Emails", emails_index_path, :class => "dropdown-item" if Email.present?  %>
         <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#"> Empty </a>
         </div> 

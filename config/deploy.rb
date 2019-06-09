@@ -47,3 +47,16 @@ set :keep_releases, 6
 
 # Uncomment the following to require manualy verifying the host key before first deploy.
 set :ssh_options, verify_host_key: :secure
+
+# Add this in config/deploy.rb
+# and run 'cap production deploy:seed' to seed your database
+desc 'Runs rake db:seed'
+task :seed => [:set_rails_env] do
+  on primary fetch(:migration_role) do
+    within release_path do
+      with rails_env: fetch(:rails_env) do
+        execute :rake, "db:seed"
+      end
+    end
+  end
+end

@@ -69,12 +69,29 @@
 
 
 
-  <hr>
+ <hr>
+ <div class="form-group">
+ <% if @company.connected.present? %>
+  <%= form.nested_fields_for :connected do |cpf| %>
+    <% person = cpf.object.person %>
+    <div class="form-row">
+      <div class="col-md my-1">
+         <%= cpf.collection_select :person_id, policy_scope(Person.order(:first_name)), :id, :full_name, {prompt: "Choose..",include_blank: true },{class: "form-control"}  %>
+      </div>
+      <div class="col-md my-1">
+        <%= cpf.select :position, ["Owner", "Manager" ],{prompt: "Position..", include_blank: true},{class: "form-control"} %>
+      
+      </div>
+      <div class="col-md my-1">
+        <%= cpf.remove_nested_fields_link "Remove", class:"btn btn-outline-danger btn-md" %>
+      </div>
+    </div>
 
-  <div class="form-group">
-    <%= form.label :person_ids, "Please Select People" %> <br />
-    <%= form.collection_select :person_ids, policy_scope(Person.order(:first_name)), :id, :full_name, {},{multiple: true, class: "custom-select"} %>
-  </div>
+   <% end %>
+ <% end %>
+      <%= form.add_nested_fields_link :connected, "Add Another Connection", class: "btn btn-outline-primary btn-sm mt-2"%> <br>
+ </div>
+ <hr>
 
     <div class="form-group">
       <%= form.label "Add new people", class:"form-group" %>

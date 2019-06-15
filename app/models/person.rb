@@ -1,6 +1,6 @@
 class Person < ApplicationRecord
   has_many :connected, dependent: :destroy
-  has_many :companies, through: :connected
+  has_many :companies,-> {distinct}, through: :connected
   has_many :emails, dependent: :destroy
   has_many :phones, dependent: :destroy
   validates :first_name, presence: true, length: { minimum: 2 }

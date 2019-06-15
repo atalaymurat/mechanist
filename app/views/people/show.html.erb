@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong>First name:</strong>
   <%= @person.first_name %>
@@ -32,6 +30,20 @@
       <ul class="row">
         <li class="list-inline-item">
           <%= mail_to email.email %>
+        </li>
+      </ul>
+    <% end %>
+  <% end %>
+
+</p>
+<p>
+  <% if @person.phones.present? %>
+    <strong> <%= "Phone".pluralize(@person.phones.count)%>:</strong>
+    <% @person.phones.each do |phone| %>
+      <ul class="row">
+        <li class="list-inline-item">
+          <%= phone.phone_type %> :
+          <%= number_to_phone(phone.phone_number, area_code: true, delimiter: " ") %>
         </li>
       </ul>
     <% end %>

@@ -19,12 +19,14 @@ class PeopleController < ApplicationController
   def new
     @person = Person.new
     @person.emails.build
+    @person.phones.build
     authorize @person  
   end
 
   # GET /people/1/edit
   def edit
     @person.emails.build
+    @person.phones.build
   end
 
   # POST /people
@@ -62,6 +64,6 @@ class PeopleController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def person_params
-      params.require(:person).permit(:first_name, :middle_name, :last_name, :company_id, :user_id, emails_attributes:[ :id, :email, :_destroy, :user_id ] )
+      params.require(:person).permit(:first_name, :middle_name, :last_name, :company_id, :user_id, emails_attributes:[ :id, :email, :_destroy, :user_id ], phones_attributes: [:id, :phone_type, :phone_number, :_destroy] )
     end
 end

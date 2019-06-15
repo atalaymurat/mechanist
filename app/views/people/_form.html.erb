@@ -26,9 +26,29 @@
     <% end %>
     
     <%= form.add_nested_fields_link :emails, "Add Email", class: "btn btn-outline-primary btn-sm my-2" %>
+
+    <%= form.nested_fields_for :phones do |p_form| %>
+      <div class="row">
+        <div class="form-group col-sm-2">
+      <%= p_form.label :phone_type %>
+      <%= p_form.select :phone_type, ["Mobile", "Home", "Work"],{},{class: "form-control"} %>
+        </div>
+        <div class="form-group col-sm-8">
+
+      <%= p_form.label :phone_number %>
+      <%= p_form.text_field :phone_number, class: "form-control" %>
+        </div>
+        <div class="form-group col-sm-2">
+          <%= p_form.label "Phone" %>
+          <%= p_form.remove_nested_fields_link "Remove", class: "btn btn-outline-danger btn-md" %> 
+        </div>
+
+      </div>
+
+    <% end %>
+ <%= form.add_nested_fields_link :phones, "Add Phone", class: "btn btn-outline-primary btn-sm my-2" %>
+
   </div>
-
-
   <div class="container">
       <%= form.submit class: 'btn btn-primary'%>
   </div>

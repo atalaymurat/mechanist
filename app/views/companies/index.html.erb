@@ -1,5 +1,5 @@
 <h1 class="text-center">Companies</h1>
-  <div class="container-flex">
+  <div class="container-fluid">
     <div class="row">
       <% @companies.order(:id).reverse.each do |company| %>
         <div class="card-group m-1">
@@ -27,6 +27,7 @@
   
   <div class="row">
     <div class="col-sm-12">
+      <div class="row justify-content-center"> <%= paginate @companies %> </div>
       <%= link_to 'New Company', new_company_path, class: 'btn btn-primary mt-2', :method => :get %>
     </div>
   </div>

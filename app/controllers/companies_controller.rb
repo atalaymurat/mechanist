@@ -6,7 +6,7 @@ class CompaniesController < ApplicationController
   
   def index
     # @companies = Company.all.order(:id)
-    @companies = policy_scope(Company)
+    @companies = policy_scope(Company).page(params[:page])
   end
 
   # GET /companies/1

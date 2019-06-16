@@ -3,6 +3,7 @@ class CompaniesController < ApplicationController
   before_action :authenticate_user! 
   respond_to :html, :json
   
+  @position_titles = ["Owner", "Manager", "Sales Dep", "Technical Dep.", "Shareholder" ]
   
   def index
     # @companies = Company.all.order(:id)
@@ -66,7 +67,7 @@ class CompaniesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def company_params
-      params.require(:company).permit(:name, :email, :url, :logo, :remote_logo_url,:address_title, :country_id, :state_id, :town, :zip,:address_line,  people_attributes:[ :first_name, :middle_name, :last_name, :_destroy, :id, :user_id, emails_attributes: [:email, :id, :user_id ] ], connected_attributes: [:person_id, :position, :id, :_destroy])
+      params.require(:company).permit(:name, :email, :url, :logo, :remote_logo_url,:address_title, :country_id, :state_id, :town, :zip,:address_line,  people_attributes:[ :first_name, :middle_name, :last_name, :_destroy, :id, :user_id, emails_attributes: [:email, :id, :user_id ],phones_attributes: [:id, :phone_type, :phone_number] ], connected_attributes: [:person_id, :position, :id, :_destroy])
     end
     
     def logo_params

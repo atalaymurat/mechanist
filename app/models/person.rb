@@ -7,6 +7,7 @@ class Person < ApplicationRecord
   belongs_to :user
   accepts_nested_attributes_for :emails, allow_destroy: true,  reject_if: proc { |attributes| attributes['email'].blank? }
   accepts_nested_attributes_for :phones, allow_destroy: true, reject_if: proc { |attributes| attributes['phone_number'].blank? }
+  paginates_per 12
 
  
 

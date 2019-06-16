@@ -5,8 +5,14 @@
         <div class="col-sm-6 col-md-4 col-lg-3 mb-2">
           <div class="card h-100">
             <div class="card-header">
-              <%= link_to company.name.capitalize.truncate(14), company, class: "card-title" %>
-              <span class="badge" style="float:right"><%= company.id %></span>
+              <div class="row">
+                <div class="col-sm-10 col-md-10">
+                  <%= link_to company.name.capitalize.truncate(14), company, class: "card-title" %>
+                </div>
+                <div class="col-sm-2 col-md-2">
+                  <span class="badge"><%= company.id %></span>
+                </div>
+              </div>
             </div>
             <div class="card-body">
               <p class="text-center"> <%= image_tag company.logo_url(:logo) if company.logo? %> </p>

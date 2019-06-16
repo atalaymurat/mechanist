@@ -5,8 +5,7 @@ class PeopleController < ApplicationController
 
   def index
     # @people = Person.all.order(:id) 
-    @people = policy_scope(Person)
-    @people.order(:id)
+    @people = policy_scope(Person).page(params[:page])
   end
 
   # GET /people/1

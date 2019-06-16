@@ -41,7 +41,7 @@ class ImageUploader < CarrierWave::Uploader::Base
         c.background 'white' #transparent, none
         c.extent "#{width}x#{height}"
         #c.frame '3x3+1+1'
-        c.raise  '2' # edges  - or +
+        #c.raise  '2' # edges  - or +
 
       end
       image
@@ -54,7 +54,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   version :logo do
-    process scale_and_crop: [100, 40]
+    process scale_and_crop: [120, 40]
   end
 
   # Add a white list of extensions which are allowed to be uploaded.

@@ -15,6 +15,6 @@ class Company < ApplicationRecord
   accepts_nested_attributes_for :connected,allow_destroy: true, reject_if: proc { |attributes| attributes['person_id'].blank? }
 
   mount_uploader :logo, ImageUploader
-  paginates_per 15
+  paginates_per 12
 
 end

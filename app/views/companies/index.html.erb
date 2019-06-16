@@ -2,16 +2,16 @@
   <div class="container-fluid">
     <div class="row">
       <% @companies.order(:id).reverse.each do |company| %>
-        <div class="card-group m-1">
-          <div class="card">
+        <div class="col-sm-6 col-md-4 col-lg-3 mb-2">
+          <div class="card h-100">
             <div class="card-header">
-              <%= link_to company.name.capitalize.truncate(11), company, class: "card-title" %>
+              <%= link_to company.name.capitalize.truncate(14), company, class: "card-title" %>
               <span class="badge" style="float:right"><%= company.id %></span>
             </div>
             <div class="card-body">
               <p class="text-center"> <%= image_tag company.logo_url(:logo) if company.logo? %> </p>
               <% company.people.each do |person|  %>
-              <h6 class="card-subtitle mb-1"><%= link_to person.full_name.capitalize.truncate(13), person %></h6> 
+              <h6 class="card-subtitle mb-1"><%= link_to person.full_name.capitalize.truncate(16), person %></h6> 
               <% end %>
               <small class="text-muted"> <%= "#{company.state.name}/#{company.country.alpha2}" if company.country.present? %> </small>
             </div>

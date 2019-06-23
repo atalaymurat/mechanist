@@ -2,12 +2,12 @@
   <div class="container-fluid">
     <div class="row">
       <% @companies.order(:id).reverse.each do |company| %>
-        <div class="col-sm-6 col-md-4 col-lg-3 mb-2">
+        <div class="col-sm-6 col-md-4 col-lg-4 mb-2">
           <div class="card h-100">
             <div class="card-header">
               <div class="row">
                 <div class="col-10">
-                  <%= link_to company.name.capitalize.truncate(14), company, class: "card-title" %>
+                  <%= link_to company.name.capitalize.truncate(20), company, class: "card-title" %>
                 </div>
                 <div class="col-2">
                   <span class="badge"><%= company.id %></span>
@@ -23,7 +23,7 @@
             </div>
             <div class="card-footer">
               <%= link_to fa_icon("edit", type: :regular), edit_company_path(company), class: 'card-link' if policy(company).update? %>
-              <%= link_to fa_icon("trash-alt", type: :regular), company, method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-link float-right' if policy(company).destroy? %>
+              <%= link_to fa_icon("trash-alt", type: :regular, style: "color:red"), company, method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-link float-right' if policy(company).destroy? %>
             </div>
           </div>
         </div>

@@ -31,7 +31,7 @@
       <div class="row">
         <div class="form-group col-sm-2">
       <%= p_form.label :phone_type %>
-      <%= p_form.select :phone_type, ["Mobile", "Home", "Work"],{},{class: "form-control"} %>
+      <%= p_form.select :phone_type, options_for_phone_types,{},{class: "form-control"} %>
         </div>
         <div class="form-group col-sm-8">
 

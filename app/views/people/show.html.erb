@@ -55,5 +55,5 @@
   <strong>Created by:</strong>
   <%= @person.user.username %>
 </p>
-<%= link_to 'Edit', edit_person_path(@person), class: "btn btn-outline-primary btn-sm" if policy(@person).update? %> 
-<%= link_to 'Back', people_path, class: "btn btn-outline-primary btn-sm" %>
+<%= link_to fa_stacked_icon("edit", type: "regular", text: "edit"), edit_person_path(@person), class: "px-2" if policy(@person).update? %> 
+<%= link_to fa_stacked_icon('angle-left', text: "back" ), people_path %>

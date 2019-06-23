@@ -79,7 +79,7 @@
          <%= cpf.collection_select :person_id, policy_scope(Person.order(:first_name)), :id, :full_name, {prompt: "Choose..",include_blank: true },{class: "form-control"}  %>
       </div>
       <div class="col-md my-1">
-        <%= cpf.select :position,%w[Owner Shareholder Director Manager Sales Finance Employee] ,{prompt: "Position..", include_blank: true},{class: "form-control"} %>
+        <%= cpf.select :position,options_for_positions ,{prompt: "Position..", include_blank: true},{class: "form-control"} %>
       
       </div>
       <div class="col-md my-1">
@@ -96,8 +96,8 @@
     <div class="form-group">
       <%= form.label "Add new people", class:"form-group" %>
       <%= form.nested_fields_for :people, Person.new do |p_form|  %>
-      <div class="form-row">      
-        <%= p_form.hidden_field :user_id, value:current_user.id %> 
+        <div class="form-row">      
+        <%= p_form.hidden_field :user_id, value:current_user.id %>
         <div class="col-md my-1"><%= p_form.text_field :first_name, placeholder: "first name", class: "form-control" %> </div>
         <div class="col-md my-1"><%= p_form.text_field :middle_name, placeholder: "middle name", class: "form-control" %> </div>
         <div class="col-md my-1"><%= p_form.text_field :last_name, placeholder: "last name", class: "form-control" %> </div>
@@ -110,7 +110,7 @@
       <div class="row">
         <div class="form-group col-sm-2">
         <%= phn_form.label :phone_type %>
-        <%= phn_form.select :phone_type, ["Mobile", "Home", "Work"],{},{class: "form-control"} %>
+        <%= phn_form.select :phone_type, options_for_phone_types,{},{class: "form-control"} %>
         </div>
         <div class="form-group col-sm-8">
 

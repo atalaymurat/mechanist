@@ -16,8 +16,9 @@
             </div>
             <div class="card-body">
               <% person.phones.each do |phone| %>
-                <p class="card-text"> <%= fa_icon "mobile-alt" %>
-              <%= number_to_phone(phone.phone_number, delimiter: " ") if phone.phone_type == "Mobile" %> </p>
+                <p class="card-text">
+                <%= fa_icon "mobile-alt" %>
+                <%= number_to_phone(phone.phone_number, delimiter: " ", area_code: true) %> </p>
               <% end %>
               <% person.companies.each do |company| %>
                 <h6 class="card-subtitle mb-1"> 

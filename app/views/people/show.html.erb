@@ -56,4 +56,4 @@
   <%= @person.user.username %>
 </p>
 <%= link_to fa_stacked_icon("edit", type: "regular", text: "edit"), edit_person_path(@person), class: "px-2" if policy(@person).update? %> 
-<%= link_to fa_stacked_icon('angle-left', text: "back" ), people_path %>
+<%= link_to fa_stacked_icon('angle-left', text: "back" ), :back %>

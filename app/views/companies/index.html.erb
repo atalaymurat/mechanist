@@ -1,5 +1,14 @@
 <h1 class="text-center">Companies</h1>
   <div class="container-fluid">
+    <%= form_tag import_companies_path,{class: "form-inline", multipart: true } do %>
+      <div class="form-group">
+      <%= label_tag :file,"Import Companies" %>
+      </div>
+      <div class="form-group mx-3 mb-2">
+      <%= file_field_tag :file, class: "form-control" %>
+      </div>
+      <%= submit_tag "import", class: "btn btn-primary btn-sm mb-2" %>
+    <% end %>
     <div class="row">
       <% @companies.order(:id).reverse.each do |company| %>
         <div class="col-sm-6 col-md-4 col-lg-4 mb-2">
@@ -19,7 +28,7 @@
               <% company.people.each do |person|  %>
               <h6 class="card-subtitle mb-1"><%= link_to person.full_name.capitalize.truncate(16), person %></h6> 
               <% end %>
-              <small class="text-muted"> <%= "#{company.state.name}/#{company.country.alpha2}" if company.country.present? %> </small>
+              <small class="text-muted"> <%= company.state.name if company.state.present? %> <%= company.country.alpha2 if company.country.present? %> </small>
             </div>
             <div class="card-footer">
               <%= link_to fa_icon("edit", type: :regular), edit_company_path(company), class: 'card-link' if policy(company).update? %>
@@ -30,6 +39,7 @@
           <% end %>
     </div>
   </div>
+  
   
   <div class="row">
     <div class="col-sm-12">

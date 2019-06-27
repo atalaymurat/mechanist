@@ -4,6 +4,11 @@ class CompaniesController < ApplicationController
   respond_to :html, :json
   
   @position_titles = ["Owner", "Manager", "Sales Dep", "Technical Dep.", "Shareholder" ]
+  def import
+    Company.import(params[:file])
+    redirect_to action: "index"
+    flash[:notice] = "Data from CSV file imported"
+  end
   
   def index
     # @companies = Company.all.order(:id)

@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   get 'pages/home'
   devise_for :users
   resources :people
-  resources :companies
+  resources :companies do
+    collection { post :import}
+  end
   
   namespace :dynamic_select do
     get ':country_id/states', to: 'states#index', as: 'states'

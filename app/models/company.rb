@@ -17,4 +17,25 @@ class Company < ApplicationRecord
   mount_uploader :logo, ImageUploader
   paginates_per 12
 
+  require 'csv'
+  def self.import(file)
+    CSV.foreach(file.path, headers: true) do |row|
+      country_id = Country.find_by(alpha2: "#{row["Country"]}").id if row["Country"].present?
+      state = State.where(country_id: country_id).find_by(name: "#{row["State"]}").id if row["State"].present?
+      company_attributes = Hash.new
+      company_attributes = {id: row["Id"],name: row["Name"], country_id: country_id, state_id: state, town: row["Town"], address_line: row["Address_line"], zip: row["Zip"], email: row["Email"], url: row["Url"], user_id: 1}
+      puts company_attributes
+      company = Company.where(id: row["Id"])
+        if company.present?
+          company.first.update_attributes!(company_attributes)
+          puts "#{row["Name"].upcase} updated.."
+        else
+          puts "trying to create #{company.name}"
+          Company.create!(company_attributes)
+          puts "#{row["Name"].upcase} created.."
+        end
+    end
+  end
+    
+
 end

@@ -5,9 +5,16 @@ class CompaniesController < ApplicationController
   
   @position_titles = ["Owner", "Manager", "Sales Dep", "Technical Dep.", "Shareholder" ]
   def import
-    Company.import(params[:file])
-    redirect_to companies_path
-    flash[:notice] = "Data from CSV file imported"
+    if params[:file].present?
+        @import = Company.import(params[:file])
+        if @import.successful? 
+          flash[:notice] = "Data from CSV file imported"
+        else
+          flash[:error] = "Import failed with  errors"
+        end
+        redirect_to import_companies_path
+    end
+    
   end
   
   def index

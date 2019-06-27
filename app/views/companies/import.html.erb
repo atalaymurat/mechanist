@@ -1,0 +1,12 @@
+<h1>Import Companies</h1>
+<div class="jumbotron">
+    <%= form_tag import_companies_path,{class: "form-inline", multipart: true } do %>
+      <div class="form-group">
+      <%= label_tag :file,"CSV File" %>
+      </div>
+      <div class="form-group mx-3 mb-2">
+      <%= file_field_tag :file, class: "form-control" %>
+      </div>
+      <%= submit_tag "import", class: "btn btn-primary btn-sm mb-2" %>
+    <% end %>
+</div>

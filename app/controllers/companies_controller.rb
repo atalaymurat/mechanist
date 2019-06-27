@@ -6,7 +6,7 @@ class CompaniesController < ApplicationController
   @position_titles = ["Owner", "Manager", "Sales Dep", "Technical Dep.", "Shareholder" ]
   def import
     Company.import(params[:file])
-    redirect_to action: "index"
+    redirect_to companies_path
     flash[:notice] = "Data from CSV file imported"
   end
   

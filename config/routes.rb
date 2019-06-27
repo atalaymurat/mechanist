@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   devise_for :users
   resources :people
   resources :companies do
-    collection { post :import}
+    collection do
+      post :import
+    end
   end
   
   namespace :dynamic_select do

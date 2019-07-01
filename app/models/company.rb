@@ -23,7 +23,19 @@ class Company < ApplicationRecord
       country_id = Country.find_by(alpha2: "#{row["Country"]}").id if row["Country"].present?
       state = State.where(country_id: country_id).find_by(name: "#{row["State"]}").id if row["State"].present?
       company_attributes = Hash.new
-      company_attributes = {id: row["Id"],name: row["Name"], country_id: country_id, state_id: state, town: row["Town"], address_line: row["Address_line"], zip: row["Zip"], email: row["Email"], url: row["Url"], user_id: 1}
+      company_attributes = {id: row["Id"],
+                            name: row["Name"], 
+                            country_id: country_id, 
+                            state_id: state, 
+                            town: row["Town"], 
+                            address_line: row["Address_line"], 
+                            zip: row["Zip"], 
+                            email: row["Email"], 
+                            url: row["Url"], 
+                            user_id: 2,
+                            source: ((row["Source"] if row["Source"].present?) or "makinaTR"),
+                            note: row["Note"]
+                          }
       puts company_attributes
       company = Company.where(id: row["Id"])
         if company.present?
@@ -36,6 +48,4 @@ class Company < ApplicationRecord
         end
     end
   end
-    
-
 end

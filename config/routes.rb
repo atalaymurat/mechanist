@@ -2,7 +2,12 @@ Rails.application.routes.draw do
   get 'emails/index'
   get 'pages/home'
   devise_for :users
-  resources :people
+  resources :people do
+    collection do
+      get :import
+      post :import
+    end
+  end
   resources :companies do
     collection do
       get :import

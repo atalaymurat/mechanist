@@ -3,6 +3,18 @@ class PeopleController < ApplicationController
   before_action :authenticate_user!
   respond_to :html, :json
 
+  def import
+    if params[:file].present?
+      if Person.import(params[:file])
+        redirect_to import_people_path
+        flash[:notice] = "Data from CSV file imported"
+      else
+        redirect_to import_people_path
+        flash[:error] = "There is a problem with your data"
+      end
+    end
+  end
+
   def index
     # @people = Person.all.order(:id) 
     @people = policy_scope(Person).page(params[:page])
@@ -63,6 +75,13 @@ class PeopleController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def person_params
-      params.require(:person).permit(:first_name, :middle_name, :last_name, :company_id, :user_id, emails_attributes:[ :id, :email, :_destroy, :user_id ], phones_attributes: [:id, :phone_type, :phone_number, :_destroy] )
+      params.require(:person).permit(:first_name, :middle_name, :last_name,
+                                     :company_id,
+                                     :user_id,
+                                     :note,
+                                     :source,
+                                     emails_attributes:[ :id, :email, :_destroy, :user_id ],
+                                     phones_attributes: [:id, :phone_type, :phone_number, :_destroy]
+                                    )
     end
 end

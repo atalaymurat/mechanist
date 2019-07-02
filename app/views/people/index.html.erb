@@ -1,4 +1,4 @@
-<h1 class="text-center">People</h1>
+<h1 class="text-center">People <%= Person.all.count %></h1>
   <div class="container-fluid">
     <div class="row">
       <% @people.order(:id).reverse.each do |person| %>

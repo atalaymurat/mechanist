@@ -36,7 +36,7 @@ class Person < ApplicationRecord
         puts "Existing Person #{row["Id"]} Updated"
       else
         person.create!(person_attributes)
-        puts "New person created"
+        puts "New person created #{row["Id"]}"
       end
       my_person = Person.find(row["Id"])
       if my_person.emails.new({email: row["Email"], user_id: 2}).valid? and row["Email"].present?

@@ -1,9 +1,9 @@
 <h1>Emails List</h1>
-<% if current_user.emails.present? %>
-<h3> Total  <%= policy_scope(Email).count %> active email records </h3>
+<h3> Total  <%= policy_scope(Email).count %> active personal email records </h3>
 <div class="table-responsive">
   <table class="table table-hover w-auto">
     <thead>
+    <% if current_user.emails.present? %>
       <tr>
         <th scope="col">Email</th>
         <th scope="col">Name</th>
@@ -11,21 +11,44 @@
       </tr>
     </thead>
     <tbody>
-      <% @emails.order(:id).reverse.each do |email|  %>
+      <% policy_scope(@emails).order(:id).reverse.each do |email|  %>
       <tr>
         <td><%= email.email %> </td>
-        <td><%= link_to email.person.full_name, email.person %> </td>
+        <td><%= link_to email.person.full_name.capitalize, email.person %> </td>
         <td>
           <% if email.person.companies.present? %>
           <% email.person.companies.each do |company| %>
-          <%= link_to company.name, company %>
+          <%= link_to company.name.capitalize, company %>
         <% end %>
       <% end %>
         </td>
       </tr>
     <% end %>
     </tbody>
-  
+
+  </table>
+  <table class="table table-hover w-auto">
+    <thead>
+      <tr>
+        <h2>Company Emails</h2>
+        <h3>Total <%= policy_scope(Company).distinct.count(:email) %> active company email records</h3>
+        <th scope="col">Email</th>
+        <th scope="col">Companies</th>
+        <th scope="col">Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% policy_scope(Company).all.order(:id).each do |company| %>
+        <tr>
+        <% if company.email.present? %>
+        <td><%= company.email %> </td>
+        <td><%= link_to company.name.capitalize, company %> </td>
+        <td><%= link_to fa_icon("edit", type: :regular), edit_company_path(company), class: 'card-link' if policy(company).update? %>
+  </td>
+        <% end %>
+      </tr>
+    </tbody>
+    <% end %>
   </table>
 </div>
 <% end %>

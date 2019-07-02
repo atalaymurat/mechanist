@@ -1,16 +1,16 @@
-<h1 class="text-center">Companies</h1>
+<h1 class="text-center">Companies <%= Company.all.count if Company.first.present? %></h1>
   <div class="container-fluid">
     <%= link_to "Import Companies", import_companies_path,class: "btn btn-primary mb-2", method: :get  %>
     <div class="row">
-      <% @companies.order(:id).reverse.each do |company| %>
+      <% @companies.order(:id).each do |company| %>
         <div class="col-sm-6 col-md-4 col-lg-4 mb-2">
           <div class="card h-100">
             <div class="card-header">
               <div class="row">
-                <div class="col-10">
+                <div class="col-9">
                   <%= link_to company.name.capitalize.truncate(20), company, class: "card-title" %>
                 </div>
-                <div class="col-2">
+                <div class="col-3">
                   <span class="badge"><%= company.id %></span>
                 </div>
               </div>

@@ -24,17 +24,18 @@ class Company < ApplicationRecord
       state = State.where(country_id: country_id).find_by(name: "#{row["State"]}").id if row["State"].present?
       company_attributes = Hash.new
       company_attributes = {id: row["Id"],
-                            name: row["Name"], 
+                            name: (row["Name"].downcase if row["Name"].present?), 
                             country_id: country_id, 
                             state_id: state, 
-                            town: row["Town"], 
-                            address_line: row["Address_line"], 
+                            town: (row["Town"].downcase if row["Town"].present?) , 
+                            address_line: (row["Address_line"].downcase if row["Address_line"].present?), 
                             zip: row["Zip"], 
                             email: row["Email"], 
                             url: row["Url"], 
                             user_id: 2,
-                            source: ((row["Source"] if row["Source"].present?) or "makinaTR"),
-                            note: row["Note"]
+                            source: ((row["Source"].downcase if row["Source"].present?) or "makinaTR"),
+                            note: (row["Note"].downcase if row["Note"].present?),
+                            invoice_title: (row["Invoice"].downcase if row["Invoice"].present?)
                           }
       puts company_attributes
       company = Company.where(id: row["Id"])

@@ -86,6 +86,7 @@ class CompaniesController < ApplicationController
                                       :address_title, :country_id, :state_id, :town, :zip,:address_line,
                                       :note,
                                       :source,
+                                      :invoice_title,
                                       people_attributes:[ :first_name,
                                                           :middle_name,
                                                           :last_name,

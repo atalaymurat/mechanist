@@ -22,11 +22,11 @@ class Person < ApplicationRecord
       person_attributes = Hash.new
       person_attributes = {
         id: row["Id"],
-        first_name: row["First_name"],
-        middle_name: row["Middle_name"],
-        last_name: row["Last_name"],
+        first_name: (row["First_name"].downcase if row["First_name"].present?),
+        middle_name: (row["Middle_name"].downcase if row["Middle_name"].present?),
+        last_name: (row["Last_name"].downcase if row["Last_name"].present?),
         company_ids: [row["Company_ids"]],
-        note: row["Note"],
+        note: (row["Note"].downcase if row["Note"].present?),
         user_id: 2,
         source: "makinaTR"
       }
@@ -39,6 +39,9 @@ class Person < ApplicationRecord
         puts "New person created"
       end
       my_person = Person.find(row["Id"])
+      if my_person.emails.new({email: row["Email"], user_id: 2}).valid? and row["Email"].present?
+        my_person.emails.create!({email: row["Email"], user_id: 2})
+      end
       if my_person.emails.new({email: row["Email1"], user_id: 2}).valid? and row["Email1"].present?
         my_person.emails.create!({email: row["Email1"], user_id: 2})
       end

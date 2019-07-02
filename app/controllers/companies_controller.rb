@@ -18,7 +18,10 @@ class CompaniesController < ApplicationController
   
   def index
     # @companies = Company.all.order(:id)
-    @companies = policy_scope(Company).page(params[:page])
+    if params[:page]
+      session[:company_index_page] = params[:page]
+    end
+    @companies = policy_scope(Company).order(:id).page(session[:company_index_page])
   end
 
   # GET /companies/1

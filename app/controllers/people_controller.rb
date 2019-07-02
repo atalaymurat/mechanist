@@ -17,7 +17,10 @@ class PeopleController < ApplicationController
 
   def index
     # @people = Person.all.order(:id) 
-    @people = policy_scope(Person).page(params[:page])
+    if params[:page]
+      session[:person_index_page] = params[:page]
+    end
+    @people = policy_scope(Person).order(:id).page(session[:person_index_page])
   end
 
   # GET /people/1

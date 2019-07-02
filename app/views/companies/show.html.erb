@@ -82,4 +82,4 @@
 </p>
 
 <%= link_to fa_stacked_icon("edit",text: "edit", type: "regular"), edit_company_path(@company), class: "px-2" if policy(@company).update? %> 
-<%= link_to fa_stacked_icon('angle-left', text: "back" ), :back  %>
+<%= link_to fa_stacked_icon('angle-left', text: "back" ),companies_path(session[:company_index_page])  %>

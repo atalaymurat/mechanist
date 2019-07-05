@@ -7,4 +7,5 @@
 //= require nested_form_fields
 //= require dynamic_selectable
 //= require turbolinks
+//= require jquery.easy-autocomplete
 //= require_tree .

@@ -1,0 +1,12 @@
+<h2>Search Results</h2>
+
+<% @companies.each do |company| %>
+<ul>
+  <li>  <%= link_to company.name, company_path(company) %></li>
+</ul>
+<% end %>
+<% @people.each do |person| %>
+  <ul>
+    <li> <%= link_to person.full_name, person_path(person) %> </li>
+  </ul>
+<% end %>

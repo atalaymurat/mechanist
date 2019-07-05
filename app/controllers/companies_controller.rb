@@ -18,7 +18,7 @@ class CompaniesController < ApplicationController
   end
   
   def index
-    @pagy, @companies = pagy(policy_scope(Company.all).order(:id), items: 24)
+    @pagy, @companies = pagy(policy_scope(Company.all))
     def index_page_url
       session[:index_page_url] = URI(request.original_url || '')
     end
@@ -90,6 +90,7 @@ class CompaniesController < ApplicationController
                                       :note,
                                       :source,
                                       :invoice_title,
+                                      :search,
                                       people_attributes:[ :first_name,
                                                           :middle_name,
                                                           :last_name,

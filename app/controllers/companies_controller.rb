@@ -90,7 +90,6 @@ class CompaniesController < ApplicationController
                                       :note,
                                       :source,
                                       :invoice_title,
-                                      :search,
                                       people_attributes:[ :first_name,
                                                           :middle_name,
                                                           :last_name,

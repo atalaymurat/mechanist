@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   get 'emails/index'
   get 'pages/home'
   get :search, controller: :pages
-  get :autocomplete, controller: :pages
 
   devise_for :users
   resources :people do

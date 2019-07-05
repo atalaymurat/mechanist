@@ -2,7 +2,7 @@
   <div class="container-fluid">
       <%= link_to 'New Person', new_person_path, class: "btn btn-primary mb-2" %>
     <div class="row">
-      <% @people.order(:id).reverse.each do |person| %>
+      <% @people.each do |person| %>
         <div class="col-sm-12 col-md-6 col-lg-4 mb-2">
           <div class="card h-100">
             <div class="card-header">

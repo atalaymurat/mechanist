@@ -17,7 +17,7 @@ class PeopleController < ApplicationController
   end
 
   def index
-    @pagy, @people = pagy(policy_scope(Person).order(:id), items: 24)
+    @pagy, @people = pagy(policy_scope(Person).order('created_at desc'))
     def index_page_url
       session[:index_page_url] = URI(request.original_url || '')
     end

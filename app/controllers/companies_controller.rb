@@ -18,7 +18,7 @@ class CompaniesController < ApplicationController
   end
   
   def index
-    @pagy, @companies = pagy(policy_scope(Company.all))
+    @pagy, @companies = pagy(policy_scope(Company.all).order('created_at desc'))
     def index_page_url
       session[:index_page_url] = URI(request.original_url || '')
     end

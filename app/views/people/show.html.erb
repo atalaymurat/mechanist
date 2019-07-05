@@ -64,4 +64,6 @@
   <%= @person.user.username %>
 </p>
 <%= link_to fa_stacked_icon("edit", type: "regular", text: "edit"), edit_person_path(@person), class: "px-2" if policy(@person).update? %> 
-<%= link_to fa_stacked_icon('angle-left', text: "back" ), session[:index_page_url]%>
+<%= link_to fa_stacked_icon('angle-left', text: "back" ), session[:index_page_url] if session[:index_page_url].present? %>
+<%= link_to fa_stacked_icon('home', text: "home" ), root_path if session[:index_page_url].blank? %>
+

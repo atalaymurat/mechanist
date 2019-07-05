@@ -1,14 +1,20 @@
 class PagesController < ApplicationController
 
   def search
-    @people = Person.ransack(first_name_cont: params[:q]).result(district: true)
-    @companies = Company.ransack(name_cont: params[:q]).result(district: true)
+    @people   = policy_scope(
+      Person.ransack(first_name_or_middle_name_or_last_name_cont: params[:q]).result(district: true)
+    )
+    @companies = policy_scope(
+      Company.ransack(name_cont: params[:q]).result(district: true)
+    )
 
     respond_to do |format|
-      format.html {}
+      format.html { 
+        
+      }
       format.json {
-        @companies  = @companies.limit(5)
-        @people     = @people.limit(5)
+        @companies  = policy_scope(@companies).limit(5)
+        @people     = policy_scope(@people).limit(5)
       }
     end
   end

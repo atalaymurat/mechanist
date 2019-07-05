@@ -1,4 +1,5 @@
 module ApplicationHelper
+  include Pagy::Frontend
   def flasherize(key)
     case key.to_sym
     when :error

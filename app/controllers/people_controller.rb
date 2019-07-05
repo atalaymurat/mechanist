@@ -2,6 +2,7 @@ class PeopleController < ApplicationController
   before_action :set_person, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
   respond_to :html, :json
+  after_action :index_page_url, only: [:index]
 
   def import
     if params[:file].present?
@@ -16,11 +17,10 @@ class PeopleController < ApplicationController
   end
 
   def index
-    # @people = Person.all.order(:id) 
-    if params[:page]
-      session[:person_index_page] = params[:page]
+    @pagy, @people = pagy(policy_scope(Person).order(:id), items: 24)
+    def index_page_url
+      session[:index_page_url] = URI(request.original_url || '')
     end
-    @people = policy_scope(Person).order(:id).page(session[:person_index_page])
   end
 
   # GET /people/1

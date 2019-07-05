@@ -8,7 +8,10 @@ Rails.application.routes.draw do
       post :import
     end
   end
-  resources :companies do
+  concern :paginatable do
+    get '(page/:page)', action: :index, on: :collection, as: ''
+  end
+  resources :companies, concerns: :paginatable do
     collection do
       get :import
       post :import
@@ -18,6 +21,7 @@ Rails.application.routes.draw do
   namespace :dynamic_select do
     get ':country_id/states', to: 'states#index', as: 'states'
   end
+  
 
   root to: "pages#home"
 end

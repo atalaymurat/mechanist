@@ -2,6 +2,7 @@ class CompaniesController < ApplicationController
   before_action :set_company, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user! 
   respond_to :html, :json
+  after_action :index_page_url, only: [:index]
   
   @position_titles = ["Owner", "Manager", "Sales Dep", "Technical Dep.", "Shareholder" ]
   def import
@@ -17,11 +18,10 @@ class CompaniesController < ApplicationController
   end
   
   def index
-    # @companies = Company.all.order(:id)
-    if params[:page]
-      session[:company_index_page] = params[:page]
+    @pagy, @companies = pagy(policy_scope(Company.all).order(:id), items: 24)
+    def index_page_url
+      session[:index_page_url] = URI(request.original_url || '')
     end
-    @companies = policy_scope(Company).order(:id).page(session[:company_index_page])
   end
 
   # GET /companies/1

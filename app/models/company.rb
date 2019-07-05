@@ -15,7 +15,6 @@ class Company < ApplicationRecord
   accepts_nested_attributes_for :connected,allow_destroy: true, reject_if: proc { |attributes| attributes['person_id'].blank? }
 
   mount_uploader :logo, ImageUploader
-  paginates_per 12
 
   require 'csv'
   def self.import(file)

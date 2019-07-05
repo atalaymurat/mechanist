@@ -1,6 +1,8 @@
 <h1 class="text-center">Companies <%= Company.all.count if Company.first.present? %></h1>
   <div class="container-fluid">
     <%= link_to "Import Companies", import_companies_path,class: "btn btn-primary mb-2", method: :get  %>
+    <%= link_to 'New Company', new_company_path, class: 'btn btn-primary mb-2', :method => :get %>
+
     <div class="row">
       <% @companies.order(:id).each do |company| %>
         <div class="col-sm-6 col-md-4 col-lg-4 mb-2">
@@ -35,9 +37,7 @@
   
   
   <div class="row">
-    <div class="col-sm-12">
-      <div class="row justify-content-center"> <%= paginate @companies %> </div>
-      <%= link_to 'New Company', new_company_path, class: 'btn btn-primary mt-2', :method => :get %>
+    <div class="col">
+      <div class="row justify-content-center"> <%= pagy_bootstrap_combo_nav_js(@pagy).html_safe %> </div>
     </div>
   </div>
-

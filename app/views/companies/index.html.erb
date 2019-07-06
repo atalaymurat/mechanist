@@ -2,6 +2,48 @@
   <div class="container-fluid">
     <%= link_to "Import Companies", import_companies_path,class: "btn btn-primary mb-2", method: :get  %>
     <%= link_to 'New Company', new_company_path, class: 'btn btn-primary mb-2', :method => :get %>
+    
+    <div class="card my-2 p-4">
+      <%= search_form_for @search do |f| %>
+        <div class="form-row">
+          <div class="form-group col-md">
+            <%= f.label :name_cont, "Company Name" %>
+            <%= f.text_field :name_cont, class: "form-control" %>
+          </div>
+          <div class="form-group col-md">
+            <%= f.label :id_eq, "Id" %>
+            <%= f.text_field :id_eq, class: "form-control" %>
+          </div>
+          <div class="form-group col-md">
+            <%= f.label :user_id_eq, "User" %>
+            <%= f.collection_select :user_id_eq, User.all, :id, :username, {include_blank: true, prompt: "Choose.."} ,class: "form-control" %>
+          </div>
+        </div>
+      <div class="form-row">
+        <div class="form-group col-md">
+          <%= f.label :country_id_eq, "Country" %>
+          <%= f.select :country_id_eq, options_for_select(countries_for.collect { |obj| [obj[:country_name] ,obj[:country_id]] }),{prompt:"Choose..", include_blank: true},  {class: "form-control" }  %>
+        </div>
+        <div class="form-group col-md">
+          <%= f.label :state_id_eq, "State" %>
+          <%= f.select :state_id_eq, options_for_select(states_for.collect { |sta| [sta[:state_name], sta[:state_id]]}),{prompt: "Choose..", include_blank: true}, {class: "form-control"} %>
+        </div>
+      </div>
+      <%= f.submit "Search", class: "btn btn-outline-primary btn-sm"%>
+    <% end %>
+    </div>
+
+    <nav class="navbar bg-light navbar-dark mb-2">
+    <ul class="nav">
+      <li class="nav-item mx-2">
+      <%= sort_link @search, :name, "Sort by Name", class: "nav-link"%>
+      </li>
+      <li class="nav-item mx-2">
+      <%= sort_link @search, :id, "Sort by id",class: "nav-link" %>
+      </li>
+    </ul>
+    </nav>
+
 
     <div class="row">
       <% @companies.each do |company| %>

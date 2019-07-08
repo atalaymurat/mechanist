@@ -1,4 +1,4 @@
-<h1 class="text-center">Companies <%= Company.all.count if Company.first.present? %></h1>
+<h1 class="text-center">Companies <%= @companies_count.presence %> </h1>
   <div class="container-fluid">
     <%= link_to "Import Companies", import_companies_path,class: "btn btn-primary mb-2", method: :get  %>
     <%= link_to 'New Company', new_company_path, class: 'btn btn-primary mb-2', :method => :get %>
@@ -32,7 +32,6 @@
       <%= f.submit "Search", class: "btn btn-outline-primary btn-sm"%>
     <% end %>
     </div>
-
     <nav class="navbar bg-light navbar-dark mb-2">
     <ul class="nav">
       <li class="nav-item mx-2">

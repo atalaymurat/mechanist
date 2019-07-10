@@ -23,6 +23,10 @@ class CompaniesController < ApplicationController
     def index_page_url
       session[:index_page_url] = URI(request.original_url || "" )
     end
+    respond_to do |format|
+      format.html
+      format.csv {send_data Company.all.to_csv}
+    end
   end
 
   # GET /companies/1

@@ -2,6 +2,7 @@
   <div class="container-fluid">
     <%= link_to 'New Company', new_company_path, class: 'btn btn-primary mb-2', :method => :get %>
     <%= link_to "Import CSV", import_companies_path,class: "btn btn-primary mb-2", method: :get  %>
+    <%= link_to "Export CSV", companies_path(format: "csv"), class: "btn btn-primary mb-2" %>
     
     <div class="card my-2 p-4">
       <%= search_form_for @search do |f| %>

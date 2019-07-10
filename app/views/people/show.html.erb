@@ -39,6 +39,11 @@
         <li class="list-inline-item">
           <%= mail_to email.email %>
         </li>
+        <li class="list-inline-item">
+          <% if email.unsubscribe %>
+            not listing in email list 
+          <% end %>
+        </li>
       </ul>
     <% end %>
   <% end %>
@@ -66,4 +71,5 @@
 <%= link_to fa_stacked_icon("edit", type: "regular", text: "edit"), edit_person_path(@person), class: "px-2" if policy(@person).update? %> 
 <%= link_to fa_stacked_icon('angle-left', text: "back" ), session[:index_page_url] if session[:index_page_url].present? %>
 <%= link_to fa_stacked_icon('home', text: "home" ), root_path if session[:index_page_url].blank? %>
+<%= link_to fa_stacked_icon("trash-alt",text: "Delete", type: :regular),@person, method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-link float-right' if policy(@person).destroy? %>
 

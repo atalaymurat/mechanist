@@ -1,5 +1,6 @@
 <h1>Emails List</h1>
-<h3> Total  <%= policy_scope(Email).count %> active personal email records </h3>
+<h3>Total <%= (policy_scope(Email).count - policy_scope(Email).distinct.count(:unsubscribe)) + 
+              (policy_scope(Company).distinct.count(:email) - policy_scope(Company).distinct.count(:unsubscribe)) %> emails subscribed </h3>
 <div class="table-responsive">
   <table class="table table-hover w-auto">
     <thead>
@@ -8,22 +9,26 @@
         <th scope="col">Email</th>
         <th scope="col">Name</th>
         <th scope="col">Companies</th>
+        <th scope="col">Edit</th>
       </tr>
     </thead>
     <tbody>
       <% policy_scope(@emails).order(:id).reverse.each do |email|  %>
+        <% unless email.unsubscribe %>
       <tr>
         <td><%= email.email %> </td>
         <td><%= link_to email.person.full_name.capitalize, email.person %> </td>
         <td>
           <% if email.person.companies.present? %>
-          <% email.person.companies.each do |company| %>
-          <%= link_to company.name.capitalize, company %>
+            <% email.person.companies.each do |company| %>
+            <%= link_to company.name.capitalize, company %>
+            <% end %>
+          <% end %>
+        </td>
+        <td><%= link_to fa_icon("edit", type: :regular), edit_person_path(email.person), class: 'card-link' if policy(email.person).update? %>
+      </tr>
         <% end %>
       <% end %>
-        </td>
-      </tr>
-    <% end %>
     </tbody>
 
   </table>
@@ -31,24 +36,25 @@
     <thead>
       <tr>
         <h2>Company Emails</h2>
-        <h3>Total <%= policy_scope(Company).distinct.count(:email) %> active company email records</h3>
         <th scope="col">Email</th>
-        <th scope="col">Companies</th>
+        <th scope="col">Company</th>
         <th scope="col">Edit</th>
       </tr>
     </thead>
     <tbody>
       <% policy_scope(Company).all.order(:id).each do |company| %>
+        <% unless company.unsubscribe %>
         <tr>
-        <% if company.email.present? %>
-        <td><%= company.email %> </td>
-        <td><%= link_to company.name.capitalize, company %> </td>
-        <td><%= link_to fa_icon("edit", type: :regular), edit_company_path(company), class: 'card-link' if policy(company).update? %>
-  </td>
+          <% if company.email.present? %>
+          <td><%= company.email %> </td>
+          <td><%= link_to company.name.capitalize, company %> </td>
+          <td><%= link_to fa_icon("edit", type: :regular), edit_company_path(company), class: 'card-link' if policy(company).update? %>
+          </td>
+          <% end %>
+        </tr>
         <% end %>
-      </tr>
+      <% end %>
     </tbody>
-    <% end %>
   </table>
 </div>
 <% end %>

@@ -1,7 +1,7 @@
 <h1 class="text-center">Companies <%= @companies_count.presence %> </h1>
   <div class="container-fluid">
-    <%= link_to "Import Companies", import_companies_path,class: "btn btn-primary mb-2", method: :get  %>
     <%= link_to 'New Company', new_company_path, class: 'btn btn-primary mb-2', :method => :get %>
+    <%= link_to "Import CSV", import_companies_path,class: "btn btn-primary mb-2", method: :get  %>
     
     <div class="card my-2 p-4">
       <%= search_form_for @search do |f| %>

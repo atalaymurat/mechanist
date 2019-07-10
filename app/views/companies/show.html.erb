@@ -18,6 +18,14 @@
 </p>
 
 <p>
+  <% if @company.unsubscribe %>
+    <strong>Subscribed:</strong> not listing in email list
+  <% else %>
+    <strong>Subscribed:</strong> listing in email list
+  <% end %>
+</p>
+
+<p>
   <strong>Url:</strong>
   <%= @company.url %>
 </p>
@@ -51,6 +59,7 @@
             <th scope="col">Full Name</th>
             <th scope="col">Position</th>
             <th scope="col">Phone</th>
+            <th scope="col"> </th>
           </tr>
         </thead>
         <tbody>
@@ -66,6 +75,9 @@
               <% person.phones.each do |phone| %> 
                 <p> <%= number_to_phone(phone.phone_number, area_code: true, delimiter: " ") %> </p>
               <% end %>
+            </td>
+            <td>
+              <%= link_to fa_icon("trash-alt", type: :regular, style: "color: red"), person, method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-link' if policy(person).destroy? %>
             </td>
           </tr>
         </tbody>

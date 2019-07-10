@@ -4,7 +4,6 @@ class CompaniesController < ApplicationController
   respond_to :html, :json
   after_action :index_page_url, only: [:index]
   
-  @position_titles = ["Owner", "Manager", "Sales Dep", "Technical Dep.", "Shareholder" ]
   def import
     if params[:file].present?
       if Company.import(params[:file])
@@ -85,6 +84,7 @@ class CompaniesController < ApplicationController
     def company_params
       params.require(:company).permit(:name,
                                       :email,
+                                      :unsubscribe,
                                       :url,
                                       :logo,
                                       :remote_logo_url,
@@ -100,6 +100,7 @@ class CompaniesController < ApplicationController
                                                           :user_id,
                                                           emails_attributes: [:email,
                                                                               :id,
+                                                                              :unsubscribe,
                                                                               :user_id
                                                                               ],
                                                           phones_attributes: [:id,

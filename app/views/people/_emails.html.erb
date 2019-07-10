@@ -3,8 +3,14 @@
       <%= e_form.label :email, class: "col-form-label" %>
     </div>
 
-    <div class="form-group col-sm-8">
+    <div class="form-group col-sm-6">
       <%= e_form.text_field :email, class: "form-control" %>
+    </div>
+    <div class="form-group col-sm-2">
+      <div class="form-check form-check-inline">
+      <%= e_form.check_box :unsubscribe, class: "form-check-input" %>
+      <%= e_form.label :unsubscribe, class: "form-check-label" %>
+      </div>
     </div>
         
     <div class="form-group col-sm-2">

@@ -17,7 +17,9 @@ class PeopleController < ApplicationController
   end
 
   def index
-    @pagy, @people = pagy(policy_scope(Person).order('created_at desc'))
+    @search = Person.search(params[:q])
+    @pagy, @people = pagy(policy_scope(@search.result).order('created_at desc'))
+    @people_count = @search.result.count
     def index_page_url
       session[:index_page_url] = URI(request.original_url || '')
     end
@@ -83,7 +85,7 @@ class PeopleController < ApplicationController
                                      :user_id,
                                      :note,
                                      :source,
-                                     emails_attributes:[ :id, :email, :_destroy, :user_id ],
+                                     emails_attributes:[ :id, :email, :_destroy, :unsubscribe, :user_id ],
                                      phones_attributes: [:id, :phone_type, :phone_number, :_destroy]
                                     )
     end

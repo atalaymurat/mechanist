@@ -35,6 +35,18 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  config.action_mailer.smtp_settings = {
+    :address              => "email-smtp.us-west-2.amazonaws.com",
+    :port                 => 465,
+    :domain               => "314machine.com",
+    :user_name            => Rails.application.credentials.dig(:aws_email_username),
+    :password             => Rails.application.credentials.dig(:aws_email_password),
+    :enable_starttls_auto => true,
+    :tls                  => true,
+    :ssl                  => true
+  }
+       
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 

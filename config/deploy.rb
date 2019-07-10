@@ -32,7 +32,6 @@ role :db, domain
 # append :linked_files, "config/database.yml"
 # append :linked_files, "config/master.key"
 set :linked_files, fetch(:linked_files, []).push("config/master.key")
-set :linked_files, fetch(:linked_files, []).push("config/database.yml")
 # Default value for linked_dirs is []
 append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', '.bundle', 'public/system', 'public/uploads'
 

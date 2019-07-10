@@ -38,7 +38,6 @@
     <%= form.label :note %>
     <%= form.text_area :note, class: "form-control" %>
   </div>
-    
   <div class="row">
     <div class="col-sm-2 form-group">
       <%= form.label :email %>
@@ -54,8 +53,20 @@
       </div>
     </div>
   </div>
+    
+    <div class="card p-4 bg-light mb-2">
+      <h4>Company Phones</h4>
+      <%= form.nested_fields_for :phones, :phones do |p_form| %>
+        <%= render partial: "phones/phone", locals: {p_form: p_form} %>
+      <% end %>
+      <div class="card-body">
+      <%= form.add_nested_fields_link :phones, "Add Phone", class: "btn btn-outline-primary btn-sm"%> <br>
+      </div>
+    </div>
 
-  <div class="jumbotron address-group"> 
+    
+
+  <div class="card p-4 bg-light address-group"> 
     <h4> Company Address</h4>
     <%= form.label :address_title %>
     <%= form.select :address_title, ["Factory", "Office", "Showroom", "Headquarters", "Branch", "Other" ] ,{prompt:"Choose..", include_blank: true},  {class: "form-control"} %>
@@ -104,42 +115,31 @@
 
    <% end %>
  <% end %>
-      <%= form.add_nested_fields_link :connected, "Add Another Connection", class: "btn btn-outline-primary btn-sm mt-2"%> <br>
+      <%= form.add_nested_fields_link :connected, "Add Connection", class: "btn btn-outline-primary btn-sm mt-2"%> <br>
  </div>
  <hr>
 
-    <div class="form-group">
+    <div class="form-group card p-4 bg-light">
       <%= form.label "Add new people", class:"form-group" %>
       <%= form.nested_fields_for :people, Person.new do |p_form|  %>
-        <div class="form-row">      
+        <div class="form-row mb-2">      
         <%= p_form.hidden_field :user_id, value:current_user.id %>
         <div class="col-md my-1"><%= p_form.text_field :first_name, placeholder: "first name", class: "form-control" %> </div>
         <div class="col-md my-1"><%= p_form.text_field :middle_name, placeholder: "middle name", class: "form-control" %> </div>
         <div class="col-md my-1"><%= p_form.text_field :last_name, placeholder: "last name", class: "form-control" %> </div>
       </div>
         <%= p_form.nested_fields_for :emails, Email.new do |e_form|  %>
-          <%= render partial: "people/emails", locals: {e_form: e_form} %>
+          <%= render partial: "emails/emails", locals: {e_form: e_form} %>
         <% end %>
         
-        <%= p_form.nested_fields_for :phones, Phone.new do |phn_form| %>
-      <div class="row">
-        <div class="form-group col-sm-2">
-        <%= phn_form.label :phone_type %>
-        <%= phn_form.select :phone_type, options_for_phone_types,{},{class: "form-control"} %>
-        </div>
-        <div class="form-group col-sm-8">
-
-        <%= phn_form.label :phone_number %>
-        <%= phn_form.text_field :phone_number, class: "form-control" %>
-        </div>
-        <div class="form-group col-sm-2">
-        <%= phn_form.label "Phone" %>
-        <%= phn_form.remove_nested_fields_link "Remove", class: "btn btn-outline-danger btn-md" %> 
-        </div>
+        <%= p_form.nested_fields_for :phones, Phone.new do |p_form| %>
+          <%= render partial: "phones/phone", locals: {p_form: p_form} %>
         <% end %>
         <hr>
       <% end %>
-      <%= form.add_nested_fields_link :people, "Add Another Person", class: "btn btn-outline-primary btn-sm mt-2"%> <br>
+      <div class="card-body">
+      <%= form.add_nested_fields_link :people, "Add Person", class: "btn btn-outline-primary btn-sm"%> <br>
+      </div>
   </div>
 
     <%= form.submit class: 'btn btn-primary' %>

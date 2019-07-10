@@ -37,6 +37,15 @@
   <strong>Source:</strong>
   <%= @company.source %>
 </p>
+
+  <% if @company.phones.present? %>
+  <strong>Phones:</strong>
+  <div class="card-columns">
+    <% @company.phones.each do |phone| %>
+      <div class="card bg-secondary p-2 my-1 text-white"><%= phone.phone_type %> <%= number_to_phone(phone.phone_number, area_code: true, delimiter: " ") %></div>
+    <% end %>
+  </div>
+  <% end %>
 <strong>Address:</strong>
 <div>
     <ul>

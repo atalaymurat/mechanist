@@ -38,6 +38,7 @@ class CompaniesController < ApplicationController
   def new
     @company = Company.new
     @company.people.build
+    @company.phones.build
     authorize @company
   end
 
@@ -116,6 +117,11 @@ class CompaniesController < ApplicationController
                                                            :position, 
                                                            :id, 
                                                            :_destroy
+                                                        ],
+                                    phones_attributes:    [:id,
+                                                          :phone_type,
+                                                          :phone_number,
+                                                          :_destroy
                                                         ]
                                      )
     end

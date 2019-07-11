@@ -1,16 +1,62 @@
-<%= form_for(@user, :url => { :action => "update_password" } ) do |f| %>
+<%= form_with(model: user, local: true) do |f| %>
 
       <% flash.now[:error] = @user.errors.full_messages.to_sentence if @user.errors.present? %>
 
+
+  <div class="form-group">
+    <div class="custom-file">
+      <%= f.label "upload a picture" %>
+      <%= f.file_field :user_picture, class: "form-control" %>
+    </div>
+  </div>    
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <%= f.label "Upload Remote", class: "input-group-text", id: "basic-addon3" %>
+    </div>
+      <%= f.text_field :remote_user_picture_url, class: "form-control",id:"basic-url" %>
+  </div>
+
+  <hr>
+  <div class="form-check-inline">
+    <%= image_tag(user.user_picture_url(:thumb)) if user.user_picture? %>
+    <%= f.label "Remove User Picture", class: "form-check-label mx-2", for:"remove_user_picture" if user.user_picture? %>
+    <%= f.check_box :remove_user_picture, class: "form-check-input", id:"remove_user_picture" if user.user_picture? %>
+  </div>
+
+  <div class="form-group">
+    <div class="row">
+      <div class="col-sm">
+        <%= f.text_field :first_name, class: "form-control", placeholder: "First name" %>
+      </div>
+      <div class="col-sm">
+        <%= f.text_field :last_name, class: "form-control", placeholder: "Last name" %>
+      </div>
+      <div class="col-sm">
+        <%= f.text_field :alias, class: "form-control",placeholder: "Alias" %>
+        <small>Alias can be max 4 char,and must be unique</small>
+      </div>
+    </div>
+  </div>
+
   <div class="form-group">
   <%= f.text_field :email, class: "form-control" %>
+  <small>This email will be used for registration</small>
   </div>
   <% if current_user.admin %>
-  <div class="form-check">
+    <div class="form-check">
+      <div class="row">
+        <div class="col-sm-3">
     <%= f.check_box :admin, class: "form-check-input" %>
     <%= f.label :admin, class: "form-check-label" %>
+        </div>
+        <div class="col-sm-3">
+    <%= f.check_box :approved, class: "form-check-input" %>
+    <%= f.label :approved, class: "form-check-label" %>
+        </div>
+      </div>
   </div>
-  <% end %>
+<% end %>
+<div class="card p-4 bg-light m-2">
   <div class="form-group">
     <%= f.label :current_password %> 
     <%= f.password_field :current_password, class: "form-control" %>
@@ -24,6 +70,7 @@
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, class: "form-control" %>
   </div>
+</div>
     <%= f.submit class: "btn btn-primary btn-sm"%>
 <% end %>
 <hr>

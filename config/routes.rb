@@ -1,11 +1,7 @@
 Rails.application.routes.draw do
   
   devise_for :users
-  resources :users, only: [:index, :edit] do
-    collection do
-      patch 'update_password'
-    end
-  end
+  resources :users, only: [:index, :edit, :update, :destroy]
 
   get 'emails/index'
   get 'pages/home'

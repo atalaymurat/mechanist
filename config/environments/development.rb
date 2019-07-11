@@ -31,21 +31,23 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.perform_deliveries = true
 
   config.action_mailer.perform_caching = false
+  config.action_mailer.delivery_method = :smtp
 
   config.action_mailer.smtp_settings = {
-    :address              => "email-smtp.us-west-2.amazonaws.com",
+    :address              => "shared4.accountservergroup.com",
     :port                 => 465,
-    :domain               => "314machine.com",
-    :user_name            => Rails.application.credentials.dig(:aws_email_username),
-    :password             => Rails.application.credentials.dig(:aws_email_password),
+    :authentication       => :login,
+    :user_name            => "atalaymurat@makinatr.com",
+    :password             => "18makinatr18",
     :enable_starttls_auto => true,
-    :tls                  => true,
     :ssl                  => true
   }
-       
+  config.action_mailer.default_url_options = {:host => 'localhost:3000'}
+  config.action_mailer.default_options = {from: 'info@makinatr.com'}     
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

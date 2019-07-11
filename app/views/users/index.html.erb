@@ -1,0 +1,30 @@
+<h1 class="text-center">Users <%= @users.count %></h1>
+<div class="container-fluid">
+
+
+      <div class="card-columns">
+    <% @users.each do |user| %>
+        <div class="card bg-light">
+          <div class="card-header">
+            <h5 class="card-title"><%= user.username %><code class="float-right"> <%= user.id %></code>
+</h5>
+                     
+          </div>
+          <div class="card-body h-100">
+      
+            <p> <%= user.email %> </p>
+            <% if user.admin %>
+              <p> Admin </p>
+            <% else %>
+              <p> User </p>
+            <% end %>
+          </div>
+          <div class="card-footer">
+            <%=  fa_stacked_icon("user-shield", type: :solid) if user.admin%>
+            <%=  fa_stacked_icon("user-lock", type: :solid) if !user.admin and user != current_user %>
+            <%= link_to fa_stacked_icon( "edit", type: :regular), edit_user_path(user) if user == current_user %>
+          </div>
+        </div>
+    <% end %>
+    </div>
+</div>

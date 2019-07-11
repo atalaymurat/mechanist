@@ -1,9 +1,17 @@
 Rails.application.routes.draw do
+  
+  devise_for :users
+  resources :users, only: [:index, :edit] do
+    collection do
+      patch 'update_password'
+    end
+  end
+
   get 'emails/index'
   get 'pages/home'
   get :search, controller: :pages
 
-  devise_for :users
+
   resources :people do
     collection do
       get :import

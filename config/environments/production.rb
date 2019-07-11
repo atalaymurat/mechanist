@@ -69,15 +69,19 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
-  # SMTP settings for AWS WorkMail
+  # SMTP settings for SITE5 Mail
   config.action_mailer.smtp_settings = {
-    :address              => "email-smtp.us-west-2.amazonaws.com",
+    :address              => "shared4.accountservergroup.com",
     :port                 => 465,
-    :user_name            => Rails.application.credentials.dig(:aws_email_username),
-    :password             => Rails.application.credentials.dig(:aws_email_password),
-    :authentication       => "plain",
+    :authentication       => :login,
+    :user_name            => Rails.application.credentials.dig(:site5_email_username),
+    :password             => Rails.application.credentials.dig(:site5_email_password),
+    :enable_starttls_auto => true,
     :ssl                  => true
   }
+
+  config.action_mailer.default_url_options = {:host => '314machine.com'}
+  config.action_mailer.default_options = {from: 'info@makinatr.com'}     
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).

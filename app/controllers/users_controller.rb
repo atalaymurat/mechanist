@@ -9,6 +9,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def show
+    @user = User.find(params[:id])
+  end
+
   def update
     @user = User.find(params[:id])
     if params[:user][:remove_user_picture] == "1"
@@ -42,7 +46,7 @@ class UsersController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:email, :user_picture, remote_user_picture_url, :first_name, :last_name, :alias, :password, :password_confirmation, :current_password)
+    params.require(:user).permit(:email, :user_picture, :remote_user_picture_url, :first_name, :last_name, :alias, :password, :password_confirmation, :current_password)
   end
   def admin_user_params
     params.require(:user).permit(:email, :user_picture, :remote_user_picture_url, :first_name, :last_name, :alias,  :admin, :password, :password_confirmation, :approved)

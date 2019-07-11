@@ -7,7 +7,12 @@ class User < ApplicationRecord
   has_many :emails
   validates :alias, uniqueness: true
   validates :email, uniqueness: true, presence: true
+  before_save :default_values
   mount_uploader :user_picture, ImageUploader
+  def default_values
+    word = self.email.split("@")
+    self.alias = word[0][0..1].upcase + word[1][0..1].upcase if self.alias.blank?
+  end
   def username
     return self.email.split(/\W+/ )[1].capitalize
   end

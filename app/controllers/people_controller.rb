@@ -19,7 +19,7 @@ class PeopleController < ApplicationController
   def index
     @search = Person.search(params[:q])
     @pagy, @people = pagy(policy_scope(@search.result).order('created_at desc'))
-    @people_count = @search.result.count
+    @people_count = policy_scope(@search.result).count
     def index_page_url
       session[:index_page_url] = URI(request.original_url || '')
     end

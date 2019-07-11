@@ -1,4 +1,4 @@
-<h1 class="text-center">Users <%= @users.count %></h1>
+<h1 class="text-center">Users (<%= @users.count %>)</h1>
 <div class="table-responsive">
   <table class="table table-hover">
     <thead>
@@ -14,7 +14,7 @@
     <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= user.id %> <span class="float-right"> <%= user.first_name + " " + user.last_name %> </span> </td>
+        <td><%= user.id %> <span class="float-right"> <%= link_to(user.first_name + " " + user.last_name, user_path(user) ) %> </span> </td>
         <td><%= user.email %> </td>
         <td><%= user.alias %> </td>
         <td><% if user.admin %><p>Admin</p><% else %><p>User</p><% end %></td>

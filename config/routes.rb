@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   
   devise_for :users
-  resources :users, only: [:index, :edit, :update, :destroy]
+  resources :users, only: [:index, :edit, :update, :show, :destroy]
 
   get 'emails/index'
   get 'pages/home'

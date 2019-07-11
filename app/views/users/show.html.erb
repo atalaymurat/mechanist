@@ -1,0 +1,55 @@
+<div class="container" style="">
+<h2>User</h2>
+  <div class="row">
+    <div class="col-sm-6 col-12">
+      <%= image_tag @user.user_picture_url, class: "img-fluid p-2 mx-auto" if @user.user_picture.presence %>
+    </div>
+    <div class="col-sm-6 col-12">
+      <table class="table table-striped mt-2">
+        <tbody>
+          <tr>
+            <th scope="row">id</th>
+            <td><%= @user.id %></td>
+          </tr>
+          <tr>
+            <th scope="row">name</th>
+            <td><%= @user.first_name + " " + @user.last_name%> </td>
+          </tr>
+          <tr>
+            <th scope="row">email</th>
+            <td><%= @user.email %></td>
+          </tr>
+          <tr>
+            <th scope="row">alias</th>
+            <td><%= @user.alias %></td>
+          </tr>
+          <tr>
+            <th scope="row">approved</th>
+            <td><%= fa_icon("check-square", type: :regular) if @user.approved %>
+                <%= fa_icon("times-circle", type: :regular) unless @user.approved %>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">status</th>
+            <td><%= fa_icon("user-shield", type: :solid) if @user.admin %>
+                <%= fa_icon("user-lock", type: :solid) unless @user.admin %>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">created at</th>
+            <td><%= @user.created_at.strftime("%d-%m-%Y") %></td>
+          </tr>
+          <tr>
+            <th scope="row">updated at</th>
+            <td><%= @user.updated_at.strftime("%d-%m-%Y") %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4"></div>
+  </div>
+</div>

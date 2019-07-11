@@ -41,8 +41,8 @@ Rails.application.configure do
     :address              => "shared4.accountservergroup.com",
     :port                 => 465,
     :authentication       => :login,
-    :user_name            => "atalaymurat@makinatr.com",
-    :password             => "18makinatr18",
+    :user_name            => Rails.application.credentials.dig(:site5_email_username),
+    :password             => Rails.application.credentials.dig(:site5_email_password),
     :enable_starttls_auto => true,
     :ssl                  => true
   }

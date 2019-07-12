@@ -1,107 +1,158 @@
-<p>
-  <strong>Logo:</strong><br>
-  <%= image_tag @company.logo_url(:thumb) if @company.logo?  %>
-</p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @company.name %>
-</p>
-<p>
-  <strong>Invoice title:</strong>
-  <%= @company.invoice_title %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @company.email %>
-</p>
-
-<p>
-  <% if @company.unsubscribe %>
-    <strong>Subscribed:</strong> not listing in email list
-  <% else %>
-    <strong>Subscribed:</strong> listing in email list
-  <% end %>
-</p>
-
-<p>
-  <strong>Url:</strong>
-  <%= @company.url %>
-</p>
-<p>
-  <strong>Note:</strong>
-  <%= @company.note %>
-</p>
-<p>
-  <strong>Source:</strong>
-  <%= @company.source %>
-</p>
-
-  <% if @company.phones.present? %>
-  <strong>Phones:</strong>
-  <div class="card-columns">
-    <% @company.phones.each do |phone| %>
-      <div class="card bg-secondary p-2 my-1 text-white"><%= phone.phone_type %> <%= number_to_phone(phone.phone_number, area_code: true, delimiter: " ") %></div>
-    <% end %>
-  </div>
-  <% end %>
-<strong>Address:</strong>
-<div>
-    <ul>
-  <%= @company.address_title if @company.address_title.present? %>  
-  <%= @company.address_line.capitalize if @company.address_line.present? %>
-  <%= @company.zip if @company.zip.present? %>
-  <%= @company.town if @company.town.present? %>
-  <%= @company.state.name if @company.state.present? %> 
-  <%= @company.country.name if @company.country.present? %> 
-    </ul>
+<div class="container">
+  
+  <div class="row">
+    <div class="col-8">
+      <h2> <%= @company.name.capitalize%></h2>
+    </div>
+    <div class="col-4">
+      <%= image_tag @company.logo_url(:thumb), class: "img-fluid float-right d-block" if @company.logo?  %>
+    </div>
   </div>
 
-
-  <% if @company.people.present? %>
-    <div class="table-responsive">
-      <strong> <%= "Person".pluralize(@company.people.count)%>: </strong>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">Full Name</th>
-            <th scope="col">Position</th>
-            <th scope="col">Phone</th>
-            <th scope="col"> </th>
-          </tr>
-        </thead>
+  <div class="row">
+    <div class="col-sm col-12">
+      <table class="table table-striped mt-2">
         <tbody>
-    <% @company.people.each do |person| %>
           <tr>
-            <td> <%= link_to person.full_name, person %></td>
+            <th scope="row">Id</th>
+            <td> <%= @company.id %></td>
+          </tr>
+          <tr>
+            <th scope="row">Invoice Title</th>
+            <td> <%= @company.invoice_title %></td>
+          </tr>
+          <tr>
+            <th scope="row">Email</th>
+            <td> <%= @company.email %></td>
+          </tr>
+          <tr>
+            <th scope="row">Subscribed</th>
             <td>
-              <% person.connected.where(company_id: @company.id ).each do |pcp| %> 
-                <%= pcp.position %> 
-              <% end %>
-            </td>
-            <td> 
-              <% person.phones.each do |phone| %> 
-                <p> <%= number_to_phone(phone.phone_number, area_code: true, delimiter: " ") %> </p>
-              <% end %>
-            </td>
-            <td>
-              <%= link_to fa_icon("trash-alt", type: :regular, style: "color: red"), person, method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-link' if policy(person).destroy? %>
+                <% if @company.unsubscribe %>
+                not listing in email list
+                <% else %>
+                listing in email list
+                <% end %>
             </td>
           </tr>
+          <tr>
+            <th scope="row">Url</th>
+            <td><%= @company.url %></td>
+          </tr>
+          <tr>
+            <th scope="row">Source</th>
+            <td><%= @company.source %></td>
+          </tr>
+          <% if @company.phones.present? %>
+            <% @company.phones.each do |phone| %>
+              <tr>
+                <th scope="row">Phone <%= phone.phone_type %></th>
+                <td><%= number_to_phone(phone.phone_number, area_code: true, delimiter: " ") %></td>
+              </tr>
+            <% end %>
+          <% end %>
+
         </tbody>
-    <% end %>
       </table>
     </div>
-  <% end %>
+    <div class="col-sm col-12">
 
 
+      <table class="table table-striped mt-2">
+        <tbody>
+          <tr>
+            <th scope="row">Address</th>
+            <td> <%= @company.address_title if @company.address_title.present? %></td>
+          </tr>
+          <tr>
+            <th scope="row">Street</th>
+            <td><%= @company.address_line.capitalize if @company.address_line.present? %></td>
+          </tr>
+          <tr>
+            <th scope="row">Town</th>
+            <td><%= @company.town if @company.town.present? %></td>
+          </tr>
+          <tr>
+            <th scope="row">Zip</th>
+            <td><%= @company.zip if @company.zip.present? %></td>
+          </tr>
+          <tr>
+            <th scope="row">State/City</th>
+            <td><%= @company.state.name if @company.state.present? %></td>
+          </tr>
+          <tr>
+            <th scope="row">Country</th>
+            <td><%= @company.country.name if @company.country.present? %></td>
+          </tr>
+          <tr>
+            <th scope="row">Created by</th>
+            <td> <%= @company.user.alias %></td>
+          </tr>
+          <tr>
+            <th scope="row">Note</th>
+            <td><%= @company.note %></td>
+          </tr>
+        </tbody>
+      </table>
+  
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+    <% if @company.people.present? %>
+      <h3> <%= "Person".pluralize(@company.people.count)%></h3>
 
-<p>
-  <strong>Created by:</strong>
-  <%= @company.user.username %>
-</p>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="row">Full Name</th>
+                    <th scope="row">Position</th>
+                    <th scope="row">Phone</th>
+                    <th scope="row">Del</th>
+                  </tr>
 
-<%= link_to fa_stacked_icon("edit",text: "edit", type: "regular"), edit_company_path(@company), class: "px-2" if policy(@company).update? %> 
-<%= link_to fa_stacked_icon('angle-left', text: "back"), session[:index_page_url] if session[:index_page_url].present?%>
-<%= link_to fa_stacked_icon('angle-left', text: "back to Companies"), companies_path if session[:index_page_url].blank?%>
+
+                </thead>
+                <tbody>
+                <% @company.people.each do |person| %>
+                  <tr>
+                    <td> <%= link_to person.full_name.upcase, person %>   </td>
+                    <td> <% person.connected.where(company_id: @company.id ).each do |pcp| %> 
+                          <%= pcp.position %> 
+                        <% end %>
+                    </td>
+                    <td>
+                    
+                      <table class="table table-bordered table-sm">
+                        <% person.phones.each do |phone| %> 
+                        <tr>
+                          <th scope="row"> <%= phone.phone_type %></th>
+                          <td>
+                          <%= number_to_phone(phone.phone_number, area_code: true, delimiter: " ") %>
+                          </td>
+                        </tr>
+                        <% end %>
+                      </table>
+
+                    </td>
+                    <td>
+                      <%= link_to fa_icon("trash-alt", type: :regular, style: "color: red"),
+                            person, method: :delete, data: { confirm: 'Are you sure?' },
+                            class: 'card-link' if policy(person).destroy? %>
+                    </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+    <% end %>
+            
+    </div>
+  </div>
+
+  <%= link_to fa_stacked_icon("edit",text: "edit", type: "regular"), 
+        edit_company_path(@company), class: "px-2" if policy(@company).update? %> 
+  <%= link_to fa_stacked_icon('angle-left', text: "back"),
+        session[:index_page_url] if session[:index_page_url].present?%>
+  <%= link_to fa_stacked_icon('angle-left', text: "back to Companies"),
+        companies_path if session[:index_page_url].blank?%>
+</div>

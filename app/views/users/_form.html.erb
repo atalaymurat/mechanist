@@ -2,7 +2,6 @@
 
       <% flash.now[:error] = @user.errors.full_messages.to_sentence if @user.errors.present? %>
 
-
   <div class="form-group">
     <div class="custom-file">
       <%= f.label "upload a picture" %>
@@ -71,9 +70,9 @@
     <%= f.password_field :password_confirmation, class: "form-control" %>
   </div>
 </div>
-    <%= f.submit class: "btn btn-primary btn-sm"%>
+<div class="container">
+<%= f.submit class: "btn btn-primary btn-sm"%>
+</div>
 <% end %>
-<hr>
-
   </div>
 

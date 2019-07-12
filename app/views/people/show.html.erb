@@ -1,76 +1,123 @@
-<p>
-  <strong>First name:</strong>
-  <%= @person.first_name %>
-</p>
+<div class="container">
+  <h2>
+    <%= "#{@person.first_name.capitalize} #{@person.middle_name.capitalize if @person.middle_name.present?} #{@person.last_name.upcase if @person.last_name.present?}" %>
+  </h2>
+  <div class="row">
+    <div class="col-sm-6 col-12">
+      <table class="table bg-light">
+        <tbody>
+          <tr>
+            <th scope="row">id</th>
+            <td><%= @person.id %></td>
+          </tr>
+          <tr>
+            <th scope="row">Source</th>
+            <td><%= @person.source %></td>
+          </tr>
+          <tr>
+            <th scope="row">Created by</th>
+            <td><%= @person.user.alias %></td>
+          </tr>
+          <tr>
+            <th scope="row">Created at</th>
+            <td><%= @person.created_at %></td>
+          </tr>
+          <tr>
+            <th scope="row">Updated at</th>
+            <td><%= @person.updated_at %></td>
+          </tr>
+        </tbody>
+      </table>
+      
+  <% if @person.note.present? %>
+          <table class="table table-sm">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="row">Note</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><%= @person.note %></td>
+              </tr>
+            </tbody>
+          </table>
+  <% end %>
 
-<p>
-  <strong>Middle name:</strong>
-  <%= @person.middle_name %>
-</p>
-
-<p>
-  <strong>Last name:</strong>
-  <%= @person.last_name %>
-</p>
-<p>
-  <strong>Note:</strong><br>
-  <%= @person.note %>
-</p>
-<p>
-  <strong>Source:</strong>
-  <%= @person.source %>
-</p>
-
-<p>
   <% if @person.companies.present? %>
-    <strong> <%=  "Company".pluralize(@person.companies.count)%>:</strong>
-    <% @person.companies.each do |company| %>
-    <ul class="row">
-      <li class="list-inline-item" > <%= link_to  company.name, company %></li> </ul>
-    <% end %>
-  <% end %>
-</p>
-
-<p>
-  <% if @person.emails.present? %>
-    <strong> <%= "Email".pluralize(@person.emails.count)%>:</strong>
-    <% @person.emails.each do |email| %>
-      <ul class="row">
-        <li class="list-inline-item">
-          <%= mail_to email.email %>
-        </li>
-        <li class="list-inline-item">
-          <% if email.unsubscribe %>
-            <%= fa_icon("ban", type: "solid") %>
-            not listing in email list 
-          <% end %>
-        </li>
-      </ul>
-    <% end %>
+      <table class="table table-sm">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="row"><%=  "Company".pluralize(@person.companies.count)%></th>
+            <th scope="row">Position</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @person.companies.each do |company| %>
+          <tr>
+            <td><%= link_to  company.name.capitalize, company %></td>
+            <% company.connected.where(person_id: @person.id).each do |pos| %>
+              <td><%= pos.position %> </td>
+            <% end %>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
   <% end %>
 
-</p>
-<p>
+    </div>
+    <div class="col-sm-6 col-12">
+
   <% if @person.phones.present? %>
-    <strong> <%= "Phone".pluralize(@person.phones.count)%>:</strong>
-    <% @person.phones.each do |phone| %>
-      <ul class="row">
-        <li class="list-inline-item">
-          <%= phone.phone_type %> :
-          <%= number_to_phone(phone.phone_number, area_code: true, delimiter: " ") %>
-        </li>
-      </ul>
+      <table class="table table-sm">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="row" colspan="2"> <%= "Phone".pluralize(@person.phones.count)%></th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @person.phones.each do |phone| %>
+          <tr>
+            <th scope="row"> <%= phone.phone_type %></th>
+            <td><%= number_to_phone(phone.phone_number, area_code: true, delimiter: " ") %></td>
+          </tr>
+        <% end %>
+
+        </tbody>
+      </table>
     <% end %>
-  <% end %>
+    
+  <% if @person.emails.present? %>
+      <table class="table table-sm">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="row" colspan="2"><%= "Email".pluralize(@person.emails.count)%></th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @person.emails.each do |email| %>
+          <tr>
+            <td> <%= mail_to email.email %>     </td>
+            <td>
+            <% if email.unsubscribe %>
+            <%= fa_icon("ban", type: "solid") %>
+            no listing 
+            <% end %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    <% end %>
 
-</p>
-
-<p>
-  <strong>Created by:</strong>
-  <%= @person.user.username %>
-</p>
+    </div>
+    
+    <div class="col-12">
 <%= link_to fa_stacked_icon("edit", type: "regular", text: "edit"), edit_person_path(@person), class: "px-2" if policy(@person).update? %> 
 <%= link_to fa_stacked_icon('angle-left', text: "back" ), session[:index_page_url] if session[:index_page_url].present? %>
 <%= link_to fa_stacked_icon('home', text: "home" ), root_path if session[:index_page_url].blank? %>
 <%= link_to fa_stacked_icon("trash-alt",text: "Delete", type: :regular),@person, method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-link float-right' if policy(@person).destroy? %>
+    </div>
 
+  </div>
+</div>

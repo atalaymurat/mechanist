@@ -1,20 +1,20 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-
+  
   def index
-    @users = User.order(:id).all
+    @users = policy_scope(User.all).order(:id)
   end
 
   def edit
-    @user = User.find(params[:id])
+    @user = authorize User.find(params[:id])
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = authorize User.find(params[:id])
   end
 
   def update
-    @user = User.find(params[:id])
+    @user = authorize User.find(params[:id])
     if params[:user][:remove_user_picture] == "1"
       @user.remove_user_picture!
       @user.save

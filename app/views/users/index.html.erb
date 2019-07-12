@@ -3,7 +3,7 @@
   <table class="table table-hover">
     <thead>
       <tr>
-        <th scope="col">Id-Name</th>
+        <th scope="col">Id</th>
         <th scope="col">Email</th>
         <th scope="col">Alias</th>
         <th scope="col">Status</th>
@@ -14,16 +14,15 @@
     <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= user.id %> <span class="float-right"> <%= link_to(user.first_name + " " + user.last_name, user_path(user) ) %> </span> </td>
+        <td class="text-center"><%= link_to user.id, user_path(user) %></td>
         <td><%= user.email %> </td>
         <td><%= user.alias %> </td>
         <td><% if user.admin %><p>Admin</p><% else %><p>User</p><% end %></td>
         <td><code><%= user.approved %></code> </td>
         <td>
-        <%=  fa_stacked_icon("user-shield", type: :solid) if user.admin%>
-        <%=  fa_stacked_icon("user-lock", type: :solid) if !user.admin and user != current_user %>
-        <%= link_to fa_stacked_icon( "edit", type: :regular), edit_user_path(user) if user == current_user or current_user.admin %>
-        <%= link_to fa_stacked_icon("trash-alt",text: "Delete", type: :regular),user, method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-link' if current_user.admin %>
+        <%=  link_to_if(policy(user).update?, fa_stacked_icon("user-shield", type: :solid), edit_user_path(user)) unless policy(user).update?%>
+        <%=  link_to fa_stacked_icon("unlock-alt", type: :solid), edit_user_path(user)if policy(user).update?%>
+        <%= link_to fa_stacked_icon("trash-alt",text: "Delete", type: :regular),user, method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-link' if policy(user).destroy? %>
         </td>
       </tr>
     <% end %>

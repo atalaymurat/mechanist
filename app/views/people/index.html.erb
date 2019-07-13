@@ -1,7 +1,7 @@
 <h1 class="text-center">People (<%= @people_count %>)</h1>
   <div class="container-fluid">
-      <%= link_to 'New Person', new_person_path, class: "btn btn-dark mb-2" %>
-      <%= link_to "Import CSV", import_people_path, class: "btn btn-dark mb-2", method: :get  %>
+      <%= link_to fa_icon('user-plus', type: :solid, text: 'New Person'), new_person_path, class: "btn btn-dark btn-sm mb-2" %>
+      <%= link_to fa_icon('file-csv', type: :solid, text:"Import CSV"), import_people_path, class: "btn btn-dark btn-sm mb-2", method: :get  %>
 
     <div class="card my-2 p-4">
       <%= search_form_for @search do |f| %>

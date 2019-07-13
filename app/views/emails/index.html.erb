@@ -1,10 +1,11 @@
+<div class="container">
 <h1>Emails List</h1>
 <h3>Total <%= (policy_scope(Email).count - policy_scope(Email).distinct.count(:unsubscribe)) + 
               (policy_scope(Company).distinct.count(:email) - policy_scope(Company).distinct.count(:unsubscribe)) %> emails subscribed </h3>
+<% if policy_scope(Email).count > 0 or policy_scope(Company).distinct.count(:unsubscribe) > 1 %>
 <div class="table-responsive">
-  <table class="table table-hover">
+  <table class="table table-hover table-sm">
     <thead>
-    <% if current_user.emails.present? %>
       <tr>
         <th scope="col">Email</th>
         <th scope="col">Name</th>
@@ -30,9 +31,11 @@
         <% end %>
       <% end %>
     </tbody>
+</table>
 
-  </table>
-  <table class="table table-hover">
+
+
+  <table class="table table-hover table-sm">
     <thead>
       <tr>
       </tr>
@@ -54,4 +57,5 @@
     </tbody>
   </table>
 </div>
-<% end %>
+<% end #closing if %>
+</div>

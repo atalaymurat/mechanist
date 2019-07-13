@@ -1,28 +1,30 @@
-<h1 class="h3 mb-3 font-weight-normal">Log in</h2>
+<div class="container bg-light mt-1">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-sm-6 col-md-4 mx-auto mt-4">
+  
+      <h1 class="h3">Please Log In</h1>
 
-<%= form_for(resource, html: {class: "form-signin", style: "max-width:330px" }, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email, class: "sr-only" %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Email" %>
-  </div>
 
-  <div class="field">
-    <%= f.label :password, class: "sr-only"%><br />
-    <%= f.password_field :password, autocomplete: "current-password", class: "form-control", placeholder: "Password"%>
-  </div>
+      <%= form_for(resource, html: {class: "form-signin mx-auto", style: "display: inline-block" }, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <%= f.label :email, class: "sr-only" %><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Email" %>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="checkbox mb-3">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
-    </div>
-  <% end %>
+      <%= f.label :password, class: "sr-only"%><br />
+      <%= f.password_field :password, autocomplete: "current-password", class: "form-control", placeholder: "Password"%>
 
-  <div class="actions">
-    <%= f.submit "Log in", class: "btn btn-md btn-primary btn-block" %>
-  </div>
-<p class="mt-5 mb-3 text-muted" style="text-align:center">
-  © 2019-<%= Time.now.year %>
-</p>
-<% end %>
+      <% if devise_mapping.rememberable? %>
+        <div class="checkbox my-2">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me %>
+        </div>
+      <% end %>
+
+      <%= f.submit "Log in", class: "btn btn-md btn-dark btn-block mb-5" %>
+
+    <% end %>
+
 <%= render "devise/shared/links" %>
+<p class="my-2 text-muted text-center mt-5">© 2019-<%= Time.now.year %></p>
+    </div>
+  </div>
+</div>

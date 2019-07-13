@@ -1,8 +1,8 @@
 <h1 class="text-center">Companies (<%= @companies_count %>) </h1>
   <div class="container-fluid">
-    <%= link_to 'New Company', new_company_path, class: 'btn btn-dark mb-2', :method => :get %>
-    <%= link_to "Import CSV", import_companies_path,class: "btn btn-dark mb-2", method: :get  %>
-    <%= link_to "Export CSV", companies_path(format: "csv"), class: "btn btn-dark mb-2" %>
+    <%= link_to fa_icon('folder-plus', type: :solid, text: 'New Company'), new_company_path, class: 'btn btn-dark btn-sm mb-2', :method => :get %>
+    <%= link_to fa_icon('file-csv', type: :solid, text: "Import"), import_companies_path,class: "mb-2 btn btn-dark btn-sm", method: :get  %>
+    <%= link_to fa_icon('file-csv', type: :solid, text: "Export"), companies_path(format: "csv"), class: "btn btn-dark btn-sm mb-2" %>
     
     <div class="card my-2 p-4">
       <%= search_form_for @search do |f| %>

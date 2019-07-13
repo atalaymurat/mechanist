@@ -1,8 +1,8 @@
 <h1 class="text-center">Companies (<%= @companies_count %>) </h1>
   <div class="container-fluid">
-    <%= link_to 'New Company', new_company_path, class: 'btn btn-primary mb-2', :method => :get %>
-    <%= link_to "Import CSV", import_companies_path,class: "btn btn-primary mb-2", method: :get  %>
-    <%= link_to "Export CSV", companies_path(format: "csv"), class: "btn btn-primary mb-2" %>
+    <%= link_to 'New Company', new_company_path, class: 'btn btn-dark mb-2', :method => :get %>
+    <%= link_to "Import CSV", import_companies_path,class: "btn btn-dark mb-2", method: :get  %>
+    <%= link_to "Export CSV", companies_path(format: "csv"), class: "btn btn-dark mb-2" %>
     
     <div class="card my-2 p-4">
       <%= search_form_for @search do |f| %>
@@ -62,7 +62,7 @@
             <div class="card-body">
               <p class="text-center"> <%= image_tag company.logo_url(:logo) if company.logo? %> </p>
               <% company.people.each do |person|  %>
-              <h6 class="card-subtitle mb-1"><%= link_to person.full_name.capitalize.truncate(16), person %></h6> 
+              <h6 class="card-subtitle mb-1"><%= link_to fa_icon('id-card', type: :regular, text: person.full_name.capitalize.truncate(16)), person %></h6> 
               <% end %>
               <small class="text-muted"> <%= company.state.name if company.state.present? %> <%= company.country.alpha2 if company.country.present? %> </small>
               <p class="card-text"><small class="text-muted">by <%= company.user.username %> </small></p>

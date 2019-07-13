@@ -1,6 +1,6 @@
 <!-- Footer -->
 <hr>
-<footer class="page-footer font-small">
+<footer class="page-footer font-small bg-dark text-white">
 
   <!-- Footer Elements -->
   <div class="container">
@@ -11,31 +11,18 @@
       <!-- Grid column -->
       <div class="col-xs-12 col-sm-12 col-md-12" >
         <div class="social text-center">
-
           <!-- Facebook -->
-          <a class="fb-ic">
             <%= fa_icon "facebook",size: "2x", class: "p-2", type: :brand %>
-          </a>
-          <!-- Twitter -->
-          <a class="tw-ic">
-            <%= fa_icon "twitter",size: "2x", class: "p-2", type: :brand %>
-          </a>
+          <!-- Whats App -->
+            <%= fa_icon "whatsapp",size: "2x", class: "p-2", type: :brand %>
           <!-- Google +-->
-          <a class="gplus-ic">
             <%= fa_icon "google-plus-g",size: "2x", class: "p-2", type: :brand %>
-          </a>
           <!--Linkedin -->
-          <a class="li-ic">
             <%= fa_icon "linkedin",size: "2x", class: "p-2", type: :brand %>
-          </a>
           <!--Instagram-->
-          <a class="ins-ic">
             <%= fa_icon "instagram",size: "2x", class: "p-2", type: :brand %>
-          </a>
-          <!--Pinterest-->
-          <a class="pin-ic">
-            <%= fa_icon "pinterest",size: "2x", class: "p-2", type: :brand %>
-          </a>
+          <!--Youtube-->
+            <%= fa_icon "youtube",size: "2x", class: "p-2", type: :brand %>
         </div>
       </div>
       <!-- Grid column -->
@@ -47,8 +34,9 @@
   <!-- Footer Elements -->
 
   <!-- Copyright -->
-  <div class="footer-copyright text-center py-3">© <%= Time.now.year %> Copyright:
-    <a href="http://314machine.com"> 314machine.com</a>
+  <div class="footer-copyright text-center py-3"><small>
+  All Rights Reserved by 314machine SPA © 2019 - <%= Time.now.year %>
+    </small>
   </div>
   <!-- Copyright -->
 

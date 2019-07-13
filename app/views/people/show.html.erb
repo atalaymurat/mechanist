@@ -4,7 +4,7 @@
   </h2>
   <div class="row">
     <div class="col-sm-6 col-12">
-      <table class="table bg-light">
+      <table class="table table-sm">
         <tbody>
           <tr>
             <th scope="row">id</th>
@@ -56,9 +56,11 @@
         <% @person.companies.each do |company| %>
           <tr>
             <td><%= link_to  company.name.capitalize, company %></td>
-            <% company.connected.where(person_id: @person.id).each do |pos| %>
-              <td><%= pos.position %> </td>
-            <% end %>
+            <td>
+          <% company.connected.where(person_id: @person.id).each_with_index do |pos, i| %>
+            <%= '*'*(i+1) %> <%= pos.position %> <br>
+          <% end %>
+            </td>
           </tr>
         <% end %>
         </tbody>

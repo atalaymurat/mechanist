@@ -11,10 +11,10 @@
 
   <div class="row">
     <div class="col-sm col-12">
-      <table class="table table-striped mt-2">
+      <table class="table table-sm mt-2">
         <tbody>
           <tr>
-            <th scope="row">Id</th>
+            <th scope="row" class="table-light">Id</th>
             <td> <%= @company.id %></td>
           </tr>
           <tr>
@@ -58,7 +58,7 @@
     <div class="col-sm col-12">
 
 
-      <table class="table table-striped mt-2">
+      <table class="table table-sm mt-2">
         <tbody>
           <tr>
             <th scope="row">Address</th>
@@ -102,7 +102,8 @@
     <% if @company.people.present? %>
       <h3> <%= "Person".pluralize(@company.people.count)%></h3>
 
-              <table class="table">
+      <table class="table">
+        <caption>List of connected people</caption>
                 <thead>
                   <tr>
                     <th scope="row">Full Name</th>
@@ -136,9 +137,9 @@
 
                     </td>
                     <td>
-                      <%= link_to fa_icon("trash-alt", type: :regular, style: "color: red"),
+                      <%= link_to fa_icon("link", type: :solid, style: "color: red"),
                             person, method: :delete, data: { confirm: 'Are you sure?' },
-                            class: 'card-link' if policy(person).destroy? %>
+                            class: 'card-link fa-lg' if policy(person).destroy? %>
                     </td>
                 </tr>
               <% end %>

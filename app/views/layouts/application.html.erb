@@ -17,6 +17,7 @@
     <% flash.each do |key, value| %>
       <div class="alert <%= flasherize(key)%>" role="alert"> <%= value %> </div>
     <% end %>
+    <%= render "layouts/search_bar" if user_signed_in? %>
 
   
     <div class="container-fluid">

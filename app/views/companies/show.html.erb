@@ -29,9 +29,9 @@
             <th scope="row">Subscribed</th>
             <td>
                 <% if @company.unsubscribe %>
-                not listing in email list
+                  <%= fa_icon('user-slash', type: :solid) %>
                 <% else %>
-                listing in email list
+                  <%= fa_icon('envelope-open-text', type: :solid) %>
                 <% end %>
             </td>
           </tr>

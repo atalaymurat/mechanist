@@ -8,8 +8,8 @@
 </div>
 
 <div class="row">
-  <div class="col-sm col-12">
-    <table class="table table-sm mt-2 table-responsive">
+  <div class="col-md-6 col-12">
+    <table class="table table-sm mt-2 table-responsive-sm">
       <tbody>
         <tr>
           <th scope="row" class="table-light">Id</th>
@@ -53,8 +53,8 @@
       </tbody>
     </table>
   </div>
-  <div class="col-sm col-12">
-    <table class="table table-sm mt-2 table-responsive">
+  <div class="col-md-6 col-12">
+    <table class="table table-sm mt-2 table-responsive-sm">
       <tbody>
         <tr>
           <th scope="row">Address</th>
@@ -99,7 +99,7 @@
   <% if @company.people.present? %>
     <h3> <%= "Person".pluralize(@company.people.count)%></h3>
 
-    <table class="table table-responsive">
+    <table class="table table-responsive-sm">
       <caption>List of connected people</caption>
       <thead>
         <tr>

@@ -1,37 +1,8 @@
+<div class="container-fluid">
 <h1 class="text-center">People (<%= @people_count %>)</h1>
-  <div class="container-fluid">
       <%= link_to fa_icon('user-plus', type: :solid, text: 'New Person'), new_person_path, class: "btn btn-dark btn-sm mb-2" %>
       <%= link_to fa_icon('file-csv', type: :solid, text:"Import CSV"), import_people_path, class: "btn btn-dark btn-sm mb-2", method: :get  %>
-
-    <div class="card my-2 p-4">
-      <%= search_form_for @search do |f| %>
-        <div class="form-row">
-          <div class="form-group col-md">
-            <%= f.label :first_name_cont_or_middle_name_cont_or_last_name_cont, "Full Name" %>
-            <%= f.text_field :first_name_or_middle_name_or_last_name_cont, class: "form-control" %>
-          </div>
-          <div class="form-group col-md">
-            <%= f.label :id_eq, "Id" %>
-            <%= f.text_field :id_eq, class: "form-control" %>
-          </div>
-          <div class="form-group col-md">
-            <%= f.label :user_id_eq, "User" %>
-            <%= f.collection_select :user_id_eq, User.all, :id, :username, {include_blank: true, prompt: "Choose.."} ,class: "form-control" %>
-          </div>
-        </div>
-      <%= f.submit "Search", class: "btn btn-outline-primary btn-sm"%>
-    <% end %>
-    </div>
-    <nav class="navbar bg-light navbar-dark mb-2">
-    <ul class="nav">
-      <li class="nav-item mx-2">
-      <%= sort_link @search, :first_name, "Sort by Name", class: "nav-link"%>
-      </li>
-      <li class="nav-item mx-2">
-      <%= sort_link @search, :id, "Sort by id",class: "nav-link" %>
-      </li>
-    </ul>
-    </nav>
+      <%= render "people/search_person" %>
 
     <div class="row">
       <% @people.each do |person| %>
@@ -69,9 +40,10 @@
         </div>
       <% end %>
     </div>
+</div>
+
+  <div class="d-flex justify-content-center">
+          <%= pagy_bootstrap_combo_nav_js(@pagy).html_safe %>
   </div>
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="row justify-content-center"> <%= pagy_bootstrap_nav(@pagy).html_safe %> </div>
-    </div>
-  </div>
+
+</div>

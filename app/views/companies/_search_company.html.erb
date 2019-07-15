@@ -1,0 +1,55 @@
+<div id="accordion"> 
+  <div class="card mb-2">
+
+    <div class="card-header p-0" id="headingOne">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="fales" aria-controls="collapseOne">
+          Advanced Search
+        </button>
+      </h5>
+    </div>
+
+
+    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+
+    <div class="card-body p-2">
+      <%= search_form_for @search do |f| %>
+        <div class="form-row">
+          <div class="form-group col-md">
+            <%= f.label :name_cont, "Company Name" %>
+            <%= f.text_field :name_cont, class: "form-control" %>
+          </div>
+          <div class="form-group col-md">
+            <%= f.label :id_eq, "Id" %>
+            <%= f.text_field :id_eq, class: "form-control" %>
+          </div>
+          <div class="form-group col-md">
+            <%= f.label :user_id_eq, "User" %>
+            <%= f.collection_select :user_id_eq, User.all, :id, :username, {include_blank: true, prompt: "Choose.."} ,class: "form-control" %>
+          </div>
+        </div>
+
+      <div class="form-row">
+        <div class="form-group col-md">
+          <%= f.label :country_id_eq, "Country" %>
+          <%= f.select :country_id_eq, options_for_select(countries_for.collect { |obj| [obj[:country_name] ,obj[:country_id]] }),{prompt:"Choose..", include_blank: true},  {class: "form-control" }  %>
+        </div>
+        <div class="form-group col-md">
+          <%= f.label :state_id_eq, "State" %>
+          <%= f.select :state_id_eq, options_for_select(states_for.collect { |sta| [sta[:state_name], sta[:state_id]]}),{prompt: "Choose..", include_blank: true}, {class: "form-control"} %>
+        </div>
+      </div>
+      <%= f.submit "Search", class: "btn btn-outline-primary btn-sm"%>
+    <% end %>
+    </div>
+
+    <div class="card-footer p-2 bg-light">
+      <%= sort_link @search, :name, "Sort by Name", class: "btn btn-link"%>
+      <%= sort_link @search, :id, "Sort by id",class: "btn btn-link" %>
+    </div>
+  
+  </div>
+  
+  
+  </div>
+</div>

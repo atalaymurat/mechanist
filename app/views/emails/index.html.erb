@@ -1,32 +1,26 @@
 <div class="container">
 <h1>Emails List</h1>
-<h3>Total <%= (policy_scope(Email).count - policy_scope(Email).distinct.count(:unsubscribe)) + 
-              (policy_scope(Company).distinct.count(:email) - policy_scope(Company).distinct.count(:unsubscribe)) %> emails subscribed </h3>
-<% if policy_scope(Email).count > 0 or policy_scope(Company).distinct.count(:unsubscribe) > 1 %>
+<h3>Total <%= policy_scope(Email).distinct.count(:email)  - policy_scope(Email).where(unsubscribe: true).count %> Person emails</h3>
+<h3>Total <%= policy_scope(Company.all).distinct.count(:email) - policy_scope(Company.all).where(unsubscribe: true).count %> Company emails</h3>
+<% if policy_scope(Email).distinct.count(:email) > 0 or policy_scope(Company).distinct.count(:unsubscribe) > 0 %>
 <div class="table-responsive">
   <table class="table table-hover table-sm">
     <thead>
       <tr>
         <th scope="col">Email</th>
         <th scope="col">Name</th>
-        <th scope="col">Companies</th>
         <th scope="col">Edit</th>
       </tr>
     </thead>
     <tbody>
-      <% policy_scope(@emails).order(:id).reverse.each do |email|  %>
-        <% unless email.unsubscribe %>
+      <% i = 0 %>
+      <% policy_scope(Email.all).each do |email|  %>
+        <% if  email.email.present? and email.unsubscribe != true %>
+          <% i += 1 %>
       <tr>
-        <td><%= email.email %> </td>
-        <td><%= link_to email.person.full_name.capitalize, email.person %> </td>
-        <td>
-          <% if email.person.companies.present? %>
-            <% email.person.companies.each do |company| %>
-            <%= link_to company.name.capitalize, company %>
-            <% end %>
-          <% end %>
-        </td>
-        <td><%= link_to fa_icon("edit", type: :regular), edit_person_path(email.person), class: 'card-link' if policy(email.person).update? %> </td>
+        <td><%= i %> <%= email.email %> </td>
+        <td><%= email.person.full_name %> </td>
+        <td><%= link_to "edit", edit_person_path(email.person) %> </td>
       </tr>
         <% end %>
       <% end %>
@@ -41,21 +35,74 @@
       </tr>
     </thead>
     <tbody>
-      <% policy_scope(Company).all.order(:id).each do |company| %>
-        <% unless company.unsubscribe %>
+      <% i = 0 %>
+      <% policy_scope(Company.all).each do |company| %>
+        <% if company.email.present? and company.unsubscribe != true %>
+          <% i +=1 %>
         <tr>
-          <% if company.email.present? %>
-          <td><%= company.email %> </td>
+          <td><%= i %> <%= company.email %> </td>
           <td><%= link_to company.name.capitalize, company %> </td>
-          <td></td>
+          <td><%= company.unsubscribe %> </td>
           <td><%= link_to fa_icon("edit", type: :regular), edit_company_path(company), class: 'card-link' if policy(company).update? %>
           </td>
-          <% end %>
         </tr>
         <% end %>
       <% end %>
     </tbody>
   </table>
 </div>
+
+
+
+  <table class="table table-hover table-sm">
+    <thead>
+      <h2>Emails Blacklist</h2>
+      <tr>
+        <th scope="col">Email</th>
+        <th scope="col">Name</th>
+        <th scope="col">Unsbscrb</th>
+        <th scope="col">Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% i = 0 %>
+      <% policy_scope(Email.all).each do |email|  %>
+        <% if  email.email.present? and email.unsubscribe? == true %>
+          <% i += 1 %>
+      <tr>
+        <td><%= i %> <%= email.email %> </td>
+        <td><%= email.person.full_name %> </td>
+        <td><%= email.unsubscribe %></td>
+        <td><%= link_to fa_icon("edit", type: :regular), edit_person_path(email.person) %> </td>
+      </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+</table>
+
+
+
+<table class="table table-hover table-sm">
+    <thead>
+      <h2>Company Blacklist</h2>
+      <tr>
+      </tr>
+    </thead>
+    <tbody>
+      <% i = 0 %>
+      <% policy_scope(Company.all).each do |company| %>
+        <% if company.email.present? and company.unsubscribe? == true %>
+          <% i +=1 %>
+        <tr>
+          <td><%= i %> <%= company.email %> </td>
+          <td><%= link_to company.name.capitalize, company %> </td>
+          <td><%= company.unsubscribe %> </td>
+          <td><%= link_to fa_icon("edit", type: :regular), edit_company_path(company), class: 'card-link' if policy(company).update? %>
+          </td>
+        </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
 <% end #closing if %>
 </div>

@@ -4,8 +4,8 @@
     <%= "#{@person.first_name.capitalize} #{@person.middle_name.capitalize if @person.middle_name.present?} #{@person.last_name.upcase if @person.last_name.present?}" %>
   </h2>
     </div>
-    <div class="col-sm-6 col-12">
-      <table class="table table-sm">
+    <div class="col-md-6 col-12">
+      <table class="table table-sm table-responsive-sm">
         <tbody>
           <tr>
             <th scope="row">id</th>
@@ -46,7 +46,7 @@
   <% end %>
 
   <% if @person.companies.present? %>
-      <table class="table table-sm">
+      <table class="table table-sm table-responsive-sm">
         <thead class="thead-dark">
           <tr>
             <th scope="row"><%=  "Company".pluralize(@person.companies.count)%></th>
@@ -69,10 +69,10 @@
   <% end %>
 
     </div>
-    <div class="col-sm-6 col-12">
+    <div class="col-md-6 col-12">
 
   <% if @person.phones.present? %>
-      <table class="table table-sm">
+      <table class="table table-sm table-responsive-sm">
         <thead class="thead-dark">
           <tr>
             <th scope="row" colspan="2"> <%= "Phone".pluralize(@person.phones.count)%></th>
@@ -91,7 +91,7 @@
     <% end %>
     
   <% if @person.emails.present? %>
-      <table class="table table-sm">
+      <table class="table table-sm table-responsive-sm">
         <thead class="thead-dark">
           <tr>
             <th scope="row" colspan="2"><%= "Email".pluralize(@person.emails.count)%></th>

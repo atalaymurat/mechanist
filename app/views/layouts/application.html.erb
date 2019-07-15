@@ -12,7 +12,7 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body style="width:100%">
     <%= render "layouts/navbar" if user_signed_in? %>
     <% flash.each do |key, value| %>
       <div class="alert <%= flasherize(key)%>" role="alert"> <%= value %> </div>

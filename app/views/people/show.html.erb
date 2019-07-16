@@ -1,7 +1,9 @@
+<div class="container-fluid">
   <div class="row">
     <div class="col-12">
   <h2>
     <%= @person.full_name.mb_chars.titleize %>
+
   </h2>
     </div>
     <div class="col-md-6 col-12">
@@ -117,8 +119,9 @@
 
       </div>
     </div>
+</div>
     
-    <div class="d-flex justify-content-start">
+  <div class="d-flex justify-content-md-start justify-content-sm-center">
 <%= link_to fa_stacked_icon("edit", type: "regular", text: "edit"), edit_person_path(@person), class: "" if policy(@person).update? %> 
 
 <%= link_to fa_stacked_icon('angle-left', text: "back" ), session[:index_page_url] if session[:index_page_url].present? %>
@@ -127,5 +130,4 @@
 
 <%= link_to fa_stacked_icon("trash-alt",text: "Delete", type: :regular),@person, method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-link' if policy(@person).destroy? %>
     </div>
-
-  </div>
+</div>

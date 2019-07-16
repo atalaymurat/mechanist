@@ -1,5 +1,6 @@
+<div class="container-fluid">
 <div class="row">
-  <div class="col<%= " col-12" if @company.logo.blank?  %>">
+ <div class="col<%= " col-12" if @company.logo.blank?  %>">
     <h2> <%= @company.name.mb_chars.titleize%></h2>
   </div>
   <div class="col-3">
@@ -18,7 +19,7 @@
         </tr>
         <tr>
           <th scope="row">Invoice Title</th>
-          <td> <%= @company.invoice_title.mb_chars.titleize %></td>
+          <td> <%= @company.invoice_title.mb_chars.titleize if @company.invoice_title.present? %></td>
         </tr>
         <tr>
           <th scope="row">Email</th>
@@ -89,7 +90,7 @@
         </tr>
         <tr>
           <th scope="row">Note</th>
-          <td><%= @company.note.mb_chars.titleize %></td>
+          <td><%= @company.note.mb_chars.titleize if @company.note.present?%></td>
         </tr>
       </tbody>
     </table>
@@ -103,7 +104,8 @@
   <% if @company.people.present? %>
     <h3> <%= "Person".pluralize(@company.people.count)%></h3>
 
-    <table class="table table-responsive-md">
+    <div class="table-responsive-md">
+    <table class="table">
       <caption>List of connected people</caption>
       <thead>
         <tr>
@@ -144,14 +146,19 @@
         <% end %>
       </tbody>
     </table>
+  </div>
   <% end %>
             
   </div>
 </div>
-
+  <div class="d-flex justify-content-md-start justify-content-sm-center">
   <%= link_to fa_stacked_icon("edit",text: "edit", type: "regular"), 
         edit_company_path(@company), class: "px-2" if policy(@company).update? %> 
   <%= link_to fa_stacked_icon('angle-left', text: "back"),
         session[:index_page_url] if session[:index_page_url].present?%>
   <%= link_to fa_stacked_icon('angle-left', text: "back to Companies"),
         companies_path if session[:index_page_url].blank?%>
+  <%= link_to fa_stacked_icon("trash-alt",text: "Delete", type: :regular),
+        @company, method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-link' if policy(@company).destroy? %>
+  </div>
+</div>

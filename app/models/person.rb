@@ -19,11 +19,11 @@ class Person < ApplicationRecord
       person_attributes = Hash.new
       person_attributes = {
         id: row["Id"],
-        first_name: (row["First_name"].downcase if row["First_name"].present?),
-        middle_name: (row["Middle_name"].downcase if row["Middle_name"].present?),
-        last_name: (row["Last_name"].downcase if row["Last_name"].present?),
+        first_name: (row["First_name"].mb_chars.downcase if row["First_name"].present?),
+        middle_name: (row["Middle_name"].mb_chars.downcase if row["Middle_name"].present?),
+        last_name: (row["Last_name"].mb_chars.downcase if row["Last_name"].present?),
         company_ids: [row["Company_ids"]],
-        note: (row["Note"].downcase if row["Note"].present?),
+        note: (row["Note"].mb_chars.downcase if row["Note"].present?),
         user_id: 2,
         source: "makinaTR"
       }

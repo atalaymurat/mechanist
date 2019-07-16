@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col<%= " col-12" if @company.logo.blank?  %>">
-    <h2> <%= @company.name.capitalize%></h2>
+    <h2> <%= @company.name.mb_chars.titleize%></h2>
   </div>
   <div class="col-3">
     <%= image_tag @company.logo_url(:thumb), class: "img-fluid float-right d-block" if @company.logo?  %>
@@ -9,7 +9,8 @@
 
 <div class="row">
   <div class="col-md-6 col-12">
-    <table class="table table-sm mt-2 table-responsive-sm">
+    <div class="table-responsive-xs">
+    <table class="table table-sm mt-2">
       <tbody>
         <tr>
           <th scope="row" class="table-light">Id</th>
@@ -17,7 +18,7 @@
         </tr>
         <tr>
           <th scope="row">Invoice Title</th>
-          <td> <%= @company.invoice_title %></td>
+          <td> <%= @company.invoice_title.mb_chars.titleize %></td>
         </tr>
         <tr>
           <th scope="row">Email</th>
@@ -53,8 +54,10 @@
       </tbody>
     </table>
   </div>
+  </div>
   <div class="col-md-6 col-12">
-    <table class="table table-sm mt-2 table-responsive-sm">
+    <div class="table-responsive-xs">
+    <table class="table table-sm mt-2">
       <tbody>
         <tr>
           <th scope="row">Address</th>
@@ -62,11 +65,11 @@
         </tr>
         <tr>
           <th scope="row">Street</th>
-          <td><%= @company.address_line.capitalize if @company.address_line.present? %></td>
+          <td><%= @company.address_line.mb_chars.titleize if @company.address_line.present? %></td>
         </tr>
           <tr>
           <th scope="row">Town</th>
-          <td><%= @company.town if @company.town.present? %></td>
+          <td><%= @company.town.mb_chars.capitalize if @company.town.present? %></td>
         </tr>
         <tr>
           <th scope="row">Zip</th>
@@ -86,10 +89,11 @@
         </tr>
         <tr>
           <th scope="row">Note</th>
-          <td><%= @company.note %></td>
+          <td><%= @company.note.mb_chars.titleize %></td>
         </tr>
       </tbody>
     </table>
+    </div>
   
   </div>
 </div>
@@ -99,7 +103,7 @@
   <% if @company.people.present? %>
     <h3> <%= "Person".pluralize(@company.people.count)%></h3>
 
-    <table class="table table-responsive-sm">
+    <table class="table table-responsive-md">
       <caption>List of connected people</caption>
       <thead>
         <tr>
@@ -112,7 +116,7 @@
       <tbody>
       <% @company.people.each do |person| %>
         <tr>
-          <td> <%= link_to person.full_name.upcase, person %>   </td>
+          <td> <%= link_to person.full_name.titleize, person %>   </td>
           <td> <% person.connected.where(company_id: @company.id ).each do |pcp| %> 
                 <%= pcp.position %> 
               <% end %>

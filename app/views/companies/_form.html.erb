@@ -127,6 +127,7 @@
         <div class="col-md my-1"><%= p_form.text_field :first_name, placeholder: "first name", class: "form-control" %> </div>
         <div class="col-md my-1"><%= p_form.text_field :middle_name, placeholder: "middle name", class: "form-control" %> </div>
         <div class="col-md my-1"><%= p_form.text_field :last_name, placeholder: "last name", class: "form-control" %> </div>
+        <div class="col-md my-1"><%= p_form.text_field :position_new, placeholder: "position", class: "form-control" %> </div>
       </div>
         <%= p_form.nested_fields_for :emails, Email.new do |e_form|  %>
           <%= render partial: "emails/emails", locals: {e_form: e_form} %>

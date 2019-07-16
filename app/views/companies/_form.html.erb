@@ -2,23 +2,20 @@
 
   <% flash.now[:error] = company.errors.full_messages.to_sentence if company.errors.any? %>
 
-
 <div class="container">
   <div class="form-group">
     <div class="custom-file">
-      <%= form.label "upload a logo" %>
-      <%= form.file_field :logo, class: "form-control" %>
+      <%= form.file_field :logo, class: "custom-file-input", id: "customFile"  %>
+      <%= form.label "upload a logo", class: "custom-file-label", for: "customFile" %>
     </div>
-  </div>    
+  </div>
   <div class="input-group mb-3">
     <div class="input-group-prepend">
-      <%= form.label "Upload Remote logo http://", class: "input-group-text", id: "basic-addon3" %>
+      <%= form.label "Upload Remote", class: "input-group-text", id: "basic-addon3" %>
     </div>
       <%= form.text_field :remote_logo_url, class: "form-control",id:"basic-url" %>
   </div>
 
-    <hr>
-    
   <div class="form-check-inline">
     <%= image_tag(company.logo_url(:thumb)) if company.logo? %>
     <%= form.label "Remove Logo", class: "form-check-label mx-2", for:"remove_logo" if company.logo? %>
@@ -37,47 +34,47 @@
 
     <%= form.label :note %>
     <%= form.text_area :note, class: "form-control" %>
-  </div>
-  <div class="row">
-    <div class="col-sm-2 form-group">
-      <%= form.label :email %>
-    </div>
-    <div class="col-sm-8 form-group">
+    
+    <%= form.label :email %>
+    <div class="row">
+      <div class="col-md-9 form-group">
       <%= form.text_field :email, :class => "form-control" %>
-    </div>
+      </div>
       
-    <div class="col-sm-2 form-group">
+      <div class="col-md-3 form-group">
       <div class="form-check-inline">
         <%= form.check_box :unsubscribe, class: "form-check-input" %>
         <%= form.label :unsubscribe, class: "form-check-label" %>
       </div>
+      </div>
     </div>
   </div>
     
-    <div class="card p-4 bg-light mb-2">
-      <h4>Company Phones</h4>
+  <div class="card mb-2">
+      <h4 class="card-header">Company Phones</h4>
+    <div class="card-body">
       <%= form.nested_fields_for :phones, :phones do |p_form| %>
         <%= render partial: "phones/phone", locals: {p_form: p_form} %>
       <% end %>
-      <div class="card-body">
-      <%= form.add_nested_fields_link :phones, "Add Phone", class: "btn btn-outline-primary btn-sm"%> <br>
-      </div>
     </div>
+    <div class="card-footer">
+    <%= form.add_nested_fields_link :phones, "Add Phone", class: "btn btn-outline-primary btn-sm"%>
+    </div>
+  </div>
 
-    
-
-  <div class="card p-4 bg-light address-group"> 
-    <h4> Company Address</h4>
+  <div class="card mb-2"> 
+    <h4 class="card-header">Company Address</h4>
+    <div class="card-body">
     <%= form.label :address_title %>
     <%= form.select :address_title, ["Factory", "Office", "Showroom", "Headquarters", "Branch", "Other" ] ,{prompt:"Choose..", include_blank: true},  {class: "form-control"} %>
 
       
-    <%= form.label :country_id %><br />
+    <%= form.label :country_id %>
     <%= form.collection_select :country_id, Country.order(:name), :id, :name,{prompt: "Choose..", include_blank: true }, {class:"form-control", data: {dynamic_selectable_url: dynamic_select_states_path(':country_id'), dynamic_selectable_target: '#company_state_id' } } %>  
     
     <div class="form-row">
       <div class="form-group col-md-5">
-        <%= form.label :state_id, "State or City" %> <br />
+        <%= form.label :state_id, "State or City" %> 
         <%= form.collection_select :state_id, @company.country.try(:states) || [], :id, :name, {prompt: "Choose.."}, {class: "form-control"} %>
       </div>
       <div class="form-group col-md-4">
@@ -88,45 +85,61 @@
         <%= form.label :zip %>
         <%= form.text_field :zip, class: "form-control" %>
       </div>
-
     </div>
 
     <%= form.label :address_line %>
     <%= form.text_area :address_line, class: "form-control" %>
- </div>
-
- <hr>
- <div class="form-group">
- <% if @company.connected.present? %>
-  <%= form.nested_fields_for :connected do |cpf| %>
-    <% person = cpf.object.person %>
-    <div class="form-row">
-      <div class="col-md my-1">
-         <%= cpf.collection_select :person_id, policy_scope(Person.order(:first_name)), :id, :full_name, {prompt: "Choose..",include_blank: true },{class: "form-control"}  %>
-      </div>
-      <div class="col-md my-1">
-        <%= cpf.select :position,options_for_positions ,{prompt: "Position..", include_blank: true},{class: "form-control"} %>
-      
-      </div>
-      <div class="col-md my-1">
-        <%= cpf.remove_nested_fields_link "Remove", class:"btn btn-outline-danger btn-md" %>
-      </div>
     </div>
+  </div>
 
-   <% end %>
- <% end %>
-      <%= form.add_nested_fields_link :connected, "Add Connection", class: "btn btn-outline-primary btn-sm mt-2"%> <br>
- </div>
- <hr>
 
-    <div class="form-group card p-4 bg-light">
-      <%= form.label "Add new people", class:"form-group" %>
+  <div class="card mb-2">
+    <h4 class="card-header">Add Person Connection</h4>
+    <div class="card-body">
+  <% if @company.connected.present? %>
+    <%= form.nested_fields_for :connected do |cpf| %>
+      <% person = cpf.object.person %>
+      
+      <div class="form-row">
+        
+        <div class="form-group col-md-6">
+      <%= cpf.collection_select :person_id, policy_scope(Person.order(:first_name)), :id, :full_name, {prompt: "Choose..",include_blank: true },{class: "form-control"}  %>
+        </div>
+      
+        <div class="form-group col-md-3">
+        <%= cpf.select :position,options_for_positions ,{prompt: "Position..", include_blank: true},{class: "form-control"} %>
+        </div>
+      
+        <div class="form-group col-md-3">
+        <%= cpf.remove_nested_fields_link "Remove", class:"btn btn-outline-danger btn-md" %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+  </div>
+    
+  <div class="card-footer">
+  <%= form.add_nested_fields_link :connected, "Add Connection", class: "btn btn-outline-primary btn-sm mt-2"%>
+  </div>
+
+</div>
+
+    <div class="card bg-primary text-white">
+      <div class="card-body">
       <%= form.nested_fields_for :people, Person.new do |p_form|  %>
+        <h4 class="card-title"> Add New Person</h4>
         <div class="form-row mb-2">      
         <%= p_form.hidden_field :user_id, value:current_user.id %>
-        <div class="col-md my-1"><%= p_form.text_field :first_name, placeholder: "first name", class: "form-control" %> </div>
-        <div class="col-md my-1"><%= p_form.text_field :middle_name, placeholder: "middle name", class: "form-control" %> </div>
-        <div class="col-md my-1"><%= p_form.text_field :last_name, placeholder: "last name", class: "form-control" %> </div>
+        <div class="col-md my-1">
+          <%= p_form.text_field :first_name, placeholder: "first name", class: "form-control" %>
+        </div>
+        <div class="col-md my-1">
+          <%= p_form.text_field :middle_name, placeholder: "middle name", class: "form-control" %>
+        </div>
+        <div class="col-md my-1">
+          <%= p_form.text_field :last_name, placeholder: "last name", class: "form-control" %> 
+        </div>
+        </div>
         <%= p_form.nested_fields_for :emails, Email.new do |e_form|  %>
           <%= render partial: "emails/emails", locals: {e_form: e_form} %>
         <% end %>
@@ -134,13 +147,21 @@
         <%= p_form.nested_fields_for :phones, Phone.new do |p_form| %>
           <%= render partial: "phones/phone", locals: {p_form: p_form} %>
         <% end %>
-        <hr>
       <% end %>
-      <div class="card-body">
-      <%= form.add_nested_fields_link :people, "Add Person", class: "btn btn-outline-primary btn-sm"%> <br>
+      <p class="card-text">You can select person position after creation of person from companies form</p>
+      </div>
+      <div class="card-footer">
+      <%= form.add_nested_fields_link :people, "Add Person", class: "btn btn-outline-light btn-sm"%>
       </div>
   </div>
 
-    <%= form.submit class: 'btn btn-primary' %>
+    <%= form.submit class: 'btn btn-primary mt-2' %>
 </div> 
 <% end %>
+<script>
+// Add the following code if you want the name of the file appear on select
+$(".custom-file-input").on("change", function() {
+  var fileName = $(this).val().split("\\").pop();
+  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
+</script>

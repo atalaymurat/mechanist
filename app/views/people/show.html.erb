@@ -34,7 +34,7 @@
       </table>
       
   <% if @person.note.present? %>
-          <table class="table table-xs">
+          <table class="table table-sm">
             <thead class="thead-dark">
               <tr>
                 <th scope="row">Note</th>
@@ -42,7 +42,7 @@
             </thead>
             <tbody>
               <tr>
-                <td><%= @person.note %></td>
+                <td><%= simple_format(@person.note) %></td>
               </tr>
             </tbody>
           </table>

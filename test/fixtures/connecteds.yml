@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  person: one
-  company: one
+  person: 1
+  company: 1
 
 two:
-  person: two
-  company: two
+  person: 2
+  company: 2

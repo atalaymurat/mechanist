@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   
+  get 'connecteds/destroy'
   devise_for :users
   resources :users, only: [:index, :edit, :update, :show, :destroy]
+  resources :connecteds, only: :destroy
+
 
   get 'emails/index'
   get 'pages/home'

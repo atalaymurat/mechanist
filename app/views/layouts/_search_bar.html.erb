@@ -1,7 +1,7 @@
 <div class="pos-f-t d-lg-none">
 <nav class="navbar navbar-light bg-light">
   <%= form_with url: search_path, local: true, method: :get, html: {class: "form-inline"} do |form| %>
-    <%= form.text_field :q, placeholder: "Search", class: "form-control form-control-sm mr-sm-2", id:"search", data: {behavior: "autocomplete"} %>
+    <%= form.text_field :q, placeholder: "Search", class: "form-control form-control-sm mr-sm-2", id: "search",data: {behavior: "autocomplete"}  %>
     
     <%= form.button fa_icon("search", type: :solid, class: "fa-lg" ), class: "btn btn-link text-dark my-2 my-sm-0" %>
   <% end %>

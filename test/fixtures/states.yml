@@ -2,8 +2,8 @@
 
 one:
   name: MyString
-  country: one
+  country: 1
 
 two:
   name: MyString
-  country: two
+  country: 2

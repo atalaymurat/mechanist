@@ -106,19 +106,29 @@
           <th scope="row">Full Name</th>
           <th scope="row">Position</th>
           <th scope="row">Phone</th>
-          <th scope="row">Del</th>
         </tr>
       </thead>
       <tbody>
       <% @company.people.each do |person| %>
         <tr>
           <td> <%= link_to person.full_name.upcase, person %>   </td>
-          <td> <% person.connected.where(company_id: @company.id ).each do |pcp| %> 
-                <%= pcp.position %> 
+          <td> 
+            <table class="table table-sm table-bordered">
+            <% person.connected.where(company_id: @company.id ).each_with_index do |pcp| %> 
+              <tr>
+                <td> <%= pcp.position %> </td>
+                <td>
+                  <%= link_to fa_icon("link", type: :solid, style: "color: red"),
+                              connected_path(pcp.id), method: :delete, data: { confirm: 'Are you sure?' },
+                              class: 'fa-lg float-right' if policy(person).destroy? and pcp.position.present? %>
+                </td>
+              </tr>
               <% end %>
+            </table>
           </td>
+          
+          
           <td>
-                    
           <table class="table table-bordered table-sm">
           <% person.phones.each do |phone| %> 
             <tr>
@@ -129,14 +139,10 @@
             </tr>
           <% end %>
           </table>
+          </td>
 
-          </td>
-          <td>
-          <%= link_to fa_icon("link", type: :solid, style: "color: red"),
-                              person, method: :delete, data: { confirm: 'Are you sure?' },
-                              class: 'card-link fa-lg' if policy(person).destroy? %>
-          </td>
         </tr>
+
         <% end %>
       </tbody>
     </table>

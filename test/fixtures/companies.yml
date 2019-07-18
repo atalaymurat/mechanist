@@ -2,10 +2,10 @@
 
 one:
   name: MyString
-  email: MyString
-  url: MyString
+  email: example@example.com
+  url: myurl.com
 
 two:
-  name: MyString
-  email: MyString
-  url: MyString
+  name: Myname
+  email: email@url.co
+  url: http://www.example.com

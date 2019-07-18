@@ -1,11 +1,14 @@
+<div class="container-fluid">
   <div class="row">
     <div class="col-12">
   <h2>
-    <%= "#{@person.first_name.capitalize} #{@person.middle_name.capitalize if @person.middle_name.present?} #{@person.last_name.upcase if @person.last_name.present?}" %>
+    <%= @person.full_name.mb_chars.titleize %>
+
   </h2>
     </div>
     <div class="col-md-6 col-12">
-      <table class="table table-sm table-responsive-sm">
+      <div class="table-responsive-xs">
+      <table class="table table-sm">
         <tbody>
           <tr>
             <th scope="row">id</th>
@@ -39,14 +42,14 @@
             </thead>
             <tbody>
               <tr>
-                <td><%= @person.note %></td>
+                <td><%= simple_format(@person.note) %></td>
               </tr>
             </tbody>
           </table>
   <% end %>
 
   <% if @person.companies.present? %>
-      <table class="table table-sm table-responsive-sm">
+      <table class="table table-sm">
         <thead class="thead-dark">
           <tr>
             <th scope="row"><%=  "Company".pluralize(@person.companies.count)%></th>
@@ -67,12 +70,13 @@
         </tbody>
       </table>
   <% end %>
+      </div>
 
     </div>
     <div class="col-md-6 col-12">
-
   <% if @person.phones.present? %>
-      <table class="table table-sm table-responsive-sm">
+      <div class="table-responsive-xs">
+      <table class="table table-sm">
         <thead class="thead-dark">
           <tr>
             <th scope="row" colspan="2"> <%= "Phone".pluralize(@person.phones.count)%></th>
@@ -91,7 +95,7 @@
     <% end %>
     
   <% if @person.emails.present? %>
-      <table class="table table-sm table-responsive-sm">
+      <table class="table table-sm">
         <thead class="thead-dark">
           <tr>
             <th scope="row" colspan="2"><%= "Email".pluralize(@person.emails.count)%></th>
@@ -113,16 +117,17 @@
       </table>
     <% end %>
 
+      </div>
     </div>
+</div>
     
-    <div class="col">
+  <div class="d-flex justify-content-md-start justify-content-sm-center">
 <%= link_to fa_stacked_icon("edit", type: "regular", text: "edit"), edit_person_path(@person), class: "" if policy(@person).update? %> 
-    </div>
-    <div class="col">
+
 <%= link_to fa_stacked_icon('angle-left', text: "back" ), session[:index_page_url] if session[:index_page_url].present? %>
+
 <%= link_to fa_stacked_icon('home', text: "home" ), root_path if session[:index_page_url].blank? %>
+
+<%= link_to fa_stacked_icon("trash-alt",text: "Delete", type: :regular),@person, method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-link' if policy(@person).destroy? %>
     </div>
-    <div class="col">
-<%= link_to fa_stacked_icon("trash-alt",text: "Delete", type: :regular),@person, method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-link float-right' if policy(@person).destroy? %>
-    </div>
-  </div>
+</div>

@@ -25,37 +25,43 @@ class Company < ApplicationRecord
       state = State.where(country_id: country_id).find_by(name: "#{row["State"]}").id if row["State"].present?
       company_attributes = Hash.new
       company_attributes = {id: row["Id"],
-                            name: (row["Name"].downcase if row["Name"].present?), 
+                            name: (row["Name"].mb_chars.downcase if row["Name"].present?), 
                             country_id: country_id, 
                             state_id: state, 
-                            town: (row["Town"].downcase if row["Town"].present?) , 
-                            address_line: (row["Address_line"].downcase if row["Address_line"].present?), 
+                            town: (row["Town"].mb_chars.downcase if row["Town"].present?) , 
+                            address_line: (row["Address_line"].mb_chars.downcase if row["Address_line"].present?), 
                             zip: row["Zip"], 
                             email: row["Email"], 
                             url: row["Url"], 
                             user_id: 2,
-                            source: ((row["Source"].downcase if row["Source"].present?) or "makinaTR"),
-                            note: (row["Note"].downcase if row["Note"].present?),
-                            invoice_title: (row["Invoice"].downcase if row["Invoice"].present?)
+                            source: ((row["Source"].mb_chars.downcase if row["Source"].present?) or "makinaTR"),
+                            note: (row["Note"].mb_chars.downcase if row["Note"].present?),
+                            invoice_title: (row["Invoice"].mab_chars.downcase if row["Invoice"].present?)
                           }
       puts company_attributes
       company = Company.where(id: row["Id"])
         if company.present?
           company.first.update_attributes!(company_attributes)
-          puts "#{row["Name"].upcase} updated.."
+          puts "#{row["Name"].mb_chars.upcase} updated.."
         else
           puts "trying to create #{company.name}"
           Company.create!(company_attributes)
-          puts "#{row["Name"].upcase} created.."
+          puts "#{row["Name"].mb_chars.upcase} created.."
         end
     end
   end
 
   def self.to_csv(options = {})
     CSV.generate(options) do |csv|
-      csv << column_names
+      column_names << 'person_ids'
+      column_names << 'phones'
+      names = column_names
+      csv << names
       all.each do |company|
-        csv << company.attributes.values
+        row = company.attributes.values_at(*column_names)
+        row << company.person_ids
+        row << company.phones.to_ary
+        csv << row
       end
     end
   end

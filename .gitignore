@@ -79,3 +79,4 @@ yarn-debug.log*
 /.tags
 .tags_sorted_by_file
 database.yml
+database_org.yml

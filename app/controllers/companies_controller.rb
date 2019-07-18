@@ -47,9 +47,11 @@ class CompaniesController < ApplicationController
     @company.people.build
   end
 
+
   # POST /companies
   # POST /companies.json
   def create
+    asd
     @company = Company.new(company_params)
     @company.user = current_user
     authorize @company

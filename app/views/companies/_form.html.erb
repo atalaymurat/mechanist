@@ -139,6 +139,9 @@
         <div class="col-md my-1">
           <%= p_form.text_field :last_name, placeholder: "last name", class: "form-control" %> 
         </div>
+        <div class="col-md my-1">
+          <%= p_form.select :person_position, options_for_positions ,{prompt: "Position..", include_blank: true},{class: "form-control"} %> 
+        </div>
         </div>
         <%= p_form.nested_fields_for :emails, Email.new do |e_form|  %>
           <%= render partial: "emails/emails", locals: {e_form: e_form} %>

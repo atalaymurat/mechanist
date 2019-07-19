@@ -6,7 +6,7 @@ this app is trying to provide a crm type customer and sales relational tracking 
 
 TO DO :
 
-[ ] can record company informations
+[x] can record company informations
 
 [ ] can list products 
 
@@ -18,10 +18,17 @@ TO DO :
 
 [ ] can do mailing features for products to customers
 
-[ ] importing contacts via css
+[x] importing contacts via css
 
 [ ] syscronize your contacts with app
 
+[ ] fully responsive with bootstrap
+
+[ ] can sent sms messages
+
+[ ] can publish on whatsapp
+
+[ ] can feed data from http sources
 
 
 THIS APLICATION FOR ONLY TEST PURPOSES NOTHING SPECIAL

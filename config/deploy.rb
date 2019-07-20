@@ -45,7 +45,8 @@ set :local_user, :user
 set :keep_releases, 6
 
 # Uncomment the following to require manualy verifying the host key before first deploy.
-set :ssh_options, verify_host_key: :secure
+# set :ssh_options, verify_host_key: :secure
+set :ssh_options, { :forward_agent => true }
 
 namespace :deploy do
   after :restart, :clear_cache do

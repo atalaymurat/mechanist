@@ -50,3 +50,8 @@ gem 'jquery-turbolinks'
 gem 'font_awesome5_rails'
 gem 'pagy', '~> 3.3', '>= 3.3.1'
 gem 'ransack', '~> 2.1', '>= 2.1.1'
+
+source 'https://rails-assets.org' do
+    gem 'rails-assets-chosen'
+    gem 'rails-assets-chosen-bootstrap' # if using bootstrap
+end

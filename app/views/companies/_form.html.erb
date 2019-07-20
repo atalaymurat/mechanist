@@ -70,12 +70,12 @@
 
       
     <%= form.label :country_id %>
-    <%= form.collection_select :country_id, Country.order(:name), :id, :name,{prompt: "Choose..", include_blank: true }, {class:"form-control", data: {dynamic_selectable_url: dynamic_select_states_path(':country_id'), dynamic_selectable_target: '#company_state_id' } } %>  
+    <%= form.collection_select :country_id, Country.order(:name), :id, :name,{prompt: "Choose..", include_blank: true}, {class:"chosen-select", data: {dynamic_selectable_url: dynamic_select_states_path(':country_id'), dynamic_selectable_target: '#company_state_id' } } %>  
     
     <div class="form-row">
       <div class="form-group col-md-5">
         <%= form.label :state_id, "State or City" %> 
-        <%= form.collection_select :state_id, @company.country.try(:states) || [], :id, :name, {prompt: "Choose.."}, {class: "form-control"} %>
+        <%= form.collection_select :state_id, @company.country.try(:states) || [], :id, :name, {prompt: "first choose country"}, {class: "form-control"} %>
       </div>
       <div class="form-group col-md-4">
         <%= form.label :town %>
@@ -103,7 +103,7 @@
       <div class="form-row">
         
         <div class="form-group col-md-6">
-      <%= cpf.collection_select :person_id, policy_scope(Person.order(:first_name)), :id, :full_name, {prompt: "Choose..",include_blank: true },{class: "form-control"}  %>
+      <%= cpf.collection_select :person_id, policy_scope(Person.order(:first_name)), :id, :full_name, {prompt: "Choose..",include_blank: true },{class: "chosen-select"}  %>
         </div>
       
         <div class="form-group col-md-3">

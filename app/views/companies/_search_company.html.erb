@@ -32,11 +32,11 @@
       <div class="form-row">
         <div class="form-group col-md">
           <%= f.label :country_id_eq, "Country" %>
-          <%= f.select :country_id_eq, options_for_select(countries_for.collect { |obj| [obj[:country_name] ,obj[:country_id]] }),{prompt:"Choose..", include_blank: true},  {class: "form-control" }  %>
+          <%= f.select :country_id_eq, options_for_select(countries_for.collect { |obj| [obj[:country_name] ,obj[:country_id]] }),{prompt:"Choose..", include_blank: true},  {class: "chosen-select" }  %>
         </div>
         <div class="form-group col-md">
           <%= f.label :state_id_eq, "State" %>
-          <%= f.select :state_id_eq, options_for_select(states_for.collect { |sta| [sta[:state_name], sta[:state_id]]}),{prompt: "Choose..", include_blank: true}, {class: "form-control"} %>
+          <%= f.select :state_id_eq, options_for_select(states_for.collect { |sta| [sta[:state_name], sta[:state_id]]}),{prompt: "Choose..", include_blank: true}, {class: "chosen-select"} %>
         </div>
       </div>
       <%= f.submit "Search", class: "btn btn-outline-primary btn-sm"%>

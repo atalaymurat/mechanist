@@ -23,7 +23,7 @@ module ApplicationHelper
 
   def countries_for
     arr = []
-    Company.all.each do |com|
+    policy_scope(Company).each do |com|
       if com.country.present?
         arr <<  {country_id: com.country_id, country_name: "#{com.country.name}"}
       end
@@ -33,7 +33,7 @@ module ApplicationHelper
 
   def states_for
     arr = []
-    Company.all.each do |com|
+    policy_scope(Company).each do |com|
       if com.state.present?
         arr <<  {state_id: com.state_id, state_name: "#{com.state.name}"}
       end

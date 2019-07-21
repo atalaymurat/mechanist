@@ -5,7 +5,7 @@ class PagesController < ApplicationController
       Person.ransack(first_name_or_middle_name_or_last_name_cont: params[:q]).result(district: true)
     )
     @companies = policy_scope(
-      Company.ransack(name_cont: params[:q]).result(district: true)
+      Company.ransack(name_cont_or_email_cont: params[:q]).result(district: true)
     )
 
     respond_to do |format|
@@ -23,4 +23,9 @@ class PagesController < ApplicationController
       redirect_to new_user_session_path
     end
   end
+
+  def dashboard
+    render layout: "pages_dashboard"
+  end
+
 end

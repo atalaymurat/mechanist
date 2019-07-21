@@ -25,7 +25,7 @@
           </div>
           <div class="form-group col-md">
             <%= f.label :user_id_eq, "User" %>
-            <%= f.collection_select :user_id_eq, User.all, :id, :alias, {include_blank: true, prompt: "Choose.."} ,class: "chosen-select" %>
+            <%= f.collection_select :user_id_eq, policy_scope(User), :id, :alias, {include_blank: true, prompt: "Choose.."} ,class: "chosen-select" %>
           </div>
         </div>
       <%= f.submit "Search", class: "btn btn-outline-primary btn-sm"%>

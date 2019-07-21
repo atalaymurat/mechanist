@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   get 'emails/index'
   get 'pages/home'
+  get 'pages/dashboard'
+
   get :search, controller: :pages
 
 

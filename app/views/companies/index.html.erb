@@ -25,7 +25,7 @@
               <h6 class="card-subtitle mb-1"><%= link_to fa_icon('id-card', type: :regular, text: person.full_name.capitalize.truncate(16)), person %></h6> 
               <% end %>
               <small class="text-muted"> <%= company.state.name if company.state.present? %> <%= company.country.alpha2 if company.country.present? %> </small>
-              <p class="card-text"><small class="text-muted">by <%= company.user.username %> </small></p>
+              <p class="card-text"><small class="text-muted">by <%= company.user.alias %> </small></p>
             </div>
             <div class="card-footer">
               <%= link_to fa_icon("edit", type: :regular), edit_company_path(company), class: 'card-link' if policy(company).update? %>

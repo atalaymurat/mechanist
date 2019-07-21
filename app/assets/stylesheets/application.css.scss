@@ -3,8 +3,8 @@
 *= require easy-autocomplete
 *= require easy-autocomplete.themes
 *= require chosen-bootstrap
-*= require_tree .
 *= require_self
+*= require_tree .
 */
 
 @import "bootstrap";

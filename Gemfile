@@ -55,3 +55,4 @@ source 'https://rails-assets.org' do
     gem 'rails-assets-chosen'
     gem 'rails-assets-chosen-bootstrap' # if using bootstrap
 end
+gem 'ancestry', '~> 2.1'

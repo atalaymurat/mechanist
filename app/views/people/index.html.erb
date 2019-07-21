@@ -29,7 +29,7 @@
                   <%= fa_icon("cog") %>
               <%= link_to company.name.capitalize.truncate(16),company %> </h6>
               <% end %>
-              <p class="card-text"> <small class="text-muted">by <%= person.user.username %> </small></p>
+              <p class="card-text"> <small class="text-muted">by <%= person.user.alias %> </small></p>
             </div>
             <div class="card-footer">
               <%= link_to fa_icon("edit", type: :regular), edit_person_path(person), class: 'card-link' if policy(person).update? %>

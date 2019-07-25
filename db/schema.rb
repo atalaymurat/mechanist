@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_21_130453) do
+ActiveRecord::Schema.define(version: 2019_07_24_210459) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "brands", force: :cascade do |t|
+    t.string "name"
+    t.string "image"
+    t.string "url"
+    t.string "ancestry"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ancestry"], name: "index_brands_on_ancestry"
+  end
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -72,6 +82,23 @@ ActiveRecord::Schema.define(version: 2019_07_21_130453) do
     t.boolean "unsubscribe"
     t.index ["person_id"], name: "index_emails_on_person_id"
     t.index ["user_id"], name: "index_emails_on_user_id"
+  end
+
+  create_table "machines", force: :cascade do |t|
+    t.bigint "brand_id"
+    t.bigint "category_id"
+    t.string "model_type"
+    t.integer "model_year"
+    t.string "condition"
+    t.integer "price"
+    t.boolean "published"
+    t.bigint "user_id"
+    t.json "images"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["brand_id"], name: "index_machines_on_brand_id"
+    t.index ["category_id"], name: "index_machines_on_category_id"
+    t.index ["user_id"], name: "index_machines_on_user_id"
   end
 
   create_table "people", force: :cascade do |t|
@@ -136,6 +163,9 @@ ActiveRecord::Schema.define(version: 2019_07_21_130453) do
   add_foreign_key "connecteds", "people"
   add_foreign_key "emails", "people"
   add_foreign_key "emails", "users"
+  add_foreign_key "machines", "brands"
+  add_foreign_key "machines", "categories"
+  add_foreign_key "machines", "users"
   add_foreign_key "people", "users"
   add_foreign_key "phones", "companies"
   add_foreign_key "phones", "people"

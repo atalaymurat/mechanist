@@ -1,0 +1,67 @@
+<%= form_with(model: machine, local: true) do |form| %>
+  <% if machine.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(machine.errors.count, "error") %> prohibited this machine from being saved:</h2>
+
+      <ul>
+      <% machine.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :brand_id %>
+    <%= form.collection_select :brand_id, Brand.all, :id, :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :category_id %>
+    <%= form.collection_select :category_id, Category.all, :id, :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :model_type %>
+    <%= form.text_field :model_type %>
+  </div>
+
+  <div class="field">
+    <%= form.label :model_year %>
+    <%= form.number_field :model_year %>
+  </div>
+
+  <div class="field">
+    <%= form.label :condition %>
+    <%= form.select :condition, ["new", "used"] %>
+  </div>
+
+  <div class="field">
+    <%= form.label :price %>
+    <%= form.number_field :price %>
+  </div>
+
+  <div class="field">
+    <%= form.label :published %>
+    <%= form.check_box :published %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id %>
+  </div>
+
+  <div class="field">
+    <% @machine.images.each_with_index do |image, index| %>
+      <%= image_tag image.url(:medium) %>
+    <%= link_to "remove", machine_image_path(@machine, index), method: :delete %>
+  <% end %>
+  <br>
+    <%= form.label :images %>
+    <%= form.file_field :images, multiple: true %>
+  </div>
+  <div class="actions">
+    <%= form.submit class: "btn btn-sm btn-dark" %>
+  </div>
+<% end %>
+

@@ -5,6 +5,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :recoverable, :rememberable, :validatable, :registerable, :confirmable
   has_many :people
   has_many :emails
+  has_many :machines
   validates :alias, uniqueness: true
   validates :email, uniqueness: true, presence: true
   before_save :default_values

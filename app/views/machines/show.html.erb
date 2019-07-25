@@ -1,0 +1,51 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Brand:</strong>
+  <%= @machine.brand.name %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @machine.category.name %>
+</p>
+
+<p>
+  <strong>Model type:</strong>
+  <%= @machine.model_type %>
+</p>
+
+<p>
+  <strong>Model year:</strong>
+  <%= @machine.model_year %>
+</p>
+
+<p>
+  <strong>Condition:</strong>
+  <%= @machine.condition %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @machine.price %>
+</p>
+
+<p>
+  <strong>Published:</strong>
+  <%= @machine.published %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @machine.user.alias %>
+</p>
+
+<p>
+  <strong>Image:</strong><br>
+  <% @machine.images.each_with_index do |image, index| %>
+    <%= image_tag image.url(:medium) %>
+  <% end %>
+</p> 
+    
+<%= link_to 'Edit', edit_machine_path(@machine) %> |
+<%= link_to 'Back', machines_path %>

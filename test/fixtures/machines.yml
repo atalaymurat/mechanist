@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  brand: one
+  category: one
+  model_type: MyString
+  model_year: 1
+  condition: MyString
+  price: 1
+  published: false
+  user: one
+  image: MyString
+
+two:
+  brand: two
+  category: two
+  model_type: MyString
+  model_year: 1
+  condition: MyString
+  price: 1
+  published: false
+  user: two
+  image: MyString

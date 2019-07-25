@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   
+  resources :machines do
+    resources :images, only: [:destroy]
+  end
+
   get 'connecteds/destroy'
   devise_for :users
   resources :users, only: [:index, :edit, :update, :show, :destroy]

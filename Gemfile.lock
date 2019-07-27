@@ -241,6 +241,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    selectize-rails (0.12.6)
     selenium-webdriver (3.142.0)
       childprocess (>= 0.5, < 2.0)
       rubyzip (~> 1.2, >= 1.2.2)
@@ -316,6 +317,7 @@ DEPENDENCIES
   rails-assets-chosen-bootstrap!
   ransack (~> 2.1, >= 2.1.1)
   sass-rails (~> 5.0)
+  selectize-rails (~> 0.12.6)
   selenium-webdriver
   spring
   spring-watcher-listen (~> 2.0.0)

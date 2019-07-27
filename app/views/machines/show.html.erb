@@ -1,51 +1,83 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Brand:</strong>
-  <%= @machine.brand.name %>
-</p>
-
-<p>
-  <strong>Category:</strong>
-  <%= @machine.category.name %>
-</p>
-
-<p>
-  <strong>Model type:</strong>
-  <%= @machine.model_type %>
-</p>
-
-<p>
-  <strong>Model year:</strong>
-  <%= @machine.model_year %>
-</p>
-
-<p>
-  <strong>Condition:</strong>
-  <%= @machine.condition %>
-</p>
-
-<p>
-  <strong>Price:</strong>
-  <%= @machine.price %>
-</p>
-
-<p>
-  <strong>Published:</strong>
-  <%= @machine.published %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @machine.user.alias %>
-</p>
-
-<p>
-  <strong>Image:</strong><br>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
   <% @machine.images.each_with_index do |image, index| %>
     <%= image_tag image.url(:medium) %>
   <% end %>
-</p> 
-    
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-12">
+      <div class="table-responsive-xs">
+        <table class="table table-sm mt-2">
+          <tbody>
+            <tr>                        
+              <th scope="row" class="table-light">Article Number</th>
+              <td><%= @machine.id %> </td>
+            </tr>
+            <tr>                        
+              <th>Brand</th>
+              <td><%= @machine.brand.name %> </td>
+            </tr>
+            <tr>                        
+              <th>Category</th>
+              <td><%= @machine.category.name %> </td>
+            </tr>
+            <tr>                        
+              <th>Model Type</th>
+              <td><%= @machine.model_type %> </td>
+            </tr>
+            <tr>                        
+              <th>Model Year</th>
+              <td><%= @machine.model_year %> </td>
+            </tr>
+            <tr>                        
+              <th>  -----</th>
+              <td>   </td>
+            </tr>
+          
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-12">
+      <div class="table-responsive-xs">
+        <table class="table table-sm mt-2">
+          <tbody>
+            <tr>                        
+              <th scope="row" class="table-light">Price</th>
+              <td><%= @machine.price %> </td>
+            </tr>
+            <tr>                        
+              <th>By</th>
+              <td><%= @machine.user.alias %> </td>
+            </tr>
+            <tr>                        
+              <th>Published</th>
+              <td><%= @machine.published%> </td>
+            </tr>
+            <tr>                        
+              <th>Publish date</th>
+              <td><%= @machine.created_at %> </td>
+            </tr>
+            <tr>                        
+              <th>Model Year--</th>
+              <td><%= @machine.model_year %> </td>
+            </tr>
+            <tr>                        
+              <th>Condition</th>
+              <td><%= @machine.condition %> </td>
+            </tr>
+          
+          </tbody>
+        </table>
+    </div>
+  </div>
+
+
+
 <%= link_to 'Edit', edit_machine_path(@machine) %> |
 <%= link_to 'Back', machines_path %>
+</div>

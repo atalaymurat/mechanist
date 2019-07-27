@@ -8,6 +8,7 @@
 //= require dynamic_selectable
 //= require pagy
 //= require jquery.easy-autocomplete
+//= require selectize
 //= require turbolinks
 //= require chosen
 //= require_tree .

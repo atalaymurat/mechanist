@@ -1,49 +1,34 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Machines</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>title</th>
-      <th>Brand</th>
-      <th>Category</th>
-      <th>Model type</th>
-      <th>Model year</th>
-      <th>Condition</th>
-      <th>Price</th>
-      <th>Published</th>
-      <th>User</th>
-      <th>Image</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @machines.each do |machine| %>
-      <tr>
-        <td><%= machine.title %></td>
-        <td><%= machine.brand.name %></td>
-        <td><%= machine.category.name %></td>
-        <td><%= machine.model_type %></td>
-        <td><%= machine.model_year %></td>
-        <td><%= machine.condition %></td>
-        <td><%= machine.price %></td>
-        <td><%= machine.published %></td>
-        <td><%= machine.user.alias %></td>
-        <td>
-          <% machine.images.each do |image| %>
-            <%= image_tag image.url(:thumb) %>
-          <% end %>
-        </td>
-        <td><%= link_to 'Show', machine %></td>
-        <td><%= link_to 'Edit', edit_machine_path(machine) %></td>
-        <td><%= link_to 'Destroy', machine, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
+<div class="container-fluid">
+  <h1>Machines</h1>
 <%= link_to 'New Machine', new_machine_path %>
+  <div class="row">
+    <% @machines.each do |machine| %>
+      <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+        <div class="card h-100 text-white bg-dark">
+            <%= link_to(image_tag(machine.images[0].url(:medium), class: "card-img-top" ), machine ) %>
+            <div class="card-body">
+              <h5 class="card-title"><%= link_to machine.title.titleize, machine, class: "text-white text-nowrap" %></h5>
+              <p class="card-text">
+                <% if machine.price.present? %>
+                <%= number_to_currency(machine.price, delimiter: "." , unit: "€", precision: 0 ) %>
+              <% else %>
+                <%= link_to "Ask Price", new_user_session_path, class: "text-danger" %>
+              <% end %>
+              </p>
+              <p class="card-text">
+              condition : <%= machine.condition %>
+              </p>
+                
+                
+                
+              
+            
+        <%= link_to 'Edit', edit_machine_path(machine), class: "text-white btn btn-sm btn-danger" %>
+            
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+  </div>
+</div>

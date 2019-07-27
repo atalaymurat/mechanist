@@ -6,7 +6,7 @@ class Machine < ApplicationRecord
 
   
   def title
-    [self.category.name, self.brand.name, self.model_type].join(" ")
+    [self.brand.name, self.model_type].join(" ")
   end
 end
 

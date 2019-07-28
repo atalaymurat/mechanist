@@ -57,3 +57,4 @@ source 'https://rails-assets.org' do
 end
 gem 'ancestry', '~> 2.1'
 gem 'selectize-rails', '~> 0.12.6'
+gem 'jquery-fileupload-rails', '~> 0.4.7'

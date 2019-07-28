@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_24_210459) do
+ActiveRecord::Schema.define(version: 2019_07_28_202105) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,7 +93,6 @@ ActiveRecord::Schema.define(version: 2019_07_24_210459) do
     t.integer "price"
     t.boolean "published"
     t.bigint "user_id"
-    t.json "images"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["brand_id"], name: "index_machines_on_brand_id"
@@ -122,6 +121,14 @@ ActiveRecord::Schema.define(version: 2019_07_24_210459) do
     t.bigint "company_id"
     t.index ["company_id"], name: "index_phones_on_company_id"
     t.index ["person_id"], name: "index_phones_on_person_id"
+  end
+
+  create_table "pictures", force: :cascade do |t|
+    t.bigint "machine_id"
+    t.string "image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["machine_id"], name: "index_pictures_on_machine_id"
   end
 
   create_table "states", force: :cascade do |t|
@@ -169,5 +176,6 @@ ActiveRecord::Schema.define(version: 2019_07_24_210459) do
   add_foreign_key "people", "users"
   add_foreign_key "phones", "companies"
   add_foreign_key "phones", "people"
+  add_foreign_key "pictures", "machines"
   add_foreign_key "states", "countries"
 end

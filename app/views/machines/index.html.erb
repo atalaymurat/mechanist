@@ -5,7 +5,7 @@
     <% @machines.each do |machine| %>
       <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
         <div class="card h-100 text-white bg-dark">
-            <%= link_to(image_tag(machine.images[0].url(:medium), class: "card-img-top" ), machine ) %>
+          <%= link_to(image_tag(machine.pictures[0].image_url(:medium), class: "card-img-top" ), machine ) if machine.pictures[0].present? %>
             <div class="card-body">
               <h5 class="card-title"><%= link_to machine.title.titleize, machine, class: "text-white text-nowrap" %></h5>
               <p class="card-text">
@@ -24,6 +24,7 @@
               
             
         <%= link_to 'Edit', edit_machine_path(machine), class: "text-white btn btn-sm btn-danger" %>
+        <%= link_to fa_icon("trash-alt", type: :regular, style: "color:red"), machine, method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-link float-right' %>
             
           </div>
         </div>

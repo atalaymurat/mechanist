@@ -11,15 +11,18 @@ class MachinesController < ApplicationController
   # GET /machines/1
   # GET /machines/1.json
   def show
+    @pictures = @machine.pictures.all
   end
 
   # GET /machines/new
   def new
     @machine = Machine.new
+    @picture = @machine.pictures.build
   end
 
   # GET /machines/1/edit
   def edit
+    @picture = @machine.pictures.build
   end
 
   # POST /machines
@@ -29,6 +32,11 @@ class MachinesController < ApplicationController
 
     respond_to do |format|
       if @machine.save
+        if params[:pictures] != nil
+          params[:pictures]["image"].each do |img|
+          @picture = @machine.pictures.create!(:image => img, :machine_id => @machine.id)
+          end
+        end
         format.html { redirect_to @machine, notice: 'Machine was successfully created.' }
         format.json { render :show, status: :created, location: @machine }
       else
@@ -42,14 +50,21 @@ class MachinesController < ApplicationController
   # PATCH/PUT /machines/1.json
   def update
     respond_to do |format|
-      attributes = machine_params.clone
-      if @machine.images.present?
-        images = @machine.images
-        images += params[:machine][:images] if params[:machine][:images].present?
-        attributes[:images] = images
-      end   
+      if params[:machine][:remove_picture].present?
+        params[:machine][:remove_picture].each do |k,v|
+          if v.to_i == 1
+            @machine.pictures[k.to_i].destroy
+          end
+        end
 
-      if @machine.update!(attributes)
+      end
+        if params[:pictures] != nil
+          params[:pictures]["image"].each do |img|
+          @picture = @machine.pictures.create!(:image => img, :machine_id => @machine.id)
+          end
+        end
+
+      if @machine.update!(machine_params)
         format.html { redirect_to @machine, notice: 'Machine was successfully updated.' }
         format.json { render :show, status: :ok, location: @machine }
       else
@@ -77,6 +92,6 @@ class MachinesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def machine_params
-      params.require(:machine).permit(:brand_id, :category_id, :model_type, :model_year, :condition, :price, :published, :user_id, images: [ ])
+      params.require(:machine).permit(:brand_id, :category_id, :model_type, :model_year, :condition, :price, :published, :user_id, {images: [ ]}, pictures_attributes: [:id, :image, :_destroy, :machine_id ]   )
     end
 end

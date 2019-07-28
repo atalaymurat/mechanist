@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   
   resources :machines do
-    resources :images, only: [:destroy]
+    resources :pictures, only: [:new, :create, :destroy]
   end
 
   get 'connecteds/destroy'

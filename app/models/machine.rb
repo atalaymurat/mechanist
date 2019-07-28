@@ -1,8 +1,9 @@
 class Machine < ApplicationRecord
-  mount_uploaders :images, ImageUploader
   belongs_to :brand
   belongs_to :category
   belongs_to :user
+  has_many :pictures, dependent: :destroy
+  accepts_nested_attributes_for :pictures, allow_destroy: true, reject_if: :all_blank
 
   
   def title

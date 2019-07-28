@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  machine: one
+  image: MyString
+
+two:
+  machine: two
+  image: MyString

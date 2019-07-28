@@ -50,17 +50,26 @@
     <%= form.label :user_id %>
     <%= form.text_field :user_id %>
   </div>
+  
+  
+  
+  <div class="form-group">
+    <%= form.fields_for :pictures, Picture.new do |p| %>
+      <%= p.label :image, "picture" %>
+      <%= p.file_field :image, multiple: true, name: "pictures[image][]" %>
+    <% end %>
 
-  <div class="form-group">
-    <% @machine.images.each_with_index do |image, index| %>
-      <%= image_tag image.url(:medium) %>
-    <%= link_to "remove", machine_image_path(@machine, index), method: :delete %>
-  <% end %>
+    <div class="form-group">
+    <% @machine.pictures.each_with_index do |pic, i| %>
+      <%= image_tag pic.image_url(:thumb) if pic.image_url.present?  %>
+      <%= form.label :remove_picture if pic.image.present? %>
+      <%= form.check_box :remove_picture, name: "machine[remove_picture][#{i}]" if pic.image.present?   %>
+    <% end %>                                                                       
+    </div>
   </div>
-  <div class="form-group">
-    <%= form.label :images %>
-    <%= form.file_field :images, multiple: true %>
-  </div>
+
+
+
   <div class="actions">
     <%= form.submit class: "btn btn-sm btn-dark" %>
   </div>

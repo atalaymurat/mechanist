@@ -62,8 +62,8 @@
     <div class="form-group">
     <% @machine.pictures.each_with_index do |pic, i| %>
       <%= image_tag pic.image_url(:thumb) if pic.image_url.present?  %>
-      <%= form.label :remove_picture if pic.image.present? %>
-      <%= form.check_box :remove_picture, name: "machine[remove_picture][#{i}]" if pic.image.present?   %>
+      <%= form.label :remove_picture, for: "remove_check#{i}" if pic.image.present? %>
+      <%= form.check_box :remove_picture, name: "machine[remove_picture][#{i}]", id: "remove_check#{i}" if pic.image.present?   %>
     <% end %>                                                                       
     </div>
   </div>

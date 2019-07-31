@@ -36,6 +36,7 @@ class PeopleController < ApplicationController
     @person = Person.new
     @person.emails.build
     @person.phones.build
+    @person.connected.build
     authorize @person  
   end
 
@@ -43,6 +44,7 @@ class PeopleController < ApplicationController
   def edit
     @person.emails.build
     @person.phones.build
+    @person.connected.build
   end
 
   # POST /people
@@ -85,6 +87,7 @@ class PeopleController < ApplicationController
                                      :user_id,
                                      :note,
                                      :source,
+                                     connected_attributes:[:id, :company_id, :position, :_destroy],
                                      emails_attributes:[ :id, :email, :_destroy, :unsubscribe, :user_id ],
                                      phones_attributes: [:id, :phone_type, :phone_number, :_destroy]
                                     )

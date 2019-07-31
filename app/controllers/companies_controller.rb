@@ -23,6 +23,7 @@ class CompaniesController < ApplicationController
     def index_page_url
       session[:index_page_url] = URI(request.original_url || "" )
     end
+
     respond_to do |format|
       format.html
       format.csv {send_data Company.all.to_csv}
@@ -57,6 +58,12 @@ class CompaniesController < ApplicationController
 
     flash[:notice] = "Company was successfully created." if @company.save
     respond_with(@company)
+    # Update of Person position if params position present after creating person object
+    if @company.people.present?
+      @company.connected.where(position: "Not Assigned").reverse.each_with_index do |connect, i|
+        connect.update(position: params[:company][:people_attributes]["#{i}"][:person_position]) if params[:company][:people_attributes]["#{i}"][:person_position].present?
+      end
+    end
   end
 
   # PATCH/PUT /companies/1
@@ -65,10 +72,11 @@ class CompaniesController < ApplicationController
     if logo_params[:remove_logo] == "1"
       @company.remove_logo!
       @company.save
-    end  
-
+    end
+      
     flash[:notice] = "Company was successfully updated." if @company.update(company_params)
     respond_with(@company)
+    
   end
 
   # DELETE /companies/1
@@ -103,6 +111,8 @@ class CompaniesController < ApplicationController
                                                           :last_name,
                                                           :_destroy,
                                                           :id,
+                                                          :person_position,
+                                                          :company,
                                                           :user_id,
                                                           emails_attributes: [:email,
                                                                               :id,

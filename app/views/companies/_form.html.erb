@@ -123,7 +123,7 @@
   </div>
 
 </div>
-
+<% if @company.new_record? %>
     <div class="card bg-primary text-white">
       <div class="card-body">
       <%= form.nested_fields_for :people, Person.new do |p_form|  %>
@@ -157,7 +157,7 @@
       <%= form.add_nested_fields_link :people, "Add Person", class: "btn btn-outline-light btn-sm"%>
       </div>
   </div>
-
+  <% end #end of if record_new %>
     <%= form.submit class: 'btn btn-primary mt-2' %>
 </div> 
 <% end %>

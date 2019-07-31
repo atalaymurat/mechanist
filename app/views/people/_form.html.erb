@@ -23,20 +23,46 @@
       <%= form.label :note %>
       <%= form.text_area :note, class: "form-control" %>
     </div>
+    
 
 
     <%= form.nested_fields_for :emails do |e_form| %>
       <%= render partial: 'emails/emails', locals: {e_form: e_form} %>
     <% end %>
     
-    <%= form.add_nested_fields_link :emails, "Add Email", class: "btn btn-outline-primary btn-sm my-2" %>
+    <%= form.add_nested_fields_link :emails, "Add Email", class: "btn btn-outline-primary btn-sm mb-2" %>
 
     <%= form.nested_fields_for :phones do |p_form| %>
       <%= render partial: 'phones/phone', locals: {p_form: p_form} %>
     <% end %>
-    <%= form.add_nested_fields_link :phones, "Add Phone", class: "btn btn-outline-primary btn-sm my-2" %>
+    <%= form.add_nested_fields_link :phones, "Add Phone", class: "btn btn-outline-primary btn-sm mb-2" %>
 
+
+    <%# COMPANY CONNECTION NESTED CARD %>
+    <div class="card mb-2 bg-info text-white">
+      <h4 class="card-header">Add Company & Position</h4>
+      <div class="card-body">
+    <%= form.nested_fields_for :connected do |c_form| %>
+      <div class="form-row">
+        <div class="col">
+      <%= c_form.label :company_id %>
+      <%= c_form.collection_select :company_id,policy_scope(Company.order(:name)), :id, :name, {prompt: "Choose..",include_blank: true }, class: "chosen-select" %>
+        </div>
+        <div class="col">
+      <%= c_form.label :position %>
+      <%= c_form.select :position, options_for_positions, {prompt: "Choose..", include_blank: true}, class: "chosen-select" %>
+        </div>
+      </div>
+    <% end %>
+      </div>
+    <%# COMPANY CONNECTION NESTED CARD END%>
+
+
+
+    </div>
   </div>
+
+
   <div class="container">
       <%= form.submit class: 'btn btn-primary'%>
   </div>

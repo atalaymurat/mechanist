@@ -41,4 +41,10 @@ $(document).on('turbolinks:load', function() {
     return $('#machine').fileupload();
   });
 
+  jQuery(function() {
+  return $('#machine_brand_name').autocomplete({
+    source: $('#machine_brand_name').data('autocomplete-source')
+  });
+});
+
 });

@@ -9,5 +9,14 @@ class Machine < ApplicationRecord
   def title
     [self.brand.name, self.model_type].join(" ")
   end
+
+  def brand_name
+    brand.try(:name)
+  end
+
+  def brand_name=(name)
+    self.brand = Brand.find_or_create_by(name: name.downcase.chomp) if name.present?
+  end
+
 end
 
